@@ -4,6 +4,9 @@ using System.Reflection;
 public enum Tile
 {
     [TileAttr(true)] Grass,
+    /// <summary>
+    /// The base of a Tree.
+    /// </summary>
     [TileAttr(false)] Tree,
     [TileAttr(false)] Stone,
     [TileAttr(false)] Water
@@ -21,6 +24,10 @@ class TileAttr : Attribute
 
 static class TileExtensions
 {
+    /// <summary>
+    /// Checks if the tile is walkable or not.
+    /// </summary>
+    /// <returns><c>true</c> if this tile is walkable, <c>false</c> otherwise.</returns>
     public static bool isWalkable(this Tile tile)
     {
         return GetAttr(tile).Walkable;
