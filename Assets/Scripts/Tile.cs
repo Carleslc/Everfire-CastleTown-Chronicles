@@ -1,11 +1,38 @@
-﻿public enum Tile
+﻿using System;
+using System.Reflection;
+
+public enum Tile
 {
-    grass, tree
+    [TileAttr(true)] Grass,
+    [TileAttr(false)] Tree,
+    [TileAttr(false)] Stone,
+    [TileAttr(false)] Water
 }
-public static class TileExtensions
+
+class TileAttr : Attribute
+{
+    public bool Walkable { get; private set; }
+
+    internal TileAttr(bool walkable)
+    {
+        Walkable = walkable;
+    }
+}
+
+static class TileExtensions
 {
     public static bool isWalkable(this Tile tile)
     {
-        return true;
+        return GetAttr(tile).Walkable;
+    }
+
+    private static TileAttr GetAttr(Tile p)
+    {
+        return (TileAttr)Attribute.GetCustomAttribute(ForValue(p), typeof(TileAttr));
+    }
+
+    private static MemberInfo ForValue(Tile p)
+    {
+        return typeof(Tile).GetField(Enum.GetName(typeof(Tile), p));
     }
 }
