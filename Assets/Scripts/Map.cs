@@ -7,15 +7,54 @@ public class Map {
     Tile[,] map;
     int height, width;
 
+    public int Height
+    {
+        get
+        {
+            return height;
+        }
+    }
+
+    public int Width
+    {
+        get
+        {
+            return width;
+        }
+    }
+
     /// <summary>
     /// Default constructor.
     /// </summary>
     /// <param name="height">Height of the map, in tiles.</param>
     /// <param name="width">Width of the map, in tiles.</param>
     public Map(int height, int width) {
-        map = new Tile[height, width];
         this.height = height;
         this.width = width;
+        map = new Tile[this.height, this.width];
+    }
+
+    /// <summary>
+    /// Creates a random map with the groud made of the <c>Tile</c> tile.
+    /// </summary>
+    /// <param name="height">Height of the map, in tiles.</param>
+    /// <param name="width">Width of the map, in tiles.</param>
+    /// <param name="tile"><c>Tile</c> the map is going to be filled with.</param>
+    public Map(int height, int width, Tile tile)
+    {
+        this.height = height;
+        this.width = width;
+        map = new Tile[this.height, this.width];
+        for (int i = 0; i < this.height; i++)
+            for (int j = 0; j < this.width; j++) {
+                if (Random.value * 10 > 9)
+                    map[i, j] = Tile.Stone;
+                else if (Random.value * 10 > 7)
+                    map[i, j] = Tile.Tree;
+                else {
+                    map[i, j] = tile;
+                }
+            }
     }
 
     /// <summary>
