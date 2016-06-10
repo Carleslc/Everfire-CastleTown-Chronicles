@@ -12,6 +12,7 @@ public class Tile
     /// </summary>
     public Ground GroundType {
         get { return ground; }
+        set { ground = value; }
     }
 
     /// <summary>
