@@ -51,19 +51,26 @@ public class DrawMap : MonoBehaviour
     {
         GameObject tileToInstantiate = null;
         GameObject propToInstantiate = null;
-        switch (t)
+        switch (t.GroundType)
         {
-            case Tile.Grass:
+            case Tile.Ground.Grass:
                 tileToInstantiate = grassTile;
                 break;
-            case Tile.Tree:
+            case Tile.Ground.Water:
+                tileToInstantiate = waterTile;
+                break;
+            default:
+                break;
+        }
+        switch (t.ObjectAbove)
+        {
+            case Tile.Object.Empty:
+                break;
+            case Tile.Object.Tree:
                 propToInstantiate = treeProp;
                 break;
-            case Tile.Stone:
+            case Tile.Object.Stone:
                 propToInstantiate = stoneProp;
-                break;
-            case Tile.Water:
-                tileToInstantiate = waterTile;
                 break;
             default:
                 break;

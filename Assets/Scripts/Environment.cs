@@ -7,7 +7,7 @@ public class Environment : MonoBehaviour {
     [SerializeField]
     private DrawMap drawMap;
     void Awake() {
-        map = new Map(20, 20, Tile.Grass);
+        map = new Map(20, 20, Tile.Ground.Grass);
     }
 	// Use this for initialization
 	void Start () {

@@ -40,20 +40,18 @@ public class Map {
     /// <param name="height">Height of the map, in tiles.</param>
     /// <param name="width">Width of the map, in tiles.</param>
     /// <param name="tile"><c>Tile</c> the map is going to be filled with.</param>
-    public Map(int height, int width, Tile tile)
+    public Map(int height, int width, Tile.Ground tile)
     {
         this.height = height;
         this.width = width;
         map = new Tile[this.height, this.width];
         for (int i = 0; i < this.height; i++)
             for (int j = 0; j < this.width; j++) {
+                map[i, j] = new Tile(tile);
                 if (Random.value * 10 > 9)
-                    map[i, j] = Tile.Stone;
+                    map[i, j].ObjectAbove = Tile.Object.Stone;
                 else if (Random.value * 10 > 7)
-                    map[i, j] = Tile.Tree;
-                else {
-                    map[i, j] = tile;
-                }
+                    map[i, j].ObjectAbove = Tile.Object.Tree;                
             }
     }
 
@@ -70,7 +68,7 @@ public class Map {
         p1 = p1.Left();
         if (isOutOfBounds(p)) {
             Debug.LogError("Tile is out of bounds.");
-            return new Tile();
+            return new Tile(Tile.Ground.Grass);
         }
         return map[p.X, p.Y];
     }
@@ -88,7 +86,7 @@ public class Map {
             Debug.LogError("Tile is out of bounds.");
             return false;
         }
-        return map[p.X, p.Y].isWalkable();
+        return map[p.X, p.Y].IsWalkable();
     }
 
     /// <summary>
