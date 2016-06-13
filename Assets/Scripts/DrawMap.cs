@@ -28,7 +28,7 @@ public class DrawMap : MonoBehaviour
 
     public void Draw()
     {
-        transform.position = new Vector2(Mathf.Ceil(-map.Width / 2), Mathf.Ceil(-map.Height / 2));
+        //transform.position = new Vector2(Mathf.Ceil(map.Width / 2), Mathf.Ceil(map.Height / 2));
 
         for (int i = 0; i < map.Width; i++)
             for (int j = 0; j < map.Height; j++)
@@ -54,6 +54,7 @@ public class DrawMap : MonoBehaviour
                 tileToInstantiate = sandTile;
                 break;
             default:
+                tileToInstantiate = grassTile;
                 break;
         }
         switch (t.ObjectAbove)
@@ -69,15 +70,17 @@ public class DrawMap : MonoBehaviour
             default:
                 break;
         }
-        if (tileToInstantiate == null)
+
+        if (p.X == 0 && p.Y == 0)
             tileToInstantiate = grassTile;
-        if (propToInstantiate != null) {
-            GameObject prop = Instantiate(propToInstantiate, new Vector2(p.X * tileSize, p.Y * tileSize),
+        Vector2 tilePos = new Vector2((p.X * tileSize) - (map.Width / 2), (-p.Y * tileSize) + (map.Height/2));
+            if (propToInstantiate != null) {
+            GameObject prop = Instantiate(propToInstantiate, tilePos,
                 Quaternion.identity) as GameObject;
             prop.name = "(" + p.X + ", " + p.Y + ")";
             prop.transform.SetParent(transform, false);
         }
-        GameObject tile = Instantiate(tileToInstantiate, new Vector2(p.X * tileSize, p.Y * tileSize),
+        GameObject tile = Instantiate(tileToInstantiate, tilePos,
             Quaternion.identity) as GameObject;
         tile.name = "(" + p.X + ", " + p.Y + ")";
         tile.transform.SetParent(transform, false);
