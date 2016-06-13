@@ -7,6 +7,8 @@ public class DrawMap : MonoBehaviour
     [SerializeField]
     private GameObject grassTile;
     [SerializeField]
+    private GameObject sandTile;
+    [SerializeField]
     private GameObject waterTile;
     [SerializeField]
     private GameObject[] borders;
@@ -18,17 +20,6 @@ public class DrawMap : MonoBehaviour
     private GameObject tilePrefab;
     [SerializeField]
     private float tileSize = 1.0f;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void Init(Map map)
     {
@@ -58,6 +49,9 @@ public class DrawMap : MonoBehaviour
                 break;
             case Tile.Ground.Water:
                 tileToInstantiate = waterTile;
+                break;
+            case Tile.Ground.Sand:
+                tileToInstantiate = sandTile;
                 break;
             default:
                 break;

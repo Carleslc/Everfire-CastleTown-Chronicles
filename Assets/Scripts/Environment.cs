@@ -3,12 +3,16 @@ using System.Collections;
 
 public class Environment : MonoBehaviour {
 
+    public string mapName;
+
     private Map map;
     [SerializeField]
     private DrawMap drawMap;
+
     void Awake() {
-        map = new Map(20, 20, Tile.Ground.Grass);
+        map = MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv");
     }
+
 	// Use this for initialization
 	void Start () {
         drawMap.Init(map);

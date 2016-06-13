@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Text;
 
 /// <summary>
 /// Class that holds the information of various <c>Tiles</c>.
@@ -36,7 +37,7 @@ public class Map {
     /// <param name="tiles">The tiles rows and columns to be set on this map.</param>
     public Map(Tile[,] tiles)
     {
-        this.height = tiles.Length;
+        this.height = tiles.GetLength(0);
         this.width = tiles.GetLength(1);
         map = tiles;
     }
@@ -102,6 +103,16 @@ public class Map {
             return;
         }
         map[p.X, p.Y] = t;
+    }
+
+    public override string ToString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j)
+                sb.Append(map[i, j]).Append(", ");
+            sb.AppendLine();
+        }
+        return sb.ToString();
     }
 }
 

@@ -10,7 +10,8 @@ public class Tile
     /// <summary>
     /// The base ground (lowest level) of this tile.
     /// </summary>
-    public Ground GroundType {
+    public Ground GroundType
+    {
         get { return ground; }
         set { ground = value; }
     }
@@ -18,7 +19,8 @@ public class Tile
     /// <summary>
     /// The object above the ground (highest level) of this tile.
     /// </summary>
-    public Object ObjectAbove {
+    public Object ObjectAbove
+    {
         get { return above; }
         set { above = value; }
     }
@@ -27,7 +29,7 @@ public class Tile
     /// Constructs new tile with a base ground and without any object stacked above.
     /// </summary>
     /// <param name="groundType">Base ground type of the tile</param>
-    public Tile(Ground groundType) : this(groundType, Object.Empty) {}
+    public Tile(Ground groundType) : this(groundType, Object.Empty) { }
 
     /// <summary>
     /// Constructs new tile with a base ground and an object stacked above.
@@ -88,6 +90,9 @@ public class Tile
         Stone
     }
 
+    public override string ToString() {
+        return GroundType + "~" + ObjectAbove;
+    }
 }
 
 /// <summary>
