@@ -27,10 +27,17 @@ public class Tile
     /// Constructs new tile with a base ground and without any object stacked above.
     /// </summary>
     /// <param name="groundType">Base ground type of the tile</param>
-    public Tile(Ground groundType)
+    public Tile(Ground groundType) : this(groundType, Object.Empty) {}
+
+    /// <summary>
+    /// Constructs new tile with a base ground and an object stacked above.
+    /// </summary>
+    /// <param name="groundType">Base ground type of the tile</param>
+    /// <param name="objectAbove">Object type to stack above the ground</param>
+    public Tile(Ground groundType, Object objectAbove)
     {
-        ground = groundType;
-        above = Object.Empty;
+        GroundType = groundType;
+        ObjectAbove = objectAbove;
     }
 
     /// <summary>
