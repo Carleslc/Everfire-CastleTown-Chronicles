@@ -28,14 +28,21 @@ public class Map {
     /// </summary>
     /// <param name="height">Height of the map, in tiles.</param>
     /// <param name="width">Width of the map, in tiles.</param>
-    public Map(int height, int width) {
-        this.height = height;
-        this.width = width;
-        map = new Tile[this.height, this.width];
+    public Map(int height, int width) : this(new Tile[height, width]) {}
+
+    /// <summary>
+    /// Creates a map with the initialized tiles.
+    /// </summary>
+    /// <param name="tiles">The tiles rows and columns to be set on this map.</param>
+    public Map(Tile[,] tiles)
+    {
+        this.height = tiles.Length;
+        this.width = tiles.GetLength(1);
+        map = tiles;
     }
 
     /// <summary>
-    /// Creates a random map with the groud made of the <c>Tile</c> tile.
+    /// Creates a random map with the ground made of the <c>Tile</c> tile.
     /// </summary>
     /// <param name="height">Height of the map, in tiles.</param>
     /// <param name="width">Width of the map, in tiles.</param>
