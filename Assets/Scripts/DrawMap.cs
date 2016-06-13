@@ -43,7 +43,7 @@ public class DrawMap : MonoBehaviour
             for (int j = 0; j < map.Height; j++)
             {
                 Pos p = new Pos(i, j);
-                DrawTile(map.GetTileType(p), p);
+                DrawTile(map.GetTile(p), p);
             }
     }
 

@@ -70,7 +70,7 @@ public class Map {
     /// <returns>Returns the <c>Tile</c> in p. Returns an empty <c>Tile</c>if
     /// p is an invalid <c>Pos</c>.
     /// </returns>
-    public Tile GetTileType(Pos p) {
+    public Tile GetTile(Pos p) {
         Pos p1 = new Pos(1, 2);
         p1 = p1.Left();
         if (isOutOfBounds(p)) {
@@ -78,22 +78,6 @@ public class Map {
             return new Tile(Tile.Ground.Grass);
         }
         return map[p.X, p.Y];
-    }
-
-    /// <summary>
-    /// Returns if the <c>Tile</c> in p is walkable. Prints an error and returns false if
-    /// p is an invalid <c>Pos</c>.
-    /// </summary>
-    /// <param name="p">Position occupied by the tile to be retrieved.</param>
-    /// <returns>Returns if the <c>Tile</c> in p is walkable. Returns false if
-    /// p is an invalid <c>Pos</c>.
-    /// </returns>
-    public bool IsWalkable(Pos p) {
-        if (isOutOfBounds(p)) {
-            Debug.LogError("Tile is out of bounds.");
-            return false;
-        }
-        return map[p.X, p.Y].IsWalkable();
     }
 
     /// <summary>
