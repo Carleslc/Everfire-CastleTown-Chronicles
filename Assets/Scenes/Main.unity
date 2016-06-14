@@ -241,13 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8b42450c681ea42baeb0c664b1c4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grassTile: {fileID: 155892, guid: 1b322db1f541b6646a80ef4862483045, type: 2}
-  sandTile: {fileID: 155892, guid: d66284a3fd3bb6148b238e2b9a9013fc, type: 2}
-  waterTile: {fileID: 155892, guid: 530c68dfd41255746be97353ffc121bb, type: 2}
-  borders: []
-  treeProp: {fileID: 155892, guid: 45e57152942bdd040875e70bb54e2337, type: 2}
-  stoneProp: {fileID: 155892, guid: c09bdc5f22e4aef4e902100a156e90ab, type: 2}
-  tilePrefab: {fileID: 155892, guid: 1b322db1f541b6646a80ef4862483045, type: 2}
   tileSize: 1
 --- !u!4 &2067135032
 Transform:
