@@ -70,7 +70,6 @@ public static class MapLoader {
                     if (j < width - 1)
                         sb.Append(';');
                 }
-                sb.AppendLine();
                 rows[i] = sb.ToString();
             }
 

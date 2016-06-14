@@ -73,8 +73,6 @@ public class DrawMap : MonoBehaviour
                 break;
         }
 
-        if (p.X == 0 && p.Y == 0)
-            tileToInstantiate = grassTile;
         Vector2 tilePos = new Vector2((p.X * tileSize) - (map.Width / 2), (-p.Y * tileSize) + (map.Height/2));
         string tileName = "(" + p.X + ", " + p.Y + ")";
         GameObject tile = Instantiate(tileToInstantiate, tilePos,
