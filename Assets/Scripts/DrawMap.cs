@@ -32,8 +32,8 @@ public class DrawMap : MonoBehaviour
 
     public void Draw()
     {
-        for (int i = 0; i < map.Width; i++)
-            for (int j = 0; j < map.Height; j++)
+        for (int i = 0; i < map.Height; i++)
+            for (int j = 0; j < map.Width; j++)
             {
                 Pos p = new Pos(i, j);
                 DrawTile(map.GetTile(p), p);
@@ -73,7 +73,7 @@ public class DrawMap : MonoBehaviour
                 break;
         }
 
-        Vector2 tilePos = new Vector2((p.X * tileSize) - (map.Width / 2), (-p.Y * tileSize) + (map.Height/2));
+        Vector2 tilePos = new Vector2((p.Y * tileSize) - (map.Width/2), (-p.X * tileSize) + (map.Height/2));
         string tileName = "(" + p.X + ", " + p.Y + ")";
         GameObject tile = Instantiate(tileToInstantiate, tilePos,
             Quaternion.identity) as GameObject;
