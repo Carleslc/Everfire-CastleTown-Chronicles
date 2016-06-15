@@ -121,6 +121,7 @@ public class Map {
 /// and the Y value the <b>vertical</b> axis.
 /// </summary>
 public class Pos{
+
     int x;
     int y;
 
@@ -188,5 +189,28 @@ public class Pos{
     /// <returns>The position directly <b>below</b> of the instance this function is being called on.</returns>
     public Pos Down() {
         return new Pos(x, y - 1);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+            return false;
+
+        Pos o = (Pos)obj;
+        return x == o.x && y == o.y;
+    }
+
+    public override int GetHashCode()
+    {
+        int prime = 31;
+        int result = 1;
+        result = prime * result + x.GetHashCode();
+        result = prime * result + y.GetHashCode();
+        return result;
+    }
+
+    public override string ToString()
+    {
+        return "[" + x + "," + y + "]";
     }
 }
