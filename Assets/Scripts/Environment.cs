@@ -11,7 +11,6 @@ public class Environment : MonoBehaviour {
 
     void Awake() {
         map = MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv");
-        map.SetTile(new Pos(0, 1), new Tile(Tile.Ground.Grass)); // Testing where is [0,1]
     }
 
 	// Use this for initialization
