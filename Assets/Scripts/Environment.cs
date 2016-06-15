@@ -5,17 +5,16 @@ public class Environment : MonoBehaviour {
 
     public string mapName;
 
-    private Map map;
     [SerializeField]
     private DrawMap drawMap;
 
     void Awake() {
-        map = MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv");
+        World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
     }
 
 	// Use this for initialization
 	void Start () {
-        drawMap.Init(map);
+        drawMap.Init(World.Map);
         drawMap.Draw();
 	}
 	
