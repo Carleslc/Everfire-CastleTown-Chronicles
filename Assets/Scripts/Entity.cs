@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Entity
 {
@@ -52,9 +51,8 @@ public class Entity
         this.name = name;
         currentPosition = location;
         this.village = village;
-        //village.Add(this);
+        village.Add(this);
         route = new Queue<Movement>();
-        route.Enqueue(Movement.WAIT);
     }
 
     /// <summary>
@@ -62,12 +60,12 @@ public class Entity
     /// (if there isn't any route then movement will be calculated randomly).
     /// </summary>
     /// <returns><c>true</c> if the movement was successfull, <c>false</c> otherwise.</returns>
-    public Movement Move()
+    public bool Move()
     {
-        if (route.Count < 1) // Ensures there is at least one next movement
+        if (route.Count == 0) // Ensures there is at least one next movement
             PathFinding(1);
-        Debug.Log("Move(): " + route.Peek());
-        return route.Dequeue();
+
+        return Move(route.Dequeue());
     }
 
     /// <summary>
@@ -83,7 +81,7 @@ public class Entity
             Pos old = currentPosition;
             Pos next = movement.next(old);
 
-            if (village.IsWalkable(next))
+            if (World.IsWalkable(next))
             {
                 currentPosition = next;
                 UpdatePositionOnVillage(old);
@@ -121,7 +119,7 @@ public class Entity
     private void PathFinding(int moves)
     {
         Array moveValues = Enum.GetValues(typeof(Movement));
-        System.Random random = new System.Random();
+        Random random = new Random();
         for (int i = 0; i < moves; ++i)
         {
             Movement randomMove = (Movement)moveValues.GetValue(random.Next(moveValues.Length));
@@ -141,12 +139,6 @@ public class Entity
         return next;
     }
 
-    public Movement NextMovement() {
-        if (route.Count > 0)
-            return route.Peek();
-        else return Movement.WAIT;
-    }
-
     /// <summary>
     /// Keeps village position up to date.
     /// </summary>
@@ -161,7 +153,6 @@ public class Entity
     {
         return name + " " + currentPosition + " (" + village.Name + ")";
     }
-
 }
 
 public enum Movement

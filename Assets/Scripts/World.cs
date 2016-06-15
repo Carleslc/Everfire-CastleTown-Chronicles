@@ -1,26 +1,19 @@
 ﻿using System.Collections.Generic;
 
-public class World {
+public static class World
+{
 
-    private Map map;
+    public static Map Map { get; private set; }
 
     static List<Village> villages = new List<Village>();
-
-    public Map Map
-    {
-        get
-        {
-            return map;
-        }
-    }
 
     /// <summary>
     /// Initializes the world with a map.
     /// </summary>
     /// <param name="map">The world map.</param>
-    public World(Map map)
+    public static void Init(Map map)
     {
-        this.map = map;
+        Map = map;
     }
 
     /// <summary>
@@ -29,7 +22,7 @@ public class World {
     /// <param name="p">The position to check for entities on the whole world.</param>
     /// <returns>The entity occupying position <c>p</c>
     /// or <c>null</c> if there is not an entity at that position.</returns>
-    public Entity GetEntityAt(Pos p)
+    public static Entity GetEntityAt(Pos p)
     {
         foreach (Village v in villages)
         {
@@ -45,7 +38,7 @@ public class World {
     /// </summary>
     /// <param name="p">The position to check for entities on the whole world.</param>
     /// <returns><c>true</c> if <c>p</c> is occupied by an entity, <c>false</c> otherwise.</returns>
-    public bool IsOccupied(Pos p)
+    public static bool IsOccupied(Pos p)
     {
         return GetEntityAt(p) != null;
     }
@@ -57,18 +50,10 @@ public class World {
     /// </summary>
     /// <param name="p">The position to check walkability.</param>
     /// <returns><c>true</c> is <c>p</c> is walkable, <c>false</c> otherwise.</returns>
-    public bool IsWalkable(Pos p)
+    public static bool IsWalkable(Pos p)
     {
         if (Map.GetTile(p).IsWalkable())
             return !IsOccupied(p);
         return false;
-    }
-
-    public void AddVillage(Village village) {
-        villages.Add(village);
-    }
-
-    public Village[] GetVillages() {
-        return villages.ToArray();
     }
 }

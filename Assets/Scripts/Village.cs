@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-public class Village {
+public class Village
+{
 
     Dictionary<Pos, Entity> entities;
-    World world;
     string name;
 
     /// <summary>
@@ -20,10 +20,9 @@ public class Village {
     /// Constructs new village with a name and without entities.
     /// </summary>
     /// <param name="name"></param>
-    public Village(string name, World world)
+    public Village(string name)
     {
         this.name = name;
-        this.world = world;
         entities = new Dictionary<Pos, Entity>();
     }
 
@@ -59,11 +58,11 @@ public class Village {
     /// other entity of this village.</exception>
     public void Add(Entity entity)
     {
-        Pos currentPos = entity.CurrentPosition;
-        if (IsOccupied(currentPos))
-            throw new ArgumentException(entity.Name + " is on an occupied position: " + currentPos
-                + " by " + GetEntityAt(currentPos).Name);
-        entities[currentPos] = entity;
+        Pos current = entity.CurrentPosition;
+        if (IsOccupied(current))
+            throw new ArgumentException(entity.Name + " is on an occupied position: " + current
+                + " by " + GetEntityAt(current).Name);
+        entities[current] = entity;
     }
 
     /// <summary>
@@ -84,10 +83,6 @@ public class Village {
             e.Move();
     }
 
-    public Dictionary<Pos, Entity> GetEntities() {
-        return entities;
-    }
-
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder(name);
@@ -95,9 +90,5 @@ public class Village {
         foreach (Entity e in entities.Values)
             sb.Append(e.Name).Append(" ").AppendLine(e.CurrentPosition.ToString());
         return sb.ToString();
-    }
-
-    public bool IsWalkable(Pos p) {
-        return world.IsWalkable(p);
     }
 }
