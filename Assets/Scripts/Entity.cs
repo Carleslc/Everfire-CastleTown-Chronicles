@@ -56,13 +56,14 @@ public class Entity
     }
 
     /// <summary>
-    /// Move this entity to the next position of the route.
+    /// Move this entity to the next position of the route
+    /// (if there isn't any route then movement will be calculated randomly).
     /// </summary>
     /// <returns><c>true</c> if the movement was successfull, <c>false</c> otherwise.</returns>
     public bool Move()
     {
         if (route.Count == 0) // Ensures there is at least one next movement
-            PathFinding();
+            PathFinding(1);
 
         return Move(route.Dequeue());
     }
@@ -100,7 +101,7 @@ public class Entity
     }
 
     /// <summary>
-    /// Calculate a route to a targeted position and appends it to previous routes (if exists).
+    /// Calculate a route to a targeted position and appends it to previous routes (if they exist).
     /// </summary>
     /// <param name="target">The target position.</param>
     /// <returns><c>true</c> if target was accessible and route has been added,
@@ -124,14 +125,6 @@ public class Entity
             Movement randomMove = (Movement)moveValues.GetValue(random.Next(moveValues.Length));
             route.Enqueue(randomMove);
         }
-    }
-
-    /// <summary>
-    /// Calculate one movement to add to the route queue.
-    /// </summary>
-    private void PathFinding()
-    {
-        PathFinding(1);
     }
 
     /// <summary>
