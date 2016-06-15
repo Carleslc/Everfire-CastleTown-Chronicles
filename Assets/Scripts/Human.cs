@@ -27,3 +27,14 @@ public class Human : Entity {
         }
     }
 }
+
+public enum Gender
+{
+    male, female, other
+}
+
+public enum Job
+{
+    labourer, forester, butcher, hunter
+}
+

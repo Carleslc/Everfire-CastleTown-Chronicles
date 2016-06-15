@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class Entity
 {
+
+    public static float speed = 6;
+
     Village village;
     Pos currentPosition;
     string name;
@@ -153,6 +156,7 @@ public class Entity
     {
         return name + " " + currentPosition + " (" + village.Name + ")";
     }
+
 }
 
 public enum Movement

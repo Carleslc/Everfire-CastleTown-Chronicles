@@ -16,3 +16,8 @@ public class Animal : Entity {
         }
     }
 }
+
+public enum AnimalType
+{
+    deer, wolf
+}
