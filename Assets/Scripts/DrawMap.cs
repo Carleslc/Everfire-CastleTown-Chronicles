@@ -18,6 +18,10 @@ public class DrawMap : MonoBehaviour
     [SerializeField]
     private float tileSize = 1.0f;
 
+    /// <summary>
+    /// Initialises the map to be drawn. You need to call DrawMap tp actually draw it.
+    /// </summary>
+    /// <param name="map"> The <c>Map</c> to be drawn.</param>
     public void Init(Map map)
     {
         this.map = map;
