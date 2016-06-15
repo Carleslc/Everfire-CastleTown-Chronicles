@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Entity
 {
@@ -53,6 +54,7 @@ public class Entity
         this.village = village;
         //village.Add(this);
         route = new Queue<Movement>();
+        route.Enqueue(Movement.WAIT);
     }
 
     /// <summary>
@@ -60,12 +62,12 @@ public class Entity
     /// (if there isn't any route then movement will be calculated randomly).
     /// </summary>
     /// <returns><c>true</c> if the movement was successfull, <c>false</c> otherwise.</returns>
-    public bool Move()
+    public Movement Move()
     {
-        if (route.Count == 0) // Ensures there is at least one next movement
+        if (route.Count < 1) // Ensures there is at least one next movement
             PathFinding(1);
-
-        return Move(route.Dequeue());
+        Debug.Log("Move(): " + route.Peek());
+        return route.Dequeue();
     }
 
     /// <summary>
@@ -119,7 +121,7 @@ public class Entity
     private void PathFinding(int moves)
     {
         Array moveValues = Enum.GetValues(typeof(Movement));
-        Random random = new Random();
+        System.Random random = new System.Random();
         for (int i = 0; i < moves; ++i)
         {
             Movement randomMove = (Movement)moveValues.GetValue(random.Next(moveValues.Length));
@@ -142,7 +144,7 @@ public class Entity
     public Movement NextMovement() {
         if (route.Count > 0)
             return route.Peek();
-        return Movement.WAIT;
+        else return Movement.WAIT;
     }
 
     /// <summary>

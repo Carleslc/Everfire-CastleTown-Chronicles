@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using TileExtensions;
+using UnityEngine;
 
 public class Tile
 {
@@ -58,7 +59,10 @@ public class Tile
     /// <returns><c>true</c> if this tile is walkable, <c>false</c> otherwise.</returns>
     public bool IsWalkable()
     {
-        return ground.IsWalkable() && above.IsWalkable();
+        if (HasObjectAbove())
+            return ground.IsWalkable() && above.IsWalkable();
+        else
+            return ground.IsWalkable();
     }
 
     /// <summary>

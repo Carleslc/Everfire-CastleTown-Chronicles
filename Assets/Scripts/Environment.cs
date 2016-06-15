@@ -14,14 +14,15 @@ public class Environment : MonoBehaviour {
 
     World world;
 
+    //Im creating a village with a single villager named Pebek
     void Awake() {
         world = new World(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         world.AddVillage(new Village("PenesLocos", world));
         Village[] villages = world.GetVillages();
-        villages[0].Add(new Human("Pebek", new Pos(0, 0),villages[0], Gender.female, Job.hunter));        
+        villages[0].Add(new Human("Pebek", new Pos(12, 10),villages[0], Gender.female, Job.hunter));        
     }
 
-	// Use this for initialization
+	//Now, i call functions to draw everyting
 	void Start () {
         drawMap.Init(world.Map);
         drawMap.Draw();
