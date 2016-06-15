@@ -9,6 +9,7 @@ public class EntityManager : MonoBehaviour {
     private Vector2 destination;
     private Vector2 startingPos;
     private Movement movementDir;
+    private Entity entity;
 
     public bool IsMoving
     {
@@ -26,6 +27,11 @@ public class EntityManager : MonoBehaviour {
         }
     }
 
+
+    public void Init(Entity entity) {
+        this.entity = entity;
+    }
+
     void Start () {
 	}
 	
@@ -33,6 +39,9 @@ public class EntityManager : MonoBehaviour {
         if (isMoving && movementDir != Movement.WAIT)
         {
             LerpToDestination();
+        }
+        else {
+            Move(entity.NextMovement()); 
         }
 	}
 

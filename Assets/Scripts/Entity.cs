@@ -51,7 +51,7 @@ public class Entity
         this.name = name;
         currentPosition = location;
         this.village = village;
-        village.Add(this);
+        //village.Add(this);
         route = new Queue<Movement>();
     }
 
@@ -137,6 +137,12 @@ public class Entity
         if (route.Count > 0)
             next = route.Peek().next(currentPosition);
         return next;
+    }
+
+    public Movement NextMovement() {
+        if (route.Count > 0)
+            return route.Peek();
+        return Movement.WAIT;
     }
 
     /// <summary>

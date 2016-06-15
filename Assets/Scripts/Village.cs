@@ -59,11 +59,11 @@ public class Village {
     /// other entity of this village.</exception>
     public void Add(Entity entity)
     {
-        Pos current = entity.CurrentPosition;
-        if (IsOccupied(current))
-            throw new ArgumentException(entity.Name + " is on an occupied position: " + current
-                + " by " + GetEntityAt(current).Name);
-        entities[current] = entity;
+        Pos currentPos = entity.CurrentPosition;
+        if (IsOccupied(currentPos))
+            throw new ArgumentException(entity.Name + " is on an occupied position: " + currentPos
+                + " by " + GetEntityAt(currentPos).Name);
+        entities[currentPos] = entity;
     }
 
     /// <summary>

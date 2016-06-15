@@ -68,7 +68,7 @@ public class World {
         villages.Add(village);
     }
 
-    public Village GetVillageAt(int index) {
-        return villages[index];
+    public Village[] GetVillages() {
+        return villages.ToArray();
     }
 }
