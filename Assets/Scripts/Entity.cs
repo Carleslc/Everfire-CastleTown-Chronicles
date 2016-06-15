@@ -64,9 +64,7 @@ public class Entity
         if (route.Count == 0) // Ensures there is at least one next movement
             PathFinding();
 
-        bool moved = Move(route.Dequeue());
-
-        return moved;
+        return Move(route.Dequeue());
     }
 
     /// <summary>

@@ -179,7 +179,6 @@ public class Pos{
     /// <returns>The position directly <b>above</b> of the instance this function is being called on.</returns>
     public Pos Up()
     {
-        
         return new Pos(x, y + 1);
     }
 

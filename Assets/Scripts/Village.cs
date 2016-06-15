@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class Village {
 
@@ -21,6 +22,7 @@ public class Village {
     public Village(string name)
     {
         this.name = name;
+        entities = new Dictionary<Pos, Entity>();
     }
 
     /// <summary>
@@ -36,7 +38,7 @@ public class Village {
     }
 
     /// <summary>
-    /// Gets the villager of this village occupying position <c>p</c>.
+    /// Gets the entity of this village occupying position <c>p</c>.
     /// </summary>
     /// <param name="p">The position of the village to get.</param>
     /// <returns>The entity occupying position <c>p</c> or <c>null</c>
@@ -78,5 +80,14 @@ public class Village {
     {
         foreach (Entity e in entities.Values)
             e.Move();
+    }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder(name);
+        sb.AppendLine();
+        foreach (Entity e in entities.Values)
+            sb.Append(e.Name).Append(" ").AppendLine(e.CurrentPosition.ToString());
+        return sb.ToString();
     }
 }
