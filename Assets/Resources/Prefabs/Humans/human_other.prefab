@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 442342}
   m_Layer: 0
-  m_Name: human_other_prefab
+  m_Name: human_other
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

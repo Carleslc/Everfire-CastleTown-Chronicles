@@ -5,6 +5,7 @@ using System.Text;
 public class Village {
 
     Dictionary<Pos, Entity> entities;
+    World world;
     string name;
 
     /// <summary>
@@ -19,9 +20,10 @@ public class Village {
     /// Constructs new village with a name and without entities.
     /// </summary>
     /// <param name="name"></param>
-    public Village(string name)
+    public Village(string name, World world)
     {
         this.name = name;
+        this.world = world;
         entities = new Dictionary<Pos, Entity>();
     }
 
@@ -93,5 +95,9 @@ public class Village {
         foreach (Entity e in entities.Values)
             sb.Append(e.Name).Append(" ").AppendLine(e.CurrentPosition.ToString());
         return sb.ToString();
+    }
+
+    public bool IsWalkable(Pos p) {
+        return world.IsWalkable(p);
     }
 }

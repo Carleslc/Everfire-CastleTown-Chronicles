@@ -8,15 +8,22 @@ public class Environment : MonoBehaviour {
     [SerializeField]
     private DrawMap drawMap;
 
+    World world;
+
     void Awake() {
-        World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
+        world = new World(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
+        
     }
 
 	// Use this for initialization
 	void Start () {
-        drawMap.Init(World.Map);
+        drawMap.Init(world.Map);
         drawMap.Draw();
 	}
+
+    public Vector2 GetWorldPos(Pos pos) {
+        return drawMap.GetWorldPos(pos);
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 public class Entity
 {
-
-    public static float speed = 6;
-
     Village village;
     Pos currentPosition;
     string name;
@@ -84,7 +81,7 @@ public class Entity
             Pos old = currentPosition;
             Pos next = movement.next(old);
 
-            if (World.IsWalkable(next))
+            if (village.IsWalkable(next))
             {
                 currentPosition = next;
                 UpdatePositionOnVillage(old);
