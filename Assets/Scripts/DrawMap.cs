@@ -16,7 +16,7 @@ public class DrawMap : MonoBehaviour
     private GameObject stoneProp;
     private GameObject tilePrefab;
     [SerializeField]
-    private float tileSize = 1.0f;
+    public static float tileSize = 1.0f;
 
     /// <summary>
     /// Initialises the map to be drawn. You need to call DrawMap tp actually draw it.
@@ -77,7 +77,7 @@ public class DrawMap : MonoBehaviour
                 break;
         }
 
-        Vector2 tilePos = new Vector2((p.Y * tileSize) - (map.Width/2), (-p.X * tileSize) + (map.Height/2));
+        Vector2 tilePos = new Vector2((p.Y * tileSize) - (map.Width / 2), (-p.X * tileSize) + (map.Height / 2));
         string tileName = "(" + p.X + ", " + p.Y + ")";
         GameObject tile = Instantiate(tileToInstantiate, tilePos,
             Quaternion.identity) as GameObject;
@@ -91,5 +91,11 @@ public class DrawMap : MonoBehaviour
             prop.name = "Prop: " + tileName;
             prop.transform.SetParent(transform, false);
         }
+
+    }
+
+    public Vector2 GetWorldPos(Pos p)
+    {
+        return new Vector2((p.Y * tileSize) - (map.Width / 2), (-p.X * tileSize) + (map.Height / 2));
     }
 }

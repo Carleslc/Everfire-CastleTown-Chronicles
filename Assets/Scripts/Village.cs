@@ -82,6 +82,10 @@ public class Village {
             e.Move();
     }
 
+    public Dictionary<Pos, Entity> GetEntities() {
+        return entities;
+    }
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder(name);

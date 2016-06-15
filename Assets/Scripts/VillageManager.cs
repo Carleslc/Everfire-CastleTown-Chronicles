@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class VillageManager : MonoBehaviour {
 
@@ -7,6 +7,7 @@ public class VillageManager : MonoBehaviour {
 
 
     Village village;
+    Dictionary<Pos, Entity> entities;
 
 	// Use this for initialization
 	void Start () {
@@ -20,10 +21,11 @@ public class VillageManager : MonoBehaviour {
 
     public void Init(Village village) {
         this.village = village;
+        entities = village.GetEntities();
     }
 
     private void InitGraphics() {
-
+        //village.GetEntities
     }
 
 }
