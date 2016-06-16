@@ -74,6 +74,17 @@ public class Village
         entities.Remove(at);
     }
 
+    //I hope this does not break what you had in mind.
+    public Entity[] GetEntities() {
+        Entity[] ret = new Entity[entities.Count];
+        int i = 0;
+        foreach (KeyValuePair<Pos, Entity> pair in entities) {
+            ret[i] = pair.Value;
+            ++i;
+        }
+        return ret;
+    }
+
     /// <summary>
     /// Moves all entities of this village.
     /// </summary>

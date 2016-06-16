@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Entity
 {
@@ -88,7 +89,7 @@ public class Entity
                 moved = true;
             }
         }
-
+        Debug.Log("Moved with direction: " + movement);
         return moved;
     }
 
@@ -119,10 +120,11 @@ public class Entity
     private void PathFinding(int moves)
     {
         Array moveValues = Enum.GetValues(typeof(Movement));
-        Random random = new Random();
+        System.Random random = new System.Random();
         for (int i = 0; i < moves; ++i)
         {
             Movement randomMove = (Movement)moveValues.GetValue(random.Next(moveValues.Length));
+            Debug.Log("Enqueue: " + randomMove);
             route.Enqueue(randomMove);
         }
     }
@@ -137,6 +139,13 @@ public class Entity
         if (route.Count > 0)
             next = route.Peek().next(currentPosition);
         return next;
+    }
+
+    public Movement NextMovement()
+    {
+        if (route.Count > 0)
+            return route.Peek();
+        return Movement.WAIT;
     }
 
     /// <summary>

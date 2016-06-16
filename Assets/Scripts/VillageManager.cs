@@ -8,7 +8,7 @@ public class VillageManager : MonoBehaviour {
 
     List<EntityManager> entityManagers = new List<EntityManager>();
     Village village;
-    Dictionary<Pos, Entity> entities;
+    Entity[] entities;
     Environment environment;
 
     public void Init(Environment environment, Village village) {
@@ -20,12 +20,12 @@ public class VillageManager : MonoBehaviour {
     }
 
     private void InitGraphics() {
-        foreach (KeyValuePair<Pos, Entity> pair in entities) {
-            if (pair.Value is Human)
+        foreach (Entity e in entities) {
+            if (e is Human)
             {               
-                Human h = (Human)pair.Value;
+                Human h = (Human)e;
                 string gender = h.Gender.ToString();
-                GameObject humanPrefab = Instantiate(Resources.Load(humanPrefabsPath), environment.GetWorldPos(pair.Key),
+                GameObject humanPrefab = Instantiate(Resources.Load(humanPrefabsPath), environment.GetWorldPos(e.CurrentPosition),
                     Quaternion.identity) as GameObject;
 
                 GameObject humanPrefabVisuals = Instantiate(Resources.Load(humanPrefabsPath + "_" + gender), Vector2.zero,

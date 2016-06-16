@@ -12,27 +12,29 @@ public class Environment : MonoBehaviour {
     [SerializeField]
     private List<VillageManager> villageManagers;
 
-    World world;
-
     //Im creating a village with a single villager named Pebek
     void Awake() {
-        world = new World(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
-        world.AddVillage(new Village("PenesLocos", world));
-        Village[] villages = world.GetVillages();
-        villages[0].Add(new Human("Pebek", new Pos(12, 10),villages[0], Gender.female, Job.hunter));        
+        World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
+        World.AddVillage(new Village("PenesLocos"));
+        Village village = World.GetVillageAt(0);
+        new Human("Pebek", new Pos(12, 10), village, Gender.female, Job.hunter);
+        //village.Add(new Human("Pebek", new Pos(12, 10), village, Gender.female, Job.hunter));        
     }
 
 	//Now, i call functions to draw everyting
 	void Start () {
-        drawMap.Init(world.Map);
+        drawMap.Init(World.Map);
         drawMap.Draw();
-        foreach (Village v in world.GetVillages()) {
-            GameObject vm = 
+         
+        for (int i = 0; i < World.GetVillageCount(); i++)
+        {
+            Village currentVillage = World.GetVillageAt(i);
+            GameObject villageManagerObject =
                 Instantiate(Resources.Load(villagePrefabPath), Vector3.zero, Quaternion.identity) as GameObject;
-            vm.name = v.Name;
-            VillageManager vman = vm.GetComponent<VillageManager>();
-            vman.Init(this, v);
-            villageManagers.Add(vman);
+            villageManagerObject.name = currentVillage.Name;
+            VillageManager villageManager = villageManagerObject.GetComponent<VillageManager>();
+            villageManager.Init(this, currentVillage);
+            villageManagers.Add(villageManager);
         }
 	}
 

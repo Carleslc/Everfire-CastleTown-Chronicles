@@ -57,7 +57,8 @@ public class EntityManager : MonoBehaviour {
             LerpToDestination();
         }
         else if(!isWaiting){
-            Move(entity.Move());
+            Move(entity.NextMovement());
+            entity.Move();
         }
 	}
 

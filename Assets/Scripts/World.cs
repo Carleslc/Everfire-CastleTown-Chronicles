@@ -43,6 +43,18 @@ public static class World
         return GetEntityAt(p) != null;
     }
 
+    public static void AddVillage(Village village) {
+        villages.Add(village);
+    }
+
+    public static Village GetVillageAt(int index) {
+        return villages[index];
+    }
+
+    public static int GetVillageCount() {
+        return villages.Count;
+    }
+
     /// <summary>
     /// Checks if the position <c>p</c> is walkable on the whole world.
     /// A position p is walkable when the tile at that position is walkable

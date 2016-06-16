@@ -123,6 +123,7 @@ namespace TileExtensions
 
         private static MemberInfo ForValue(Enum e)
         {
+            Debug.Log("Fail here: " + e);
             return typeof(Enum).GetField(Enum.GetName(typeof(Enum), e));
         }
     }
