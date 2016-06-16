@@ -90,7 +90,7 @@ public class Entity
             }
         }
 
-        Debug.Log(name + " move " + movement + ": " + old + " -> " + next + " " + (moved ? "Success" : "Failed"));
+        //Debug.Log(name + " move " + movement + ": " + old + " -> " + next + " " + (moved ? "Success" : "Failed"));
         return moved;
     }
 

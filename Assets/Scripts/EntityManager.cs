@@ -9,7 +9,7 @@ public class EntityManager : MonoBehaviour {
     /// <summary>
     /// Speet to be moved at.
     /// </summary>
-    private float speed = 3;
+    private float speed = .5f;
 
     private Vector2 startingPos;
     /// <summary>
@@ -26,6 +26,11 @@ public class EntityManager : MonoBehaviour {
     private Vector2 destination;
     //private Movement movementDir;
     private Entity entity;
+
+    int newMoveX = 0;
+    int newMoveY = 0;
+
+    private Animator animator;
 
     public bool IsMoving
     {
@@ -49,6 +54,7 @@ public class EntityManager : MonoBehaviour {
     /// <param name="entity"><c>Entity</c> to be moved.</param>
     public void Init(Entity entity) {
         this.entity = entity;
+        animator = GetComponentInChildren<Animator>();
     }
     	
 	void Update () {
@@ -66,7 +72,7 @@ public class EntityManager : MonoBehaviour {
 
     private void LerpToDestination() {
         transform.position = (Vector2)transform.position + (destination * speed * Time.deltaTime);
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
         if (Vector2.Distance(transform.position, startingPos + destination) < speed * Time.deltaTime)
         {
             Debug.Log("Finished movement");
@@ -80,13 +86,14 @@ public class EntityManager : MonoBehaviour {
             return;
         isMoving = true;
         startingPos = transform.position;
+        setAnimatorState(movement);
         switch (movement)
         {
             case Movement.WAIT:
                 startingTime = Time.time;
                 isWaiting = true;
                 destination = Vector2.zero;
-                StartCoroutine("Wait");
+                StartCoroutine("Wait");                
                 break;
             case Movement.UP:
                 destination = Vector2.up;
@@ -113,5 +120,37 @@ public class EntityManager : MonoBehaviour {
             }
             yield return null;
         }
+    }
+
+    private void setAnimatorState(Movement m) {
+
+        bool newIsMoving = true;
+        switch (m)
+        {
+            case Movement.UP:
+                newMoveX = 0;
+                newMoveY = 1;
+                break;
+            case Movement.DOWN:
+                newMoveX = 0;
+                newMoveY = -1;
+                break;
+            case Movement.RIGHT:
+                newMoveX = 1;
+                newMoveY = 0;
+                break;
+            case Movement.LEFT:
+                newMoveX = -1;
+                newMoveY = 0;
+                break;
+            default:
+                //We dont change newMoveX nor newMoveY to make possible to choose a valid idle animation.
+                newIsMoving = false;
+                break;
+        }
+        //Debug.Log("Setting to " + newMoveX + " " + newMoveY);
+        animator.SetBool("isMoving", newIsMoving);
+        animator.SetFloat("MoveX", newMoveX);
+        animator.SetFloat("MoveY", newMoveY);
     }
 }

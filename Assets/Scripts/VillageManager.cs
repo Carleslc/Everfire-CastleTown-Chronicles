@@ -24,7 +24,7 @@ public class VillageManager : MonoBehaviour {
                 GameObject humanPrefab = Instantiate(PrefabLoader.GetHumanBlankPrefab(), environment.GetWorldPos(e.CurrentPosition),
                     Quaternion.identity) as GameObject;
 
-                GameObject humanPrefabVisuals = Instantiate(PrefabLoader.GetHumanVisualPrefab(h.Gender), Vector2.zero,
+                GameObject humanPrefabVisuals = Instantiate(PrefabLoader.GetHumanVisualPrefab(h.Gender, h.Job), Vector2.zero,
                     Quaternion.identity) as GameObject;
 
                 humanPrefabVisuals.transform.SetParent(humanPrefab.transform, false);

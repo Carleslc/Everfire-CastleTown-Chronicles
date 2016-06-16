@@ -53,23 +53,10 @@ public static class PrefabLoader
         return Resources.Load<GameObject>(humansPath);
     }
 
-    public static GameObject GetHumanVisualPrefab(Gender gender)
+    public static GameObject GetHumanVisualPrefab(Gender gender, Job job)
     {
         string finalPath = humansPath;
-        switch (gender)
-        {
-            case Gender.male:
-                finalPath += "_male";
-                break;
-            case Gender.female:
-                finalPath += "_female";
-                break;
-            case Gender.other:
-                finalPath += "_other";
-                break;
-            default:
-                throw new System.Exception("Gender type does not hasve a matching prefab in the database");
-        }
+        finalPath += "_" + gender.ToString() + "_" + job.ToString();        
         return Resources.Load<GameObject>(finalPath);
     }
 
