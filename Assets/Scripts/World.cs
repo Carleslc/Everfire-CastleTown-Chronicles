@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class World
@@ -52,7 +53,12 @@ public static class World
     /// </summary>
     /// <param name="village">The village to add.</param>
     public static void AddVillage(Village village) {
-        villages.Add(village.Name, village);
+        string name = village.Name;
+
+        if (villages.ContainsKey(name))
+            throw new ArgumentException("There is already a village with name " + name + " in this world.");
+
+        villages.Add(name, village);
     }
 
     /// <summary>
