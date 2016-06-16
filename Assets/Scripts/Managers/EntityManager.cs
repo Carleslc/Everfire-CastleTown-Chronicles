@@ -104,7 +104,7 @@ public class EntityManager : MonoBehaviour {
         }
     }
 
-    public void Move(Movement movement) {
+    private void Move(Movement movement) {
         if (isMoving || (isWaiting && !isForcedMovement))
             return;
         isMoving = true;

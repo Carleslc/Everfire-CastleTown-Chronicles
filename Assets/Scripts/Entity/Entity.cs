@@ -8,8 +8,7 @@ public class Entity
     Pos currentPosition;
     string name;
 
-    //Changed protection level of route to access it from Player
-    protected Queue<Movement> route;
+    private Queue<Movement> route;
 
     /// <summary>
     /// The current position where this entity is located.
@@ -81,9 +80,6 @@ public class Entity
 
         Pos old = currentPosition;
         Pos next = movement.Next(old);
-        if (name == "Wextia")
-            Debug.Log("Moving Wextia with movement " + movement);
-
         if (!moved)
         {
             if (World.IsWalkable(next))

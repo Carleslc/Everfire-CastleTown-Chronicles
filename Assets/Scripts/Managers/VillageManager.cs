@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class VillageManager : MonoBehaviour {
 
-    //private List<EntityManager> entityManagers = new List<EntityManager>();
     private Village village;
     private Entity[] entities;
     private Environment environment;
@@ -52,6 +51,10 @@ public class VillageManager : MonoBehaviour {
             throw new System.Exception("Clothes could not be loaded for the Human " + h.Name);
         }
 
+        if (humanPrefab == null) {
+            throw new System.Exception("HumanPrefab could not be loaded for the Human " + h.Name);
+        }
+
         GameObject hair = Instantiate(PrefabLoader.GetHumanHair(h.Gender, h.HairType), Vector2.zero,
             Quaternion.identity) as GameObject;
 
@@ -65,6 +68,5 @@ public class VillageManager : MonoBehaviour {
         EntityManager entityManager = humanPrefab.GetComponent<EntityManager>();
         //We activate the entity manager of our newly instantiated human.
         entityManager.Init(h);
-        //entityManagers.Add(entityManager);
     }
 }

@@ -32,7 +32,6 @@ public class PlayerManager : MonoBehaviour {
             player.PlayerInput = lastPressed;
         }
         else {
-            Debug.Log(player.Name + " is moving");
         }
     }
 
