@@ -50,3 +50,6 @@ TagManager:
   - name: Entities
     uniqueID: 3650487191
     locked: 0
+  - name: Prop2
+    uniqueID: 1232960613
+    locked: 0
