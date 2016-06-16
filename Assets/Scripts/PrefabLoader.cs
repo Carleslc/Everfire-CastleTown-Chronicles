@@ -59,13 +59,13 @@ public static class PrefabLoader
         switch (gender)
         {
             case Gender.male:
-                finalPath += "male";
+                finalPath += "_male";
                 break;
             case Gender.female:
-                finalPath += "female";
+                finalPath += "_female";
                 break;
             case Gender.other:
-                finalPath += "other";
+                finalPath += "_other";
                 break;
             default:
                 throw new System.Exception("Gender type does not hasve a matching prefab in the database");
