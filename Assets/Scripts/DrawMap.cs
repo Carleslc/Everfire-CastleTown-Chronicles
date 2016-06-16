@@ -5,16 +5,12 @@ public class DrawMap : MonoBehaviour
 {
     private Map map;
 
-    string tilesPath = "Prefabs/Tiles/";
-    string propsPath = "Prefabs/Props/";
-
     private GameObject grassTile;
     private GameObject sandTile;
     private GameObject waterTile;
-    private GameObject[] borders;
+    //private GameObject[] borders;
     private GameObject treeProp;
     private GameObject stoneProp;
-    private GameObject tilePrefab;
     [SerializeField]
     public static float tileSize = 1.0f;
 
@@ -25,12 +21,12 @@ public class DrawMap : MonoBehaviour
     public void Init(Map map)
     {
         this.map = map;
-        grassTile = Resources.Load<GameObject>(tilesPath + "grass");
-        sandTile =  Resources.Load<GameObject>(tilesPath + "sand");
-        waterTile = Resources.Load<GameObject>(tilesPath + "water");
+        grassTile = PrefabLoader.GetTilePrefab(Tile.Ground.Grass);
+        sandTile = PrefabLoader.GetTilePrefab(Tile.Ground.Sand);
+        waterTile = PrefabLoader.GetTilePrefab(Tile.Ground.Water);
 
-        treeProp =  Resources.Load<GameObject>(propsPath + "tree");
-        stoneProp = Resources.Load<GameObject>(propsPath + "stone");
+        treeProp = PrefabLoader.GetTilePrefab(Tile.Object.Tree);
+        stoneProp = PrefabLoader.GetTilePrefab(Tile.Object.Stone);
 
     }
 
