@@ -4,9 +4,6 @@ using System.Collections.Generic;
 public class Environment : MonoBehaviour {
 
     public string mapName;
-
-    private static string villagePrefabPath = "Prefabs/village";
-
     [SerializeField]
     private DrawMap drawMap;
     [SerializeField]
@@ -32,7 +29,7 @@ public class Environment : MonoBehaviour {
         {
             Village currentVillage = iterator.Current;
             GameObject villageManagerObject =
-                Instantiate(Resources.Load(villagePrefabPath), Vector3.zero, Quaternion.identity) as GameObject;
+                Instantiate(PrefabLoader.GetVillage(), Vector3.zero, Quaternion.identity) as GameObject;
             villageManagerObject.name = currentVillage.Name;
             VillageManager villageManager = villageManagerObject.GetComponent<VillageManager>();
             villageManager.Init(this, currentVillage);

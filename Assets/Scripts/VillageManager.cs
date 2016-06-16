@@ -11,7 +11,6 @@ public class VillageManager : MonoBehaviour {
     public void Init(Environment environment, Village village) {
         this.village = village;
         entities = this.village.GetEntities();
-        //Debug.Log(village.Name + "Has the following entities: " + village.GetEntityAt(new Pos(0, 0)));
         this.environment = environment;
         InitGraphics();
     }
