@@ -86,21 +86,13 @@ public static class World
 
     /// <summary>
     /// Checks if the position <c>p</c> is walkable on the whole world.
-    /// A position p is walkable when the tile at that position is walkable
+    /// <para/>A position p is walkable when the tile at that position is walkable
     /// and not exists any entity of any village occupying that position.
     /// </summary>
     /// <param name="p">The position to check walkability.</param>
-    /// <returns><c>true</c> is <c>p</c> is walkable, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c> if <c>p</c> is walkable, <c>false</c> otherwise.</returns>
     public static bool IsWalkable(Pos p)
     {
-        try
-        {
-            if (Map.GetTile(p).IsWalkable())
-            {
-                return !IsOccupied(p);
-            }
-        }
-        catch (System.ArgumentOutOfRangeException) {} // if position is out of map then return false
-        return false;
+        return Map.IsWalkable(p) && !IsOccupied(p);
     }
 }

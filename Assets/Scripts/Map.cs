@@ -97,6 +97,19 @@ public class Map {
         map[p.X, p.Y] = t;
     }
 
+    /// <summary>
+    /// Checks if the tile at position <c>p</c> is walkable.
+    /// </summary>
+    /// <param name="p">The position to check walkability.</param>
+    /// <returns><c>true</c> if tile at position <c>p</c> exists and is walkable,
+    /// <c>false</c> otherwise.</returns>
+    public bool IsWalkable(Pos p)
+    {
+        try { return GetTile(p).IsWalkable(); }
+        catch (System.ArgumentOutOfRangeException) { } // if position is out of map then return false
+        return false;
+    }
+
     public override string ToString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < height; ++i) {
@@ -106,7 +119,6 @@ public class Map {
         }
         return sb.ToString();
     }
-
     
 }
 
