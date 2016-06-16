@@ -5,10 +5,14 @@ public class Human : Entity {
 
     private Gender gender;
     private Job job;
-    public Human(string name, Pos location, Village village, Gender gender, Job job): base(name, location, village)
+    private int bodyType;
+    private int hairType;
+    public Human(string name, Pos location, Village village, Gender gender, Job job, int bodyType, int hairType): base(name, location, village)
     {
         this.gender = gender;
         this.job = job;
+        this.bodyType = bodyType;
+        this.hairType = hairType;
     }
 
     public Gender Gender
@@ -25,6 +29,22 @@ public class Human : Entity {
         {
             return job;
         }
+    }
+
+    public int HairType
+    {
+        get
+        {
+            return hairType;
+        }
+    }
+
+    public int BodyType
+    {
+        get
+        {
+            return bodyType;
+        }        
     }
 }
 

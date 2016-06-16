@@ -9,13 +9,13 @@ public class Environment : MonoBehaviour {
     [SerializeField]
     private List<VillageManager> villageManagers;
 
-    //Im creating a village with a single villager named Pebek
+    //Im creating a village with some villagers
     void Awake() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
-        Village v = new Village("PenesLocos");
+        Village v = new Village("Everfire NeverWater");
         World.AddVillage(v);
-        new Human("Pebek", new Pos(12, 10), v, Gender.male, Job.forester);
-        new Human("Pobrok", new Pos(15, 11), v, Gender.female, Job.hunter);
+        new Human("Pebek", new Pos(12, 10), v, Gender.male, Job.forester, 1, 1);
+        new Human("Pobrok", new Pos(15, 11), v, Gender.female, Job.hunter, 1, 1);
         villageManagers = new List<VillageManager>();
     }
 

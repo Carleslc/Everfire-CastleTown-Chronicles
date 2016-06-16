@@ -56,7 +56,9 @@ public class EntityManager : MonoBehaviour {
         this.entity = entity;
         animators = GetComponentsInChildren<Animator>();
     }
-    	
+    
+    //Basically, the EntityManager keeps retrieving the moves of the entity it is managing. When it's moving, it doesn't get more
+    //movement commands, as it is currently finishing the movement and it would lead to inconsistencies with the logical map.
 	void Update () {
         if (!isWaiting)
         {
@@ -72,10 +74,8 @@ public class EntityManager : MonoBehaviour {
 
     private void LerpToDestination() {
         transform.position = (Vector2)transform.position + (destination * speed * Time.deltaTime);
-        //Debug.Log(transform.position);
         if (Vector2.Distance(transform.position, startingPos + destination) < speed * Time.deltaTime)
         {
-            Debug.Log("Finished movement");
             isMoving = false;
             transform.position = startingPos + destination;
         }

@@ -135,7 +135,6 @@ public class Entity
                 Pos nextPos = randomMove.Next(oldPos);
                 if (World.IsWalkable(nextPos))
                 {
-                    Debug.Log("Enqueue: " + randomMove);
                     route.Enqueue(randomMove);
                     oldPos = nextPos;
                     break;
