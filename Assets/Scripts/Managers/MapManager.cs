@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DrawMap : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
     private Map map;
 

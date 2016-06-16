@@ -5,7 +5,7 @@ public class Environment : MonoBehaviour {
 
     public string mapName;
     [SerializeField]
-    private DrawMap drawMap;
+    private MapManager drawMap;
     [SerializeField]
     private List<VillageManager> villageManagers;
 
