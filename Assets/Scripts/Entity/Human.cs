@@ -4,13 +4,11 @@ using System.Collections;
 public class Human : Entity {
 
     private Gender gender;
-    private Job job;
     private int bodyType;
     private int hairType;
-    public Human(string name, Pos location, Village village, Gender gender, Job job, int bodyType, int hairType): base(name, location, village)
+    public Human(string name, Pos location, Village village, Gender gender, int bodyType, int hairType): base(name, location, village)
     {
         this.gender = gender;
-        this.job = job;
         this.bodyType = bodyType;
         this.hairType = hairType;
     }
@@ -20,14 +18,6 @@ public class Human : Entity {
         get
         {
             return gender;
-        }
-    }
-
-    public Job Job
-    {
-        get
-        {
-            return job;
         }
     }
 
@@ -51,10 +41,5 @@ public class Human : Entity {
 public enum Gender
 {
     male, female, other
-}
-
-public enum Job
-{
-    labourer, forester, butcher, hunter
 }
 

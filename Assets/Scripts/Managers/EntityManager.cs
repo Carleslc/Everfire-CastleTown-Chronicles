@@ -27,6 +27,8 @@ public class EntityManager : MonoBehaviour {
     //private Movement movementDir;
     private Entity entity;
 
+    private bool isForcedMovement = false;
+
     int newMoveX = 0;
     int newMoveY = 0;
 
@@ -40,11 +42,32 @@ public class EntityManager : MonoBehaviour {
         }
     }
 
+    public bool IsForcedMovement
+    {
+        set
+        {
+            isForcedMovement = value;
+        }
+    }
+
+    public Entity Entity
+    {
+        get
+        {
+            return entity;
+        }
+    }
+
     public float Speed
     {
         get
         {
             return speed;
+        }
+
+        set
+        {
+            speed = value;
         }
     }
 
@@ -60,7 +83,7 @@ public class EntityManager : MonoBehaviour {
     //Basically, the EntityManager keeps retrieving the moves of the entity it is managing. When it's moving, it doesn't get more
     //movement commands, as it is currently finishing the movement and it would lead to inconsistencies with the logical map.
 	void Update () {
-        if (!isWaiting)
+        if (!isWaiting || isForcedMovement)
         {
             if (isMoving)
                 LerpToDestination();
@@ -82,19 +105,13 @@ public class EntityManager : MonoBehaviour {
     }
 
     public void Move(Movement movement) {
-        if (isMoving || isWaiting)
+        if (isMoving || (isWaiting && !isForcedMovement))
             return;
         isMoving = true;
         startingPos = transform.position;
         setAnimatorState(movement);
         switch (movement)
         {
-            case Movement.WAIT:
-                startingTime = Time.time;
-                isWaiting = true;
-                destination = Vector2.zero;
-                StartCoroutine("Wait");                
-                break;
             case Movement.UP:
                 destination = Vector2.up;
                 break;
@@ -108,12 +125,18 @@ public class EntityManager : MonoBehaviour {
                 destination = Vector2.left;
                 break;
             default:
+                isMoving = false;
+                if (!isWaiting) {
+                    isWaiting = true;
+                    startingTime = Time.time;
+                    destination = Vector2.zero;
+                    StartCoroutine("Wait");
+                }
                 break;
         }
     }
 
     private IEnumerator Wait() {
-        isMoving = false;
         while (isWaiting) {
             if (startingTime + waitTime < Time.time) {
                 isWaiting = false;

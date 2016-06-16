@@ -8,6 +8,8 @@ public class Village
     Dictionary<Pos, Entity> entities;
     string name;
 
+    private bool isPlayer;
+
     /// <summary>
     /// The name of this village.
     /// </summary>
@@ -16,12 +18,21 @@ public class Village
         get { return name; }
     }
 
+    public bool IsPlayer
+    {
+        get
+        {
+            return isPlayer;
+        }
+    }
+
     /// <summary>
     /// Constructs new village with a name and without entities.
     /// </summary>
     /// <param name="name"></param>
-    public Village(string name)
+    public Village(string name, bool isPlayer)
     {
+        this.isPlayer = isPlayer;
         this.name = name;
         entities = new Dictionary<Pos, Entity>();
     }

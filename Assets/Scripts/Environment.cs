@@ -12,10 +12,11 @@ public class Environment : MonoBehaviour {
     //Im creating a village with some villagers
     void Awake() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
-        Village v = new Village("Everfire NeverWater");
+        Village v = new Village("Everfire Neverwater", true);
         World.AddVillage(v);
-        new Human("Pebek", new Pos(12, 10), v, Gender.male, Job.forester, 1, 1);
-        new Human("Pobrok", new Pos(15, 11), v, Gender.female, Job.hunter, 1, 1);
+        new Villager("Pebek", new Pos(12, 10), v, Gender.male, 1, 1, Job.forester);
+        new Villager("Pobrok", new Pos(15, 11), v, Gender.female, 1, 1, Job.hunter);
+        new Player("Wextia", new Pos(16, 11), v, Gender.male, 1, 1, 1);
         villageManagers = new List<VillageManager>();
     }
 

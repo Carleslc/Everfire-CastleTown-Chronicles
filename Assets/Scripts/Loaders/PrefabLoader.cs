@@ -77,6 +77,10 @@ public static class PrefabLoader
         return LoadGameObject(humansPath + "human");
     }
 
+    public static GameObject GetPlayerBlank() {
+        return LoadGameObject(humansPath + "player");
+    }
+
     /// <summary>
     /// Returns a Hair, which has an animation and has to be the child of an object with the component <c>EntityManager</c>
     /// to actully work. It will raise an exception if the prefab does not exist.
@@ -102,6 +106,12 @@ public static class PrefabLoader
         finalPath += "clothes_" + job.ToString();
         return LoadGameObject(finalPath);
 
+    }
+
+    public static GameObject GetHumanPlayerClothes(int index) {
+        string finalPath = humansPath;
+        finalPath += "clothes_player_" + index;
+        return LoadGameObject(finalPath);
     }
 
     /// <summary>

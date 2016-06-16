@@ -8,7 +8,8 @@ public class Entity
     Pos currentPosition;
     string name;
 
-    Queue<Movement> route;
+    //Changed protection level of route to access it from Player
+    protected Queue<Movement> route;
 
     /// <summary>
     /// The current position where this entity is located.
@@ -63,7 +64,8 @@ public class Entity
     /// (if there isn't any route then movement will be calculated randomly).
     /// </summary>
     /// <returns><c>true</c> if the movement was successfull, <c>false</c> otherwise.</returns>
-    public bool Move()
+    //Changed to virtual so that Player can override it.
+    public virtual bool Move()
     {
         ensureThereIsNextMovement();
         return Move(route.Dequeue());
@@ -79,6 +81,8 @@ public class Entity
 
         Pos old = currentPosition;
         Pos next = movement.Next(old);
+        if (name == "Wextia")
+            Debug.Log("Moving Wextia with movement " + movement);
 
         if (!moved)
         {
@@ -89,8 +93,6 @@ public class Entity
                 moved = true;
             }
         }
-
-        //Debug.Log(name + " move " + movement + ": " + old + " -> " + next + " " + (moved ? "Success" : "Failed"));
         return moved;
     }
 
@@ -143,7 +145,7 @@ public class Entity
         }
     }
 
-    public Movement NextMovement()
+    public virtual Movement NextMovement()
     {
         ensureThereIsNextMovement();
         return route.Peek();
