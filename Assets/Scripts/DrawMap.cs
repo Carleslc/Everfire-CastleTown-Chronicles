@@ -21,12 +21,12 @@ public class DrawMap : MonoBehaviour
     public void Init(Map map)
     {
         this.map = map;
-        grassTile = PrefabLoader.GetTilePrefab(Tile.Ground.Grass);
-        sandTile = PrefabLoader.GetTilePrefab(Tile.Ground.Sand);
-        waterTile = PrefabLoader.GetTilePrefab(Tile.Ground.Water);
+        grassTile = PrefabLoader.GetTile(Tile.Ground.Grass);
+        sandTile = PrefabLoader.GetTile(Tile.Ground.Sand);
+        waterTile = PrefabLoader.GetTile(Tile.Ground.Water);
 
-        treeProp = PrefabLoader.GetTilePrefab(Tile.Object.Tree);
-        stoneProp = PrefabLoader.GetTilePrefab(Tile.Object.Stone);
+        treeProp = PrefabLoader.GetTile(Tile.Object.Tree);
+        stoneProp = PrefabLoader.GetTile(Tile.Object.Stone);
 
     }
 

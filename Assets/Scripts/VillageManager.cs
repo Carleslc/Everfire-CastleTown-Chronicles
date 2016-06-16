@@ -21,13 +21,22 @@ public class VillageManager : MonoBehaviour {
             if (e is Human)
             {               
                 Human h = (Human)e;                
-                GameObject humanPrefab = Instantiate(PrefabLoader.GetHumanBlankPrefab(), environment.GetWorldPos(e.CurrentPosition),
+                GameObject humanPrefab = Instantiate(PrefabLoader.GetHumanBlank(), environment.GetWorldPos(e.CurrentPosition),
                     Quaternion.identity) as GameObject;
 
-                GameObject humanPrefabVisuals = Instantiate(PrefabLoader.GetHumanVisualPrefab(h.Gender, h.Job), Vector2.zero,
+                GameObject body = Instantiate(PrefabLoader.GetHumanBody(h.Gender, 1), Vector2.zero,
                     Quaternion.identity) as GameObject;
 
-                humanPrefabVisuals.transform.SetParent(humanPrefab.transform, false);
+                GameObject clothes = Instantiate(PrefabLoader.GetHumanWorkClothes(h.Job), Vector2.zero,
+                    Quaternion.identity) as GameObject;
+
+                GameObject hair = Instantiate(PrefabLoader.GetHumanHair(h.Gender, 1), Vector2.zero,
+                    Quaternion.identity) as GameObject;
+
+                body.transform.SetParent(humanPrefab.transform, false);
+                clothes.transform.SetParent(humanPrefab.transform, false);
+                hair.transform.SetParent(humanPrefab.transform, false);
+
                 humanPrefab.transform.SetParent(transform, false);
                 EntityManager entityManager = humanPrefab.GetComponent<EntityManager>();
                 entityManager.Init(h);

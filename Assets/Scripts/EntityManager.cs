@@ -30,7 +30,7 @@ public class EntityManager : MonoBehaviour {
     int newMoveX = 0;
     int newMoveY = 0;
 
-    private Animator animator;
+    private Animator[] animators;
 
     public bool IsMoving
     {
@@ -54,7 +54,7 @@ public class EntityManager : MonoBehaviour {
     /// <param name="entity"><c>Entity</c> to be moved.</param>
     public void Init(Entity entity) {
         this.entity = entity;
-        animator = GetComponentInChildren<Animator>();
+        animators = GetComponentsInChildren<Animator>();
     }
     	
 	void Update () {
@@ -149,8 +149,10 @@ public class EntityManager : MonoBehaviour {
                 break;
         }
         //Debug.Log("Setting to " + newMoveX + " " + newMoveY);
-        animator.SetBool("isMoving", newIsMoving);
-        animator.SetFloat("MoveX", newMoveX);
-        animator.SetFloat("MoveY", newMoveY);
+        foreach (Animator a in animators) {
+            a.SetBool("isMoving", newIsMoving);
+            a.SetFloat("MoveX", newMoveX);
+            a.SetFloat("MoveY", newMoveY);
+        }
     }
 }

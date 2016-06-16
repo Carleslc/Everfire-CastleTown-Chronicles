@@ -50,6 +50,12 @@ TagManager:
   - name: Entities
     uniqueID: 3650487191
     locked: 0
+  - name: Clothes
+    uniqueID: 3313716647
+    locked: 0
+  - name: Hair
+    uniqueID: 4283640687
+    locked: 0
   - name: Prop2
     uniqueID: 1232960613
     locked: 0

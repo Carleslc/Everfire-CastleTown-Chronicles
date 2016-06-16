@@ -17,6 +17,7 @@ public class Environment : MonoBehaviour {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         World.AddVillage(new Village("PenesLocos"));
         new Human("Pebek", new Pos(12, 10), World.GetVillage("PenesLocos"), Gender.male, Job.forester);
+        new Human("Pobrok", new Pos(15, 11), World.GetVillage("PenesLocos"), Gender.female, Job.hunter);
         villageManagers = new List<VillageManager>();
 
     }

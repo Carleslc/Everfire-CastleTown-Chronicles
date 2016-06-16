@@ -6,9 +6,9 @@ public static class PrefabLoader
 
     private static string tilesPath = "Prefabs/Tiles/";
     private static string propsPath = "Prefabs/Props/";
-    private static string humansPath = "Prefabs/Humans/human";
+    private static string humansPath = "Prefabs/Humans/";
 
-    public static GameObject GetTilePrefab(Tile.Ground type)
+    public static GameObject GetTile(Tile.Ground type)
     {
         string finalPath = tilesPath;
         switch (type)
@@ -28,7 +28,7 @@ public static class PrefabLoader
         return Resources.Load<GameObject>(finalPath);
     }
 
-    public static GameObject GetTilePrefab(Tile.Object type)
+    public static GameObject GetTile(Tile.Object type)
     {
         string finalPath = propsPath;
         switch (type)
@@ -48,17 +48,30 @@ public static class PrefabLoader
         return Resources.Load<GameObject>(finalPath);
     }
 
-    public static GameObject GetHumanBlankPrefab()
+    public static GameObject GetHumanBlank()
     {
-        return Resources.Load<GameObject>(humansPath);
+        return Resources.Load<GameObject>(humansPath + "human");
     }
 
-    public static GameObject GetHumanVisualPrefab(Gender gender, Job job)
+    public static GameObject GetHumanHair(Gender gender, int index)
     {
         string finalPath = humansPath;
-        finalPath += "_" + gender.ToString() + "_" + job.ToString();        
+        finalPath += gender.ToString() + "_hair" + "_" + index;        
         return Resources.Load<GameObject>(finalPath);
     }
+    public static GameObject GetHumanWorkClothes(Job job) {
+        string finalPath = humansPath;
+        finalPath += "clothes_" + job.ToString();
+        return Resources.Load<GameObject>(finalPath);
+
+    }
+    public static GameObject GetHumanBody(Gender gender, int index)
+    {
+        string finalPath = humansPath;
+        finalPath += gender.ToString() + "_body" + "_" + index;
+        return Resources.Load<GameObject>(finalPath);
+    }
+
 
 
 }
