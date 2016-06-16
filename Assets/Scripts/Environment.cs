@@ -15,11 +15,11 @@ public class Environment : MonoBehaviour {
     //Im creating a village with a single villager named Pebek
     void Awake() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
-        World.AddVillage(new Village("PenesLocos"));
-        new Human("Pebek", new Pos(12, 10), World.GetVillage("PenesLocos"), Gender.male, Job.forester);
-        new Human("Pobrok", new Pos(15, 11), World.GetVillage("PenesLocos"), Gender.female, Job.hunter);
+        Village v = new Village("PenesLocos");
+        World.AddVillage(v);
+        new Human("Pebek", new Pos(12, 10), v, Gender.male, Job.forester);
+        new Human("Pobrok", new Pos(15, 11), v, Gender.female, Job.hunter);
         villageManagers = new List<VillageManager>();
-
     }
 
 	//Now, i call functions to draw everyting
