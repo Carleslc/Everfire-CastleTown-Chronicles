@@ -59,10 +59,7 @@ public class Tile
     /// <returns><c>true</c> if this tile is walkable, <c>false</c> otherwise.</returns>
     public bool IsWalkable()
     {
-        if (HasObjectAbove())
-            return ground.IsWalkable() && above.IsWalkable();
-        else
-            return ground.IsWalkable();
+        return ground.IsWalkable() && above.IsWalkable();
     }
 
     /// <summary>
@@ -123,8 +120,8 @@ namespace TileExtensions
 
         private static MemberInfo ForValue(Enum e)
         {
-            Debug.Log("Fail here: " + e);
-            return typeof(Enum).GetField(Enum.GetName(typeof(Enum), e));
+            Type type = e.GetType(); // get specific enum type
+            return type.GetField(Enum.GetName(type, e));
         }
     }
 

@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class World
 {
 
+    /// <summary>
+    /// Tile map of this world.
+    /// </summary>
     public static Map Map { get; private set; }
 
-    static List<Village> villages = new List<Village>();
+    static Dictionary<string, Village> villages = new Dictionary<string, Village>();
 
     /// <summary>
     /// Initializes the world with a map.
@@ -24,7 +28,7 @@ public static class World
     /// or <c>null</c> if there is not an entity at that position.</returns>
     public static Entity GetEntityAt(Pos p)
     {
-        foreach (Village v in villages)
+        foreach (Village v in villages.Values)
         {
             Entity at = v.GetEntityAt(p);
             if (at != null)
@@ -43,16 +47,35 @@ public static class World
         return GetEntityAt(p) != null;
     }
 
+    /// <summary>
+    /// Adds a village to this world.
+    /// </summary>
+    /// <param name="village">The village to add.</param>
     public static void AddVillage(Village village) {
-        villages.Add(village);
+        villages.Add(village.Name, village);
     }
 
-    public static Village GetVillageAt(int index) {
-        return villages[index];
+    /// <summary>
+    /// Gets all villages of this world.
+    /// </summary>
+    /// <returns>All villages of this world.</returns>
+    public static IEnumerator<Village> GetVillages()
+    {
+        foreach (Village v in villages.Values)
+            yield return v;
     }
 
-    public static int GetVillageCount() {
-        return villages.Count;
+    /// <summary>
+    /// Gets a village by its name.
+    /// </summary>
+    /// <param name="name">The name of the village to get.</param>
+    /// <returns>The village with name <c>name</c>
+    /// or <c>null</c> if there is not a village with that name.</returns>
+    public static Village GetVillage(string name)
+    {
+        Village v;
+        villages.TryGetValue(name, out v);
+        return v;
     }
 
     /// <summary>
@@ -64,8 +87,14 @@ public static class World
     /// <returns><c>true</c> is <c>p</c> is walkable, <c>false</c> otherwise.</returns>
     public static bool IsWalkable(Pos p)
     {
-        if (Map.GetTile(p).IsWalkable())
-            return !IsOccupied(p);
+        try
+        {
+            if (Map.GetTile(p).IsWalkable())
+            {
+                return !IsOccupied(p);
+            }
+        }
+        catch (System.ArgumentOutOfRangeException) {} // if position is out of map then return false
         return false;
     }
 }

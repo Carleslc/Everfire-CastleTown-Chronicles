@@ -52,18 +52,21 @@ public class EntityManager : MonoBehaviour {
     }
     	
 	void Update () {
-        if (isMoving && !isWaiting)
+        if (!isWaiting)
         {
-            LerpToDestination();
-        }
-        else if(!isWaiting){
-            Move(entity.NextMovement());
-            entity.Move();
+            if (isMoving)
+                LerpToDestination();
+            else
+            {
+                Movement next = entity.NextMovement();
+                Move(entity.Move() ? next : Movement.WAIT);
+            }
         }
 	}
 
     private void LerpToDestination() {
         transform.position = (Vector2)transform.position + (destination * speed * Time.deltaTime);
+        Debug.Log(transform.position);
         if (Vector2.Distance(transform.position, startingPos + destination) < speed * Time.deltaTime)
         {
             Debug.Log("Finished movement");
@@ -98,7 +101,7 @@ public class EntityManager : MonoBehaviour {
                 destination = Vector2.left;
                 break;
             default:
-                break;              
+                break;
         }
     }
 

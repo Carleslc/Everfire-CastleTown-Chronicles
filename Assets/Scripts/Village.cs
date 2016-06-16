@@ -74,14 +74,15 @@ public class Village
         entities.Remove(at);
     }
 
-    //I hope this does not break what you had in mind.
+    /// <summary>
+    /// Gets all entities of this village.
+    /// </summary>
+    /// <returns>All entities of this village.</returns>
     public Entity[] GetEntities() {
         Entity[] ret = new Entity[entities.Count];
         int i = 0;
-        foreach (KeyValuePair<Pos, Entity> pair in entities) {
-            ret[i] = pair.Value;
-            ++i;
-        }
+        foreach (Entity e in entities.Values)
+            ret[i++] = e;
         return ret;
     }
 

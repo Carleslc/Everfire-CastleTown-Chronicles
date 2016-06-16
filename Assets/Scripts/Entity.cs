@@ -50,6 +50,8 @@ public class Entity
     public Entity(string name, Pos location, Village village)
     {
         this.name = name;
+        if (!World.IsWalkable(location))
+            throw new ArgumentException(location + " is not walkable!");
         currentPosition = location;
         this.village = village;
         village.Add(this);
@@ -63,9 +65,7 @@ public class Entity
     /// <returns><c>true</c> if the movement was successfull, <c>false</c> otherwise.</returns>
     public bool Move()
     {
-        if (route.Count == 0) // Ensures there is at least one next movement
-            PathFinding(1);
-
+        ensureThereIsNextMovement();
         return Move(route.Dequeue());
     }
 
@@ -77,11 +77,11 @@ public class Entity
     {
         bool moved = (movement == Movement.WAIT);
 
+        Pos old = currentPosition;
+        Pos next = movement.Next(old);
+
         if (!moved)
         {
-            Pos old = currentPosition;
-            Pos next = movement.next(old);
-
             if (World.IsWalkable(next))
             {
                 currentPosition = next;
@@ -89,8 +89,15 @@ public class Entity
                 moved = true;
             }
         }
-        Debug.Log("Moved with direction: " + movement);
+
+        Debug.Log(name + " move " + movement + ": " + old + " -> " + next + " " + (moved ? "Success" : "Failed"));
         return moved;
+    }
+
+    private void ensureThereIsNextMovement()
+    {
+        if (route.Count == 0)
+            PathFinding(1);
     }
 
     /// <summary>
@@ -119,14 +126,28 @@ public class Entity
     /// <param name="moves">The number of moves to calculate.</param>
     private void PathFinding(int moves)
     {
-        Array moveValues = Enum.GetValues(typeof(Movement));
-        System.Random random = new System.Random();
+        Pos oldPos = currentPosition;
         for (int i = 0; i < moves; ++i)
         {
-            Movement randomMove = (Movement)moveValues.GetValue(random.Next(moveValues.Length));
-            Debug.Log("Enqueue: " + randomMove);
-            route.Enqueue(randomMove);
+            IEnumerable<Movement> randomizedMovements = ((IEnumerable<Movement>)Enum.GetValues(typeof(Movement))).Shuffle();
+            foreach (Movement randomMove in randomizedMovements)
+            {
+                Pos nextPos = randomMove.Next(oldPos);
+                if (World.IsWalkable(nextPos))
+                {
+                    Debug.Log("Enqueue: " + randomMove);
+                    route.Enqueue(randomMove);
+                    oldPos = nextPos;
+                    break;
+                }
+            }
         }
+    }
+
+    public Movement NextMovement()
+    {
+        ensureThereIsNextMovement();
+        return route.Peek();
     }
 
     /// <summary>
@@ -135,17 +156,7 @@ public class Entity
     /// <returns>Next movement position.</returns>
     public Pos NextPosition()
     {
-        Pos next = currentPosition;
-        if (route.Count > 0)
-            next = route.Peek().next(currentPosition);
-        return next;
-    }
-
-    public Movement NextMovement()
-    {
-        if (route.Count > 0)
-            return route.Peek();
-        return Movement.WAIT;
+        return NextMovement().Next(currentPosition);
     }
 
     /// <summary>
@@ -175,7 +186,7 @@ public enum Movement
 
 public static class MoveExtensions
 {
-    public static Pos next(this Movement move, Pos from)
+    public static Pos Next(this Movement move, Pos from)
     {
         switch (move)
         {

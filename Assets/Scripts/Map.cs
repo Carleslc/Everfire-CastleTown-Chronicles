@@ -64,20 +64,15 @@ public class Map {
     }
 
     /// <summary>
-    /// Returns the type of the tile in the <c>Pos</c> p. Prints an error and returns an empty <c>Tile</c>if
-    /// p is an invalid <c>Pos</c>.
+    /// Returns the type of the tile in the <c>Pos</c> p.
     /// </summary>
     /// <param name="p">Position occupied by the tile to be retrieved.</param>
-    /// <returns>Returns the <c>Tile</c> in p. Returns an empty <c>Tile</c>if
-    /// p is an invalid <c>Pos</c>.
-    /// </returns>
+    /// <returns>Returns the <c>Tile</c> in p.</returns>
+    /// <exception cref="ArgumentException">If position is out of map bounds.</exception>
     public Tile GetTile(Pos p) {
-        Pos p1 = new Pos(1, 2);
-        p1 = p1.Left();
-        if (isOutOfBounds(p)) {
-            Debug.LogError("Tile is out of bounds.");
-            return new Tile(Tile.Ground.Grass);
-        }
+        if (IsOutOfBounds(p))
+            throw new System.ArgumentOutOfRangeException(p + " is out of bounds.");
+
         return map[p.X, p.Y];
     }
 
@@ -86,22 +81,19 @@ public class Map {
     /// </summary>
     /// <param name="p">The position to be investigated.</param>
     /// <returns>true if p is out of bounds in the <c>Map</c>, false if it is not.</returns>
-    public bool isOutOfBounds(Pos p) {
-        return p.X >= width || p.X < 0 || p.Y >= height || p.Y < 0;
+    public bool IsOutOfBounds(Pos p) {
+        return p.X >= height || p.X < 0 || p.Y >= width || p.Y < 0;
     }
 
     /// <summary>
-    /// Sets the <c>Tile</c> in p to the <c>Tile</c> t. Prints an error if
-    /// p is an invalid <c>Pos</c>.
+    /// Sets the <c>Tile</c> in p to the <c>Tile</c> t.
     /// </summary>
     /// <param name="p">The position occupied by the tile to be modified.</param>
     /// <param name="t">The new <c>Tile</c>Tile to occupy p with.</param>
+    /// <exception cref="ArgumentException">If position is out of map bounds.</exception>
     public void SetTile(Pos p, Tile t) {
-        if (isOutOfBounds(p))
-        {
-            Debug.LogError("Tile is out of bounds.");
-            return;
-        }
+        if (IsOutOfBounds(p))
+            throw new System.ArgumentOutOfRangeException(p + " is out of bounds.");
         map[p.X, p.Y] = t;
     }
 
@@ -163,7 +155,7 @@ public class Pos{
     /// </summary>
     /// <returns>The position directly to the <b>left</b> of the instance this function is being called on.</returns>
     public Pos Left() {
-        return new Pos(x - 1, y);
+        return new Pos(x, y - 1);
     }
 
     /// <summary>
@@ -172,7 +164,7 @@ public class Pos{
     /// <returns>The position directly to the <b>right</b> of the instance this function is being called on.</returns>
     public Pos Right()
     {
-        return new Pos(x + 1, y);
+        return new Pos(x, y + 1);
     }
 
     /// <summary>
@@ -181,7 +173,7 @@ public class Pos{
     /// <returns>The position directly <b>above</b> of the instance this function is being called on.</returns>
     public Pos Up()
     {
-        return new Pos(x, y + 1);
+        return new Pos(x - 1, y);
     }
 
     /// <summary>
@@ -189,7 +181,7 @@ public class Pos{
     /// </summary>
     /// <returns>The position directly <b>below</b> of the instance this function is being called on.</returns>
     public Pos Down() {
-        return new Pos(x, y - 1);
+        return new Pos(x + 1, y);
     }
 
     public override bool Equals(object obj)

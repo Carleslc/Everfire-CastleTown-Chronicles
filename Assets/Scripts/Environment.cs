@@ -16,19 +16,18 @@ public class Environment : MonoBehaviour {
     void Awake() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         World.AddVillage(new Village("PenesLocos"));
-        Village village = World.GetVillageAt(0);
-        new Human("Pebek", new Pos(12, 10), village, Gender.female, Job.hunter);
-        //village.Add(new Human("Pebek", new Pos(12, 10), village, Gender.female, Job.hunter));        
+        new Human("Pebek", new Pos(12, 10), World.GetVillage("PenesLocos"), Gender.female, Job.hunter);        
     }
 
 	//Now, i call functions to draw everyting
 	void Start () {
         drawMap.Init(World.Map);
         drawMap.Draw();
-         
-        for (int i = 0; i < World.GetVillageCount(); i++)
+
+        IEnumerator<Village> iterator = World.GetVillages();
+        while (iterator.MoveNext())
         {
-            Village currentVillage = World.GetVillageAt(i);
+            Village currentVillage = iterator.Current;
             GameObject villageManagerObject =
                 Instantiate(Resources.Load(villagePrefabPath), Vector3.zero, Quaternion.identity) as GameObject;
             villageManagerObject.name = currentVillage.Name;
