@@ -126,7 +126,7 @@ public class Map {
 /// Class that stores a position inside the <b>Map</b>. The X value represents the <b>horizontal</b> axis of the map,
 /// and the Y value the <b>vertical</b> axis.
 /// </summary>
-public class Pos{
+public class Pos {
 
     int x;
     int y;
@@ -194,6 +194,27 @@ public class Pos{
     /// <returns>The position directly <b>below</b> of the instance this function is being called on.</returns>
     public Pos Down() {
         return new Pos(x + 1, y);
+    }
+
+    /// <summary>
+    /// Gets the distance in tiles from this position to another.
+    /// </summary>
+    /// <param name="to">The (destination) other position.</param>
+    /// <returns>The distance in tiles from this position to another.</returns>
+    public int Distance(Pos to)
+    {
+        int x = to.X - X;
+        int y = to.Y - Y;
+        return (x >= 0 ? x : -x) + (y >= 0 ? y : -y);
+    }
+
+    /// <summary>
+    /// Gets this position as unity coordiantes (Vector2 position).
+    /// </summary>
+    /// <returns>The unity coordinates of this position.</returns>
+    public Vector2 GetUnityCoordinates()
+    {
+        return new Vector2((Y * MapManager.tileSize) - World.Map.Width / 2, (-X * MapManager.tileSize) + World.Map.Height / 2);
     }
 
     public override bool Equals(object obj)

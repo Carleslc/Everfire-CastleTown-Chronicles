@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public static class Utils {
 
@@ -13,7 +15,7 @@ public static class Utils {
     /// <returns>This enumerable shuffled.</returns>
     public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
     {
-        Random rnd = new Random();
+        System.Random rnd = new System.Random();
         T[] elements = source.ToArray();
         // Note i > 0 to avoid final pointless iteration
         for (int i = elements.Length - 1; i > 0; i--)
@@ -30,15 +32,48 @@ public static class Utils {
     }
 
     /// <summary>
-    /// Gets the distance in tiles from this position to another.
+    /// Utility class to measure time spans.
     /// </summary>
-    /// <param name="from">This (start) position.</param>
-    /// <param name="to">The (destination) other position.</param>
-    /// <returns>The distance in tiles from this position to another.</returns>
-    public static int Distance(this Pos from, Pos to)
+    public static class Diagnosis
     {
-        int x = to.X - from.X;
-        int y = to.Y - from.Y;
-        return (x >= 0 ? x : -x) + (y >= 0 ? y : -y);
+        private static Stopwatch timer = new Stopwatch();
+
+        /// <summary>
+        /// Continues the timer from the current elapsed time.
+        /// <para/>If is the first call then initialices the timer without elapsed time.
+        /// <para/>Starting the timer if it's already running has no effect.
+        /// </summary>
+        public static void StartTimer()
+        {
+            timer.Start();
+        }
+
+        /// <summary>
+        /// Stops a running timer and gets the total time elapsed in milliseconds.
+        /// <para/>Stopping the timer if it is not running has no effect.
+        /// </summary>
+        /// <param name="reset">If you want to reset the elapsed time.</param>
+        /// <returns>Total time elapsed in milliseconds.</returns>
+        public static long StopTimer(bool reset)
+        {
+            timer.Stop();
+            long elapsed = timer.ElapsedMilliseconds;
+            if (reset)
+                timer.Reset();
+            return elapsed;
+        }
+
+        /// <summary>
+        /// Stops a running timer and gets the total time elapsed in milliseconds.
+        /// <para/>Stopping the timer if it is not running has no effect.
+        /// <para/>Note that this method resets the timer.
+        /// This call is equals to <c>StopTimer(true)</c>.
+        /// </summary>
+        /// <seealso cref="StopTimer(bool)"/>
+        /// <returns>Total time elapsed in milliseconds.</returns>
+        public static long StopTimer()
+        {
+            return StopTimer(true);
+        }
     }
 }

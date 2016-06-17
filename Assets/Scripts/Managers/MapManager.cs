@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
                 break;
         }
 
-        Vector2 tilePos = new Vector2((p.Y * tileSize) - (map.Width / 2), (-p.X * tileSize) + (map.Height / 2));
+        Vector2 tilePos = p.GetUnityCoordinates();
         string tileName = "(" + p.X + ", " + p.Y + ")";
         GameObject tile = Instantiate(tileToInstantiate, tilePos,
             Quaternion.identity) as GameObject;
