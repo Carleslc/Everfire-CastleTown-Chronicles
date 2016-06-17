@@ -8,6 +8,8 @@ public class Environment : MonoBehaviour {
     private MapManager drawMap;
     [SerializeField]
     private List<VillageManager> villageManagers;
+    [SerializeField]
+    private UIManager uiManager;
 
     //Im creating a village with some villagers
     void Awake() {
@@ -16,8 +18,10 @@ public class Environment : MonoBehaviour {
         World.AddVillage(v);
         new Villager("Pebek", new Pos(12, 10), v, Gender.male, 1, 1, Job.forester);
         new Villager("Pobrok", new Pos(15, 11), v, Gender.female, 1, 1, Job.hunter);
+        new Villager("Gogol", new Pos(15, 20), v, Gender.male, 1, 1, Job.forester);
         new Player("Wextia", new Pos(16, 11), v, Gender.male, 1, 1, 1);
         villageManagers = new List<VillageManager>();
+        uiManager.NewVillageAdded(v);
     }
 
 	//Now, i call functions to draw everyting
