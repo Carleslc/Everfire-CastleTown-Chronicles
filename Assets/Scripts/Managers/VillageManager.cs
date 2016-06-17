@@ -33,14 +33,14 @@ public class VillageManager : MonoBehaviour {
         GameObject clothes = null;
         if (h is Villager)
         {
-            humanPrefab = Instantiate(PrefabLoader.GetHumanBlank(), environment.GetWorldPos(h.CurrentPosition),
+            humanPrefab = Instantiate(PrefabLoader.GetHumanBlank(), h.CurrentPosition.GetWorldPos(),
                     Quaternion.identity) as GameObject;
             Villager v = (Villager)h;
             clothes = Instantiate(PrefabLoader.GetHumanWorkClothes(v.Job), Vector2.zero,
                 Quaternion.identity) as GameObject;
         }
         else if(h is Player){
-            humanPrefab = Instantiate(PrefabLoader.GetPlayerBlank(), environment.GetWorldPos(h.CurrentPosition),
+            humanPrefab = Instantiate(PrefabLoader.GetPlayerBlank(), h.CurrentPosition.GetWorldPos(),
                     Quaternion.identity) as GameObject;
             Player p = (Player)h;
             clothes = Instantiate(PrefabLoader.GetHumanPlayerClothes(p.ClothesType), Vector2.zero,
