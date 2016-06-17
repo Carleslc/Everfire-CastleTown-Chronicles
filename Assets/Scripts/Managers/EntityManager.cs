@@ -9,7 +9,7 @@ public class EntityManager : MonoBehaviour {
     /// <summary>
     /// Speet to be moved at.
     /// </summary>
-    private float speed = .5f;
+    private float speed = 1;
 
     private Vector2 startingPos;
     /// <summary>
