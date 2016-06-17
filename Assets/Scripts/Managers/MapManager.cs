@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
                 break;
         }
 
-        Vector2 tilePos = p.GetUnityCoordinates();
+        Vector2 tilePos = p.GetWorldPos();
         string tileName = "(" + p.X + ", " + p.Y + ")";
         GameObject tile = Instantiate(tileToInstantiate, tilePos,
             Quaternion.identity) as GameObject;
@@ -88,10 +88,5 @@ public class MapManager : MonoBehaviour
             prop.transform.SetParent(transform, false);
         }
 
-    }
-
-    public Vector2 GetWorldPos(Pos p)
-    {
-        return new Vector2((p.Y * tileSize) - (map.Width / 2), (-p.X * tileSize) + (map.Height / 2));
     }
 }

@@ -212,7 +212,7 @@ public class Pos {
     /// Gets this position as unity coordiantes (Vector2 position).
     /// </summary>
     /// <returns>The unity coordinates of this position.</returns>
-    public Vector2 GetUnityCoordinates()
+    public Vector2 GetWorldPos()
     {
         return new Vector2((Y * MapManager.tileSize) - World.Map.Width / 2, (-X * MapManager.tileSize) + World.Map.Height / 2);
     }
