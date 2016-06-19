@@ -147,9 +147,6 @@ public class Entity
     /// <c>false</c> otherwise.</returns>
     public bool SetTarget(Pos target)
     {
-        if (target == null)
-            throw new ArgumentNullException("Target cannot be null!");
-
         return PathFinding(target);
     }
 
@@ -164,16 +161,29 @@ public class Entity
     /// <c>false</c> otherwise.</returns>
     protected virtual bool PathFinding(Pos target)
     {
+        if (target == null)
+            throw new ArgumentNullException("Target cannot be null!");
+
         Utils.Diagnosis.StartTimer();
+
+        if (CurrentPosition.Equals(target))
+        {
+            ClearRoute();
+            this.target = target;
+            route.Enqueue(Movement.WAIT);
+            Debug.Log("PATHFINDING " + Utils.Diagnosis.StopTimer() + " ms");
+            return true;
+        }
+
         bool isCurrentTarget = HasTarget() && Target.Equals(target);
         HashSet<Pos> checkedPositions = new HashSet<Pos>();
         Queue<Pos> BFS = new Queue<Pos>();
         Dictionary<Pos, KeyValuePair<Pos, Movement>> steps = new Dictionary<Pos, KeyValuePair<Pos, Movement>>();
-        List<Movement> moves = (((IEnumerable<Movement>)Enum.GetValues(typeof(Movement))))
+        List<Movement> movesWithoutWait = (((IEnumerable<Movement>)Enum.GetValues(typeof(Movement))))
             .Where(m => m != Movement.WAIT)
             .ToList();
 
-        foreach (Movement m in moves)
+        foreach (Movement m in movesWithoutWait)
         {
             Pos p = m.Next(CurrentPosition);
             if (isCurrentTarget ? World.IsWalkable(p) : World.Map.IsWalkable(p))
@@ -209,7 +219,7 @@ public class Entity
                 return true;
             }
 
-            foreach (Movement m in moves)
+            foreach (Movement m in movesWithoutWait)
             {
                 Pos p = m.Next(current);
                 if (!checkedPositions.Contains(p) && (isCurrentTarget ? World.IsWalkable(p) : World.Map.IsWalkable(p)))
@@ -234,10 +244,15 @@ public class Entity
     {
         ClearRoute();
         Pos oldPos = CurrentPosition;
+
+        List<Movement> movesWithoutWait = (((IEnumerable<Movement>)Enum.GetValues(typeof(Movement))))
+                .Where(m => m != Movement.WAIT)
+                .ToList();
+
         for (int i = 0; i < moves; ++i)
         {
-            IEnumerable<Movement> randomizedMovements = ((IEnumerable<Movement>)Enum.GetValues(typeof(Movement))).Shuffle();
-            foreach (Movement randomMove in randomizedMovements)
+            movesWithoutWait.Shuffle();
+            foreach (Movement randomMove in /*randomized*/movesWithoutWait)
             {
                 Pos nextPos = randomMove.Next(oldPos);
                 if (World.IsWalkable(nextPos))
@@ -248,6 +263,9 @@ public class Entity
                     break;
                 }
             }
+
+            if (route.Count <= i) // If any movement was possible
+                route.Enqueue(Movement.WAIT);
         }
     }
 

@@ -7,28 +7,24 @@ using UnityEngine;
 public static class Utils {
 
     /// <summary>
-    /// Gets a new randomly shuffled enumerable of this enumerable.
-    /// <para/>This enumerable remains unchanged.
+    /// Shuffles this list.
     /// </summary>
-    /// <typeparam name="T">The IEnumerable type.</typeparam>
-    /// <param name="source">This enumerable.</param>
-    /// <returns>This enumerable shuffled.</returns>
-    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
+    /// <typeparam name="T">The list type.</typeparam>
+    /// <param name="list">This list.</param>
+    /// <returns>This list, now shuffled.</returns>
+    public static IList<T> Shuffle<T>(this IList<T> list)
     {
         System.Random rnd = new System.Random();
-        T[] elements = source.ToArray();
-        // Note i > 0 to avoid final pointless iteration
-        for (int i = elements.Length - 1; i > 0; i--)
+        int n = list.Count;
+        while (n > 1)
         {
-            // Swap element "i" with a random earlier element it (or itself)
-            int swapIndex = rnd.Next(i + 1);
-            T tmp = elements[i];
-            elements[i] = elements[swapIndex];
-            elements[swapIndex] = tmp;
+            n--;
+            int k = rnd.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
-        // Lazily yield (avoiding aliasing issues etc)
-        foreach (T element in elements)
-            yield return element;
+        return list;
     }
 
     /// <summary>
