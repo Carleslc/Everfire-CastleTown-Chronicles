@@ -63,6 +63,9 @@ public class VillageManager : MonoBehaviour {
         clothes.transform.SetParent(humanPrefab.transform, false);
         hair.transform.SetParent(humanPrefab.transform, false);
 
+        //We set the name of this human
+        humanPrefab.name = h.Name;
+
         //The human is the child of the village
         humanPrefab.transform.SetParent(transform, false);
         EntityManager entityManager = humanPrefab.GetComponent<EntityManager>();
