@@ -12,7 +12,7 @@ public class WorldManager : MonoBehaviour {
     private UIManager uiManager;
 
     //Im creating a village with some villagers
-    void Awake() {
+    void Start() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         Village v = new Village("Everfire Neverwater", true);
         World.AddVillage(v);
@@ -23,10 +23,11 @@ public class WorldManager : MonoBehaviour {
         new Player("Wextia", new Pos(16, 11), v, Gender.male, 1, 1, 1);
         villageManagers = new List<VillageManager>();
         //uiManager.NewVillageAdded(v);
+        DrawMap();
     }
 
 	//Now, i call functions to draw everyting
-	void Start() {
+	private void DrawMap() {
         drawMap.Init(World.Map);
         drawMap.Draw();
 

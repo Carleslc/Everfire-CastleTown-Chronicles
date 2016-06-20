@@ -35,6 +35,7 @@ public class Village
         this.isPlayer = isPlayer;
         this.name = name;
         entities = new Dictionary<Pos, Entity>();
+        EventManager.TriggerEvent(EventManager.EventType.OnNewVillage);
     }
 
     /// <summary>

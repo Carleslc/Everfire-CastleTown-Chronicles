@@ -66,6 +66,7 @@ public class Entity
         village.Add(this);
         route = new Queue<Movement>();
         target = null;
+        EventManager.TriggerEvent(EventManager.EventType.OnNewEntity);
     }
 
     /// <summary>
