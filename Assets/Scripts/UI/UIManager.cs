@@ -2,9 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
 public class UIManager : MonoBehaviour {
-    Dictionary<string, List<string>> info = new Dictionary<string, List<string>>();
+
+    [SerializeField]
+    private GameObject uiDebugPanel;
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            uiDebugPanel.SetActive(!uiDebugPanel.activeInHierarchy);
+            if (uiDebugPanel.activeInHierarchy)
+            {
+                Time.timeScale = 0.0f;
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+            }
+        }
+    }
+
+
+    /*Dictionary<string, List<string>> info = new Dictionary<string, List<string>>();
     List<Village> villages = new List<Village>();
     [SerializeField]
     Text villagesInfoText;
@@ -63,4 +81,5 @@ public class UIManager : MonoBehaviour {
 
 
     }
+    */
 }

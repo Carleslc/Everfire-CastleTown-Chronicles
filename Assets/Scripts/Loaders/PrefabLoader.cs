@@ -8,6 +8,7 @@ public static class PrefabLoader
     private static string propsPath = "Prefabs/Props/";
     private static string humansPath = "Prefabs/Humans/";
     private static string villagePath = "Prefabs/village";
+    private static string uiComponentsPath = "Prefabs/UI/";
 
     /// <summary>
     /// Returns the village prefab, which contains a <c>VillageManager</c>.
@@ -125,6 +126,19 @@ public static class PrefabLoader
     {
         string finalPath = humansPath;
         finalPath += gender.ToString() + "_body" + "_" + index;
+        return LoadGameObject(finalPath);
+    }
+
+    public static GameObject GetUIComponent(int index) {
+        string finalPath = uiComponentsPath;
+        switch (index)
+        {
+            case 1:
+                finalPath += "UIDPTab";
+                break;
+            default:
+                break;
+        }
         return LoadGameObject(finalPath);
     }
 

@@ -5,12 +5,11 @@ public class VillageManager : MonoBehaviour {
 
     private Village village;
     private Entity[] entities;
-    private Environment environment;
 
-    public void Init(Environment environment, Village village) {
+    public void Init(Village village) {
         this.village = village;
         entities = this.village.GetEntities();
-        this.environment = environment;
+        //this.environment = environment;
         InitGraphics();
     }
 

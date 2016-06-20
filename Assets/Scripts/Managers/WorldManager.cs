@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Environment : MonoBehaviour {
+public class WorldManager : MonoBehaviour {
 
     public string mapName;
     [SerializeField]
@@ -19,10 +19,10 @@ public class Environment : MonoBehaviour {
         Villager pebek = new Villager("Pebek", new Pos(12, 10), v, Gender.male, 1, 1, Job.forester);
         Villager pobrok = new Villager("Pobrok", new Pos(15, 11), v, Gender.female, 1, 1, Job.hunter);
         Villager gogol = new Villager("Gogol", new Pos(15, 20), v, Gender.male, 1, 1, Job.forester);
-        Debug.Log(gogol.SetTarget(pebek.CurrentPosition));
+        //Debug.Log(gogol.SetTarget(pebek.CurrentPosition));
         new Player("Wextia", new Pos(16, 11), v, Gender.male, 1, 1, 1);
         villageManagers = new List<VillageManager>();
-        uiManager.NewVillageAdded(v);
+        //uiManager.NewVillageAdded(v);
     }
 
 	//Now, i call functions to draw everyting
@@ -38,7 +38,7 @@ public class Environment : MonoBehaviour {
                 Instantiate(PrefabLoader.GetVillage(), Vector3.zero, Quaternion.identity) as GameObject;
             villageManagerObject.name = currentVillage.Name;
             VillageManager villageManager = villageManagerObject.GetComponent<VillageManager>();
-            villageManager.Init(this, currentVillage);
+            villageManager.Init(currentVillage);
             villageManagers.Add(villageManager);
         }
 	}
