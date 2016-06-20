@@ -16,12 +16,13 @@ public class UIVillagesPanel : UIDebugPanel {
 
     protected override void UpdateContent()
     {
+        base.UpdateContent();
         IEnumerator<Village> villages = World.GetVillages();
         villages.MoveNext();
         bool isFinished = false;
         for (int i = 0; !isFinished; i++)
         {
-
+            isFinished = true;
         }
         
     }
