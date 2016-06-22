@@ -87,6 +87,17 @@ public class Village
     }
 
     /// <summary>
+    /// Called when we really want to stop referencing a given entity.
+    /// </summary>
+    /// <param name="at">The position of the entity to remove.</param>
+    public void Destroy(Pos at)
+    {
+        DebugLogger.Log(DebugChannel.Village, "Entity destroyed on village " +
+            name, entities[at].Name);
+        entities.Remove(at);
+    }
+
+    /// <summary>
     /// Gets all entities of this village.
     /// </summary>
     /// <returns>All entities of this village.</returns>

@@ -178,4 +178,9 @@ public class EntityManager : MonoBehaviour {
             a.SetFloat("MoveY", newMoveY);
         }
     }
+
+    public void Destroy() {
+        entity.Village.Destroy(entity.CurrentPosition);
+        Destroy(gameObject);
+    }
 }
