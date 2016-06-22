@@ -126,10 +126,12 @@ public class Map {
 /// Class that stores a position inside the <b>Map</b>. The X value represents the <b>horizontal</b> axis of the map,
 /// and the Y value the <b>vertical</b> axis.
 /// </summary>
+[System.Serializable]
 public class Pos {
-
+    [SerializeField]
     int x;
-    int y;
+    [SerializeField]
+    public int y;
 
     /// <summary>
     /// The position's <b>horizontal</b> axis' value.

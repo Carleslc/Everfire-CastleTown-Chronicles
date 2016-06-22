@@ -6,11 +6,30 @@ public class VillageManager : MonoBehaviour {
     private Village village;
     private Entity[] entities;
 
+    [Header("Add new villager")]
+    [SerializeField]
+    string newVillagerName = "";
+    [SerializeField]
+    Pos newVillagerPosition;
+    [SerializeField]
+    Gender newVillagerGender = Gender.other;
+    [SerializeField]
+    Job newVillagerJob = Job.labourer;
+
+    void Awake() {
+        newVillagerPosition = new Pos(0, 0);
+    }
+
     public void Init(Village village) {
         this.village = village;
         entities = this.village.GetEntities();
         //this.environment = environment;
         InitGraphics();
+    }
+
+    public void AddNewVillager() {
+        Villager v = new Villager(newVillagerName, newVillagerPosition, village, newVillagerGender, 1, 1, newVillagerJob);
+        InstantiateHuman(v);
     }
 
     private void InitGraphics() {
