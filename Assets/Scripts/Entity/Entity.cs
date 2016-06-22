@@ -67,6 +67,7 @@ public class Entity
         route = new Queue<Movement>();
         target = null;
         EventManager.TriggerEvent(EventManager.EventType.OnNewEntity);
+        DebugLogger.Log(DebugChannel.Entity, "New Entity added", name);
     }
 
     /// <summary>
