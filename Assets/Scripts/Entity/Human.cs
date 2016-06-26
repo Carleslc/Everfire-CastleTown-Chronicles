@@ -6,8 +6,15 @@ public class Human : MovingEntity {
     private Gender gender;
     private int bodyType;
     private int hairType;
-    public Human(string name, Pos location, Village village, Gender gender, int bodyType, int hairType): base(name, location, village)
+
+    /// <summary>
+    /// The name of this entity.
+    /// </summary>
+    public string Name { get; private set; }
+
+    public Human(string name, Gender gender, int bodyType, int hairType, Pos location, Village village, int hitPoints): base(location, village, hitPoints)
     {
+        Name = name;
         this.gender = gender;
         this.bodyType = bodyType;
         this.hairType = hairType;
@@ -36,7 +43,12 @@ public class Human : MovingEntity {
             return bodyType;
         }        
     }
+    public override string ToString()
+    {
+        return Name;
+    }
 }
+
 
 public enum Gender
 {

@@ -3,11 +3,14 @@
 
 public class Entity {
 
+
     Village village;
     /// <summary>
     /// The current position where this entity is located.
     /// </summary>
     public Pos CurrentPosition { get; protected set; }
+
+    int hitPoints = 20;
 
     /// <summary>
     /// The village where this entity pertains.
@@ -23,7 +26,17 @@ public class Entity {
             village.Add(this);
         }
     }
-    public Entity(Pos location, Village village) {
+
+    public int HitPoints
+    {
+        get
+        {
+            return hitPoints;
+        }
+    }
+
+    public Entity(Pos location, Village village, int hitPoints) {
+        this.hitPoints = hitPoints;
         if (!World.IsWalkable(location))
             throw new ArgumentException(location + " is not walkable!");
         CurrentPosition = location;

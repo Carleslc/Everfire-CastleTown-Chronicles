@@ -6,8 +6,8 @@ public class Player : Human {
 
     private Movement playerInput = Movement.WAIT;
 
-    public Player(string name, Pos location, Village village, Gender gender, int bodyType, int hairType, int clothesType) :
-        base(name, location, village, gender, bodyType, hairType) {
+    public Player(int clothesType, string name, Gender gender, int bodyType, int hairType, Pos location, Village village, int hitPoints) :
+        base(name, gender, bodyType, hairType, location, village, hitPoints) {
         this.clothesType = clothesType;
     }
 

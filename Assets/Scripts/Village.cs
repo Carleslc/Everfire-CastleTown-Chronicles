@@ -101,10 +101,10 @@ public class Village
     /// Gets all entities of this village.
     /// </summary>
     /// <returns>All entities of this village.</returns>
-    public MovingEntity[] GetEntities() {
-        MovingEntity[] ret = new MovingEntity[entities.Count];
+    public Entity[] GetEntities() {
+        Entity[] ret = new Entity[entities.Count];
         int i = 0;
-        foreach (MovingEntity e in entities.Values)
+        foreach (Entity e in entities.Values)
             ret[i++] = e;
         return ret;
     }
@@ -122,8 +122,8 @@ public class Village
     {
         StringBuilder sb = new StringBuilder(name);
         sb.AppendLine();
-        foreach (MovingEntity e in entities.Values)
-            sb.Append(e.Name).Append(" ").AppendLine(e.CurrentPosition.ToString());
+        foreach (Entity e in entities.Values)
+            sb.Append(e.ToString()).Append(" ").AppendLine(e.CurrentPosition.ToString());
         return sb.ToString();
     }
 }

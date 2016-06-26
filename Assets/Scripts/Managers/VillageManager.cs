@@ -16,6 +16,8 @@ public class VillageManager : MonoBehaviour
     Gender newWorkerGender = Gender.other;
     [SerializeField]
     Job newWorkerJob = Job.farmer;
+    [SerializeField]
+    int newWorkerHealth = 20;
 
     void Awake()
     {
@@ -32,7 +34,7 @@ public class VillageManager : MonoBehaviour
 
     public void AddNewWorker()
     {
-        Worker w = new Worker(newWorkerName, newWorkerPosition, village, newWorkerGender, 1, 1, newWorkerJob);
+        Worker w = new Worker(newWorkerJob, newWorkerName, newWorkerGender, 1, 1, newWorkerPosition, village, newWorkerHealth);
         InstantiateEntity(w);
     }
 

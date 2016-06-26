@@ -4,7 +4,7 @@ using System.Collections;
 public class Animal : MovingEntity {
 
     private AnimalType type;
-    public Animal(string name, Pos location, Village village, AnimalType type) : base(name, location, village) {
+    public Animal(AnimalType type, Pos location, Village village, int hitPoints) : base(location, village, hitPoints) {
         this.type = type;
     }
 

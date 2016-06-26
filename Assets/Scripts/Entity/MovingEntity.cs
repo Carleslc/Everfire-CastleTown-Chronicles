@@ -6,12 +6,7 @@ using UnityEngine;
 public class MovingEntity : Entity
 {
     protected Queue<Movement> route;
-    protected Pos target;   
-
-    /// <summary>
-    /// The name of this entity.
-    /// </summary>
-    public string Name { get; private set; }
+    protected Pos target;
 
     /// <summary>
     /// The current targeted position (current route will attempt to reach this position).
@@ -34,9 +29,8 @@ public class MovingEntity : Entity
     /// <param name="name">The name of this entity.</param>
     /// <param name="location">The location of this entity.</param>
     /// <param name="village">The village of this entity.</param>
-    public MovingEntity(string name, Pos location, Village village) : base(location, village)
+    public MovingEntity(Pos location, Village village, int hitPoints) : base(location, village, hitPoints)
     {
-        Name = name;        
         route = new Queue<Movement>();
         target = null;
     }
@@ -265,11 +259,6 @@ public class MovingEntity : Entity
     {
         Village.Remove(old);
         Village.Add(this);
-    }
-
-    public override string ToString()
-    {
-        return Name;
     }
 }
 

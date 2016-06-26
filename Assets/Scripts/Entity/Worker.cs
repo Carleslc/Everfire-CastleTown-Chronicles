@@ -4,8 +4,8 @@ using System.Collections;
 public class Worker : Human {
     private Job job;
 
-    public Worker(string name, Pos location, Village village, Gender gender, int bodyType, int hairType, Job job) :
-        base(name, location, village, gender, bodyType, hairType)
+    public Worker(Job job, string name, Gender gender, int bodyType, int hairType, Pos location, Village village, int hitPoints) :
+        base(name, gender, bodyType, hairType, location, village, hitPoints)
     {
         this.job = job;
     }

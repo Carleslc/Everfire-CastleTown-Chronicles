@@ -7,8 +7,8 @@ public class StorageBuilding : Building {
     Dictionary<Resource, int> storedGoods;
     protected List<Resource> allowedGoods;
 
-    public StorageBuilding(int capacity, BuildingType buildingType, Pos location, Village village) : 
-        base(buildingType, location, village)
+    public StorageBuilding(int capacity, BuildingType buildingType, Pos location, Village village, int hitPoints) : 
+        base(buildingType, location, village, hitPoints)
     {
         this.capacity = capacity;
         storedGoods = new Dictionary<Resource, int>();

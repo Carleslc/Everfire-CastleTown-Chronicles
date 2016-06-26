@@ -6,8 +6,8 @@ public class Workplace : StorageBuilding
     Resource rawMaterial;
     Resource processedGood;
 
-    public Workplace(Job job, int capacity, BuildingType buildingType, Pos location, Village village) :
-        base(capacity, buildingType, location, village)
+    public Workplace(Job job, int capacity, BuildingType buildingType, Pos location, Village village, int hitPoints) :
+        base(capacity, buildingType, location, village, hitPoints)
     {
         rawMaterial = job.RawMaterial();
         processedGood = job.ProcessedGood();

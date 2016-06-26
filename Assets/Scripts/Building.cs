@@ -7,7 +7,7 @@ public class Building : Entity
 {
     BuildingType buildingType;
 
-    public Building(BuildingType buildingType, Pos location, Village village) : base(location, village) {
+    public Building(BuildingType buildingType, Pos location, Village village, int hitPoints) : base(location, village, hitPoints) {
         this.buildingType = buildingType;
     }
 
