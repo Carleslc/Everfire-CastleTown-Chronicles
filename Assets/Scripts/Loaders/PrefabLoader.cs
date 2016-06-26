@@ -9,6 +9,8 @@ public static class PrefabLoader
     private static string humansPath = "Prefabs/Humans/";
     private static string villagePath = "Prefabs/village";
     private static string uiComponentsPath = "Prefabs/UI/";
+    private static string animalsPath = "Prefabs/Animals/";
+
 
     /// <summary>
     /// Returns the village prefab, which contains a <c>VillageManager</c>.
@@ -108,6 +110,13 @@ public static class PrefabLoader
     public static GameObject GetHumanPlayerClothes(int index) {
         string finalPath = humansPath;
         finalPath += "clothes_player_" + index;
+        return LoadGameObject(finalPath);
+    }
+
+    public static GameObject GetAnimalBody(AnimalType animalType)
+    {
+        string finalPath = animalsPath;
+        finalPath += animalType;
         return LoadGameObject(finalPath);
     }
 

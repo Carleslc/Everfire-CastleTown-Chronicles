@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 415986}
   - 212: {fileID: 21236820}
-  - 95: {fileID: 9550254}
+  - 114: {fileID: 11451926}
   m_Layer: 0
   m_Name: clothes_player_1
   m_TagString: Untagged
@@ -30,23 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!95 &9550254
-Animator:
-  serializedVersion: 3
+--- !u!114 &11451926
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177488}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 34b362747c0fdc241bc0b2e2c1de041e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8de304b692c3e440a0c141904c4af80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: clothes_player_1
+  animArray: []
 --- !u!212 &21236820
 SpriteRenderer:
   m_ObjectHideFlags: 1

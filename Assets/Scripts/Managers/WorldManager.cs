@@ -14,9 +14,11 @@ public class WorldManager : MonoBehaviour {
     //Im creating a village with some Workers
     void Start() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
-        Village v = new Village("Everfire Neverwater", true);
+        Village v = new Village("Everfire Neverwater", true);        
         World.AddVillage(v);
-        new Worker(Job.forester, "Pebek", Gender.male, 1, 1, new Pos(12, 10), v, 20);
+        Village wilderness = new Village("Wilderness", false);
+        World.AddVillage(wilderness);
+        new Animal(AnimalType.deer, new Pos(), wilderness, 20);
         CreateDefaultWorker(Job.forester, "Pebek", Gender.male, v);
         CreateDefaultWorker(Job.hunter, "Pobrok", Gender.female, v);
         CreateDefaultWorker(Job.forester, "Gogol", Gender.female, v);
@@ -37,7 +39,6 @@ public class WorldManager : MonoBehaviour {
             );
         }
         return new Worker(job, name, gender, 1, 1, p, v, 20);
-
     }
 
     //Now, i call functions to draw everyting

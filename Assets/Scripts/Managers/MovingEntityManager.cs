@@ -34,7 +34,7 @@ public class MovingEntityManager : MonoBehaviour {
     int newMoveX = 0;
     int newMoveY = 0;
 
-    private Animator[] animators;
+    private AutoAnimator[] autoAnims;
 
     public bool IsMoving
     {
@@ -79,14 +79,14 @@ public class MovingEntityManager : MonoBehaviour {
     /// <param name="entity"><c>Entity</c> to be moved.</param>
     public void Init(MovingEntity entity) {
         this.entity = entity;
-        animators = GetComponentsInChildren<Animator>();
+        autoAnims = GetComponentsInChildren<AutoAnimator>();
     }
 
     //Basically, the EntityManager keeps retrieving the moves of the entity it is managing. When it's moving, it doesn't get more
     //movement commands, as it is currently finishing the movement and it would lead to inconsistencies with the logical map.
     void Update () {
         if (updateAnimations) {
-            animators = GetComponentsInChildren<Animator>();
+            autoAnims = GetComponentsInChildren<AutoAnimator>();
             updateAnimations = false;
         }
         TryToMove();
@@ -156,36 +156,9 @@ public class MovingEntityManager : MonoBehaviour {
     }
 
     private void setAnimatorState(Movement m) {
-
-        bool newIsMoving = true;
-        switch (m)
-        {
-            case Movement.UP:
-                newMoveX = 0;
-                newMoveY = 1;
-                break;
-            case Movement.DOWN:
-                newMoveX = 0;
-                newMoveY = -1;
-                break;
-            case Movement.RIGHT:
-                newMoveX = 1;
-                newMoveY = 0;
-                break;
-            case Movement.LEFT:
-                newMoveX = -1;
-                newMoveY = 0;
-                break;
-            default:
-                //We dont change newMoveX nor newMoveY to make possible to choose a valid idle animation.
-                newIsMoving = false;
-                break;
-        }
-        //Debug.Log("Setting to " + newMoveX + " " + newMoveY);
-        foreach (Animator a in animators) {
-            a.SetBool("isMoving", newIsMoving);
-            a.SetFloat("MoveX", newMoveX);
-            a.SetFloat("MoveY", newMoveY);
+        foreach (AutoAnimator a in autoAnims) {
+            a.Movement = m;
+            a.IsMoving = (m != Movement.WAIT);
         }
     }
 

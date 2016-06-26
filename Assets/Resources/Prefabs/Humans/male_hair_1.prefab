@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 475492}
   - 212: {fileID: 21277790}
-  - 95: {fileID: 9555064}
+  - 114: {fileID: 11422688}
   m_Layer: 0
   m_Name: male_hair_1
   m_TagString: Untagged
@@ -30,23 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!95 &9555064
-Animator:
-  serializedVersion: 3
+--- !u!114 &11422688
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179752}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ad57017f912529429d18c4c92687fff, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8de304b692c3e440a0c141904c4af80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: male_hair_1
+  animArray: []
 --- !u!212 &21277790
 SpriteRenderer:
   m_ObjectHideFlags: 1

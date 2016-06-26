@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 417838}
   - 212: {fileID: 21228014}
-  - 95: {fileID: 9537060}
+  - 114: {fileID: 11425412}
   m_Layer: 0
   m_Name: female_hair_1
   m_TagString: Untagged
@@ -30,23 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!95 &9537060
-Animator:
-  serializedVersion: 3
+--- !u!114 &11425412
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193766}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9af9ee8f77792c543ba88b1abc074aaf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8de304b692c3e440a0c141904c4af80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: female_hair_1
+  animArray: []
 --- !u!212 &21228014
 SpriteRenderer:
   m_ObjectHideFlags: 1

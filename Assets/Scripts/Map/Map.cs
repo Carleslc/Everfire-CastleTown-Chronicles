@@ -165,6 +165,17 @@ public class Pos {
     }
 
     /// <summary>
+    /// Returns a random, non-occupied Pos
+    /// </summary>
+    public Pos() {
+        while (!World.IsWalkable(new Pos(x, y)))
+        {
+            x = Random.Range(0, World.Map.Width);
+            y = Random.Range(0, World.Map.Height);            
+        }
+    }
+
+    /// <summary>
     /// Returns a new Pos.
     /// </summary>
     /// <returns>The position directly to the <b>left</b> of the instance this function is being called on.</returns>
