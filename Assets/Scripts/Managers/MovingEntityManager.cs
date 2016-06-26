@@ -6,6 +6,8 @@ using System.Collections;
 public class MovingEntityManager : MonoBehaviour {
     private bool isMoving = false;
     private bool isWaiting = false;
+
+    private bool updateAnimations = false;
     /// <summary>
     /// Speet to be moved at.
     /// </summary>
@@ -83,6 +85,10 @@ public class MovingEntityManager : MonoBehaviour {
     //Basically, the EntityManager keeps retrieving the moves of the entity it is managing. When it's moving, it doesn't get more
     //movement commands, as it is currently finishing the movement and it would lead to inconsistencies with the logical map.
     void Update () {
+        if (updateAnimations) {
+            animators = GetComponentsInChildren<Animator>();
+            updateAnimations = false;
+        }
         TryToMove();
     }
 
@@ -181,6 +187,10 @@ public class MovingEntityManager : MonoBehaviour {
             a.SetFloat("MoveX", newMoveX);
             a.SetFloat("MoveY", newMoveY);
         }
+    }
+
+    protected void UpdateAnimators() {
+        updateAnimations = true;
     }
 
     public void Destroy() {

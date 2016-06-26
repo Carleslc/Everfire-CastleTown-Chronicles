@@ -19,7 +19,7 @@ public class Worker : Human {
 
         set
         {
-            Job = value;
+            job = value;
         }
     }
 }
