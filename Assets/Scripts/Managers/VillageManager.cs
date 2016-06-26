@@ -1,93 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class VillageManager : MonoBehaviour {
+public class VillageManager : MonoBehaviour
+{
 
     private Village village;
     private Entity[] entities;
 
-    [Header("Add new villager")]
+    [Header("Add new Worker")]
     [SerializeField]
-    string newVillagerName = "";
+    string newWorkerName = "NewWorker";
     [SerializeField]
-    Pos newVillagerPosition;
+    Pos newWorkerPosition;
     [SerializeField]
-    Gender newVillagerGender = Gender.other;
+    Gender newWorkerGender = Gender.other;
     [SerializeField]
-    Job newVillagerJob = Job.labourer;
+    Job newWorkerJob = Job.farmer;
 
-    void Awake() {
-        newVillagerPosition = new Pos(0, 0);
+    void Awake()
+    {
+        newWorkerPosition = new Pos(0, 0);
     }
 
-    public void Init(Village village) {
+    public void Init(Village village)
+    {
         this.village = village;
         entities = this.village.GetEntities();
         //this.environment = environment;
         InitGraphics();
     }
 
-    public void AddNewVillager() {
-        Villager v = new Villager(newVillagerName, newVillagerPosition, village, newVillagerGender, 1, 1, newVillagerJob);
-        InstantiateHuman(v);
+    public void AddNewWorker()
+    {
+        Worker w = new Worker(newWorkerName, newWorkerPosition, village, newWorkerGender, 1, 1, newWorkerJob);
+        InstantiateEntity(w);
     }
 
-    private void InitGraphics() {
-        foreach (Entity e in entities) {
-            if (e is Human)
-            {               
-                InstantiateHuman((Human)e);
-            }
-        }
+    public void AddPlayer()
+    {
+
     }
 
-    private void InstantiateHuman(Human h) {
-
-        GameObject humanPrefab = null;
-
-        GameObject body = Instantiate(PrefabLoader.GetHumanBody(h.Gender, h.BodyType), Vector2.zero,
-            Quaternion.identity) as GameObject;
-
-        GameObject clothes = null;
-        if (h is Villager)
+    private void InitGraphics()
+    {
+        foreach (Entity e in entities)
         {
-            humanPrefab = Instantiate(PrefabLoader.GetHumanBlank(), h.CurrentPosition.GetWorldPos(),
-                    Quaternion.identity) as GameObject;
-            Villager v = (Villager)h;
-            clothes = Instantiate(PrefabLoader.GetHumanWorkClothes(v.Job), Vector2.zero,
-                Quaternion.identity) as GameObject;
+
+            InstantiateEntity(e);
         }
-        else if(h is Player){
-            humanPrefab = Instantiate(PrefabLoader.GetPlayerBlank(), h.CurrentPosition.GetWorldPos(),
-                    Quaternion.identity) as GameObject;
-            Player p = (Player)h;
-            clothes = Instantiate(PrefabLoader.GetHumanPlayerClothes(p.ClothesType), Vector2.zero,
-                Quaternion.identity) as GameObject;
+    }
+
+    private void InstantiateEntity(Entity e)
+    {
+        GameObject entityPrefab = Instantiate(PrefabLoader.GetEntityPrefab(), e.CurrentPosition.GetWorldPos(),
+    Quaternion.identity) as GameObject;
+        entityPrefab.transform.SetParent(transform);
+        if (e is Worker)
+        {
+            Worker w = (Worker)e;
+            entityPrefab.AddComponent<WorkerManager>().Init(w);
+            entityPrefab.name = "Worker " + w.Name;
         }
-
-        if (clothes == null) {
-            throw new System.Exception("Clothes could not be loaded for the Human " + h.Name);
+        else if (e is Player)
+        {
+            Player p = (Player)e;
+            entityPrefab.AddComponent<PlayerManager>().Init(p);
+            entityPrefab.name = "Player " + p.Name;
         }
-
-        if (humanPrefab == null) {
-            throw new System.Exception("HumanPrefab could not be loaded for the Human " + h.Name);
+        else if (e is Human)
+        {
+            Human h = (Human)e;
+            entityPrefab.AddComponent<HumanManager>().Init(h);
+            entityPrefab.name = "Human " + h.Name;
         }
-
-        GameObject hair = Instantiate(PrefabLoader.GetHumanHair(h.Gender, h.HairType), Vector2.zero,
-            Quaternion.identity) as GameObject;
-
-        //We set all the human's body parts as its children
-        body.transform.SetParent(humanPrefab.transform, false);
-        clothes.transform.SetParent(humanPrefab.transform, false);
-        hair.transform.SetParent(humanPrefab.transform, false);
-
-        //We set the name of this human
-        humanPrefab.name = h.Name;
-
-        //The human is the child of the village
-        humanPrefab.transform.SetParent(transform, false);
-        EntityManager entityManager = humanPrefab.GetComponent<EntityManager>();
-        //We activate the entity manager of our newly instantiated human.
-        entityManager.Init(h);
     }
 }

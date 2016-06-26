@@ -3,7 +3,7 @@ using System.Collections;
 /// <summary>
 /// Entity Manager manages a single entity and controls its representation in the map.
 /// </summary>
-public class EntityManager : MonoBehaviour {
+public class MovingEntityManager : MonoBehaviour {
     private bool isMoving = false;
     private bool isWaiting = false;
     /// <summary>
@@ -25,7 +25,7 @@ public class EntityManager : MonoBehaviour {
     /// </summary>
     private Vector2 destination;
     //private Movement movementDir;
-    private Entity entity;
+    private MovingEntity entity;
 
     private bool isForcedMovement = false;
 
@@ -50,7 +50,7 @@ public class EntityManager : MonoBehaviour {
         }
     }
 
-    public Entity Entity
+    public MovingEntity Entity
     {
         get
         {
@@ -75,14 +75,18 @@ public class EntityManager : MonoBehaviour {
     /// Necessary to call this in order to use all of the functionality of this class.
     /// </summary>
     /// <param name="entity"><c>Entity</c> to be moved.</param>
-    public void Init(Entity entity) {
+    public void Init(MovingEntity entity) {
         this.entity = entity;
         animators = GetComponentsInChildren<Animator>();
     }
-    
+
     //Basically, the EntityManager keeps retrieving the moves of the entity it is managing. When it's moving, it doesn't get more
     //movement commands, as it is currently finishing the movement and it would lead to inconsistencies with the logical map.
-	void Update () {
+    void Update () {
+        TryToMove();
+    }
+
+    protected void TryToMove() {
         if (!isWaiting || isForcedMovement)
         {
             if (isMoving)
@@ -93,7 +97,7 @@ public class EntityManager : MonoBehaviour {
                 Move(entity.Move() ? next : Movement.WAIT);
             }
         }
-	}
+    }
 
     private void LerpToDestination() {
         transform.position = (Vector2)transform.position + (destination * speed * Time.deltaTime);

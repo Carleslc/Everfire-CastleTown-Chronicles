@@ -49,9 +49,9 @@ public class UIManager : MonoBehaviour {
                 if (e is Human) {
                     Human h = (Human)e;
                     entityInfo += " " + h.Gender.ToString();
-                    if (h is Villager)
+                    if (h is Worker)
                     {
-                        Villager vi = (Villager)h;
+                        Worker vi = (Worker)h;
                         entityInfo += " " + vi.Job.ToString();
                     }
                     //else if (h is Player) {

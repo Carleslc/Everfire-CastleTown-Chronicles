@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class PrefabLoader
 {
-
+    private static string prefabsPath = "Prefabs/";
     private static string tilesPath = "Prefabs/Tiles/";
     private static string propsPath = "Prefabs/Props/";
     private static string humansPath = "Prefabs/Humans/";
@@ -73,13 +73,9 @@ public static class PrefabLoader
     /// you'll have to retrieve a Hair, Body and Clothes for him or her. It will raise an exception if the prefab does not exist.
     /// </summary>
     /// <returns></returns>
-    public static GameObject GetHumanBlank()
+    public static GameObject GetEntityPrefab()
     {
-        return LoadGameObject(humansPath + "human");
-    }
-
-    public static GameObject GetPlayerBlank() {
-        return LoadGameObject(humansPath + "player");
+        return LoadGameObject(prefabsPath + "entity");
     }
 
     /// <summary>

@@ -10,7 +10,7 @@ public class VillageManagerEditor : Editor {
         DrawDefaultInspector();
         if (GUILayout.Button("Add New Villager")) {
             VillageManager myTarget = (VillageManager)target;
-            myTarget.AddNewVillager();
+            myTarget.AddNewWorker();
         }
     }
 

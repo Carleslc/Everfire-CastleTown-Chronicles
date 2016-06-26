@@ -131,7 +131,7 @@ public class Pos {
     [SerializeField]
     int x;
     [SerializeField]
-    public int y;
+    int y;
 
     /// <summary>
     /// The position's <b>horizontal</b> axis' value.

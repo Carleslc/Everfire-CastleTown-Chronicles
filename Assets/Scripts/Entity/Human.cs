@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Human : Entity {
+public class Human : MovingEntity {
 
     private Gender gender;
     private int bodyType;

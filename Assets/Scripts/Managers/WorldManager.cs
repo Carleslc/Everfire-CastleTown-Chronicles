@@ -11,14 +11,14 @@ public class WorldManager : MonoBehaviour {
     [SerializeField]
     private UIManager uiManager;
 
-    //Im creating a village with some villagers
+    //Im creating a village with some Workers
     void Start() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         Village v = new Village("Everfire Neverwater", true);
         World.AddVillage(v);
-        Villager pebek = new Villager("Pebek", new Pos(12, 10), v, Gender.male, 1, 1, Job.forester);
-        Villager pobrok = new Villager("Pobrok", new Pos(15, 11), v, Gender.female, 1, 1, Job.hunter);
-        Villager gogol = new Villager("Gogol", new Pos(15, 20), v, Gender.male, 1, 1, Job.forester);
+        new Worker("Pebek", new Pos(12, 10), v, Gender.male, 1, 1, Job.forester);
+        new Worker("Pobrok", new Pos(15, 11), v, Gender.female, 1, 1, Job.hunter);
+        new Worker("Gogol", new Pos(15, 20), v, Gender.male, 1, 1, Job.forester);
         //Debug.Log(gogol.SetTarget(pebek.CurrentPosition));
         new Player("Wextia", new Pos(16, 11), v, Gender.male, 1, 1, 1);
         villageManagers = new List<VillageManager>();

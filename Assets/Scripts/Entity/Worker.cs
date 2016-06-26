@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Villager : Human {
+public class Worker : Human {
     private Job job;
 
-    public Villager(string name, Pos location, Village village, Gender gender, int bodyType, int hairType, Job job) :
+    public Worker(string name, Pos location, Village village, Gender gender, int bodyType, int hairType, Job job) :
         base(name, location, village, gender, bodyType, hairType)
     {
         this.job = job;
@@ -16,10 +16,10 @@ public class Villager : Human {
         {
             return job;
         }
-    }
-}
 
-public enum Job
-{
-    labourer, forester, butcher, hunter
+        set
+        {
+            Job = value;
+        }
+    }
 }

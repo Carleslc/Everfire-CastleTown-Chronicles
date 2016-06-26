@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Animal : Entity {
+public class Animal : MovingEntity {
 
     private AnimalType type;
     public Animal(string name, Pos location, Village village, AnimalType type) : base(name, location, village) {

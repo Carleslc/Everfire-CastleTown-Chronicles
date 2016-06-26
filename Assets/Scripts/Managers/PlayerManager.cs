@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(EntityManager))]
-public class PlayerManager : MonoBehaviour {
-    private EntityManager entityManager;
+public class PlayerManager : HumanManager
+{
     //Here we'll store all of the directions currently being pressed. Used to determine the last direction pressed.
     private bool[] pressedDirs;
     private Movement lastPressed;
@@ -14,25 +13,34 @@ public class PlayerManager : MonoBehaviour {
         pressedDirs = new bool[5] {false, false, false, false, false};        
     }
 
-    void Start () {
-        entityManager = GetComponent<EntityManager>();
+    public void Init (Player player) {
+        this.player = player;
+        DrawPlayer();
+        base.Init(player);
         mainCam = Camera.main;
         mainCam.transform.position = new Vector3(0, 0, -1);
         mainCam.transform.SetParent(transform, false);
-        player = (Player)entityManager.Entity;
-        entityManager.IsForcedMovement = true;
-        entityManager.Speed = 2;
+        IsForcedMovement = true;
+        Speed = 2;
+
     }
 
+    private void DrawPlayer() {
+        GameObject clothes = null;
+        clothes = Instantiate(PrefabLoader.GetHumanPlayerClothes(player.ClothesType), Vector2.zero,
+                Quaternion.identity) as GameObject;
+        clothes.transform.SetParent(transform, false);
+    }
 
     void Update () {
         GetPlayerInput();
-        if (!entityManager.IsMoving)
+        if (!IsMoving)
         {
             player.PlayerInput = lastPressed;
         }
         else {
         }
+        TryToMove();
     }
 
     private void GetPlayerInput() {

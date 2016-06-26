@@ -87,5 +87,5 @@ public class DebugLogger : MonoBehaviour{
 }
 
 public enum DebugChannel {
-    World, Village, Villager, Entity
+    World, Village, Worker, Entity
 }

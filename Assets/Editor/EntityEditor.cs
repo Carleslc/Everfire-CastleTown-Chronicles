@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(EntityManager))]
+[CustomEditor(typeof(MovingEntityManager))]
 public class EntityEditor : Editor {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
         if (GUILayout.Button("Delete Entity"))
         {
-            EntityManager myTarget = (EntityManager)target;
+            MovingEntityManager myTarget = (MovingEntityManager)target;
             myTarget.Destroy();
         }
     }

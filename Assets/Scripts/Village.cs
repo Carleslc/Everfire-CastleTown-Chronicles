@@ -55,7 +55,7 @@ public class Village
     /// </summary>
     /// <param name="p">The position of the village to get.</param>
     /// <returns>The entity occupying position <c>p</c> or <c>null</c>
-    /// if that position is not occupied by any villager of this village.</returns>
+    /// if that position is not occupied by any Worker of this village.</returns>
     public Entity GetEntityAt(Pos p)
     {
         Entity e;
@@ -72,8 +72,8 @@ public class Village
     {
         Pos current = entity.CurrentPosition;
         if (IsOccupied(current))
-            throw new ArgumentException(entity.Name + " is on an occupied position: " + current
-                + " by " + GetEntityAt(current).Name);
+            throw new ArgumentException(entity.ToString() + " is on an occupied position: " + current
+                + " by " + GetEntityAt(current).ToString());
         entities[current] = entity;
     }
 
@@ -93,7 +93,7 @@ public class Village
     public void Destroy(Pos at)
     {
         DebugLogger.Log(DebugChannel.Village, "Entity destroyed on village " +
-            name, entities[at].Name);
+            name, entities[at].ToString());
         entities.Remove(at);
     }
 
@@ -101,10 +101,10 @@ public class Village
     /// Gets all entities of this village.
     /// </summary>
     /// <returns>All entities of this village.</returns>
-    public Entity[] GetEntities() {
-        Entity[] ret = new Entity[entities.Count];
+    public MovingEntity[] GetEntities() {
+        MovingEntity[] ret = new MovingEntity[entities.Count];
         int i = 0;
-        foreach (Entity e in entities.Values)
+        foreach (MovingEntity e in entities.Values)
             ret[i++] = e;
         return ret;
     }
@@ -114,7 +114,7 @@ public class Village
     /// </summary>
     public void MoveAllEntities()
     {
-        foreach (Entity e in entities.Values)
+        foreach (MovingEntity e in entities.Values)
             e.Move();
     }
 
@@ -122,7 +122,7 @@ public class Village
     {
         StringBuilder sb = new StringBuilder(name);
         sb.AppendLine();
-        foreach (Entity e in entities.Values)
+        foreach (MovingEntity e in entities.Values)
             sb.Append(e.Name).Append(" ").AppendLine(e.CurrentPosition.ToString());
         return sb.ToString();
     }
