@@ -85,9 +85,9 @@ public class Tile
         /// <summary>
         /// The base of a Tree.
         /// </summary>
-        [TileAttr(false)]
+        [TileAttr(true)]
         Tree,
-        [TileAttr(false)]
+        [TileAttr(true)]
         Stone
     }
 

@@ -4,18 +4,18 @@ using System.Collections.Generic;
 public class StorageBuilding : Building {
 
     int capacity;
-    Dictionary<Resource, int> storedGoods;
-    protected List<Resource> allowedGoods;
+    Dictionary<ResourceType, int> storedGoods;
+    protected List<ResourceType> allowedGoods;
 
     public StorageBuilding(int capacity, BuildingType buildingType, Pos location, Village village, int hitPoints) : 
         base(buildingType, location, village, hitPoints)
     {
         this.capacity = capacity;
-        storedGoods = new Dictionary<Resource, int>();
-        allowedGoods = new List<Resource>();
+        storedGoods = new Dictionary<ResourceType, int>();
+        allowedGoods = new List<ResourceType>();
     }
 
-    public void Store(Resource resource, int ammount)
+    public void Store(ResourceType resource, int ammount)
     {
 
     }

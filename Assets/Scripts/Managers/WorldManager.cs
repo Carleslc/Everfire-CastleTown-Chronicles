@@ -8,17 +8,17 @@ public class WorldManager : MonoBehaviour {
     private MapManager drawMap;
     [SerializeField]
     private List<VillageManager> villageManagers;
-    [SerializeField]
-    private UIManager uiManager;
 
     //Im creating a village with some Workers
     void Start() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         Village v = new Village("Everfire Neverwater", true);        
         World.AddVillage(v);
-        Village wilderness = new Village("Wilderness", false);
-        World.AddVillage(wilderness);
-        new Animal(AnimalType.deer, new Pos(), wilderness, 20);
+        new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
+        new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
+        new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
+        new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
+
         CreateDefaultWorker(Job.forester, "Pebek", Gender.male, v);
         CreateDefaultWorker(Job.hunter, "Pobrok", Gender.female, v);
         CreateDefaultWorker(Job.forester, "Gogol", Gender.female, v);
@@ -31,13 +31,7 @@ public class WorldManager : MonoBehaviour {
 
     private Worker CreateDefaultWorker(Job job, string name, Gender gender, Village v)
     {
-        Pos p = new Pos(0, 0);
-        while (!World.IsWalkable(p)) {
-            p = new Pos(
-                Random.Range(0, World.Map.Width),
-                Random.Range(0, World.Map.Height)
-            );
-        }
+        Pos p = new Pos();
         return new Worker(job, name, gender, 1, 1, p, v, 20);
     }
 

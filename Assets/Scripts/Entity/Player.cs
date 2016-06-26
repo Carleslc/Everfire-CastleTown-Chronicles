@@ -9,6 +9,7 @@ public class Player : Human {
     public Player(int clothesType, string name, Gender gender, int bodyType, int hairType, Pos location, Village village, int hitPoints) :
         base(name, gender, bodyType, hairType, location, village, hitPoints) {
         this.clothesType = clothesType;
+        InitialisationCompleted();
     }
 
     public int ClothesType

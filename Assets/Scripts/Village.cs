@@ -7,6 +7,10 @@ public class Village
 
     Dictionary<Pos, Entity> entities;
     string name;
+    //This is for VillageManager
+    Entity lastEntityLost = null;
+    //This too
+    Entity lastEntityAdded = null;
 
     private bool isPlayer;
 
@@ -23,6 +27,35 @@ public class Village
         get
         {
             return isPlayer;
+        }
+    }
+
+    /// <summary>
+    /// The last entity that has been Destroyed or Killed in this village.
+    /// </summary>
+    public Entity LastEntityLost
+    {
+        get
+        {
+            return lastEntityLost;
+        }
+
+        set
+        {
+            lastEntityLost = value;
+        }
+    }
+
+    public Entity LastEntityAdded
+    {
+        get
+        {
+            return lastEntityAdded;
+        }
+
+        set
+        {
+            lastEntityAdded = value;
         }
     }
 
@@ -72,9 +105,11 @@ public class Village
     {
         Pos current = entity.CurrentPosition;
         if (IsOccupied(current))
+        {
             throw new ArgumentException(entity.ToString() + " is on an occupied position: " + current
                 + " by " + GetEntityAt(current).ToString());
-        entities[current] = entity;
+        }
+        entities[current] = entity;        
     }
 
     /// <summary>
@@ -94,6 +129,7 @@ public class Village
     {
         DebugLogger.Log(DebugChannel.Village, "Entity destroyed on village " +
             name, entities[at].ToString());
+        lastEntityLost = entities[at];
         entities.Remove(at);
     }
 

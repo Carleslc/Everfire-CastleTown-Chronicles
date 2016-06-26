@@ -10,15 +10,45 @@ public static class World
     /// </summary>
     public static Map Map { get; private set; }
 
+    public static Village Wilderness
+    {
+        get
+        {
+            return wilderness;
+        }
+    }
+
+    private static Village wilderness;
+
     static Dictionary<string, Village> villages = new Dictionary<string, Village>();
 
     /// <summary>
-    /// Initializes the world with a map.
+    /// Initializes the world with a map and a Wilderness village
     /// </summary>
     /// <param name="map">The world map.</param>
     public static void Init(Map map)
     {
         Map = map;
+        wilderness = new Village("Wilderness", false);
+        AddVillage(wilderness);
+        InitResources();
+    }
+
+    private static void InitResources() {
+        for (int i = 0; i < Map.Height; i++)
+        {
+            for (int j = 0; j < Map.Width; j++)
+            {
+                Pos p = new Pos(i, j);
+                if (Map.GetTile(p).ObjectAbove == Tile.Object.Stone)
+                {
+                    new Resource(ResourceType.stone, p, 20);
+                }
+                else if (Map.GetTile(p).ObjectAbove == Tile.Object.Tree) {
+                    new Resource(ResourceType.tree, p, 20);
+                }
+            }
+        }
     }
 
     /// <summary>

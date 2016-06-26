@@ -117,7 +117,6 @@ MonoBehaviour:
   mapName: StandardMap
   drawMap: {fileID: 2067135031}
   villageManagers: []
-  uiManager: {fileID: 0}
 --- !u!4 &103522708
 Transform:
   m_ObjectHideFlags: 0

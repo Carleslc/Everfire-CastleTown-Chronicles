@@ -3,7 +3,7 @@ using System.Collections;
 /// <summary>
 /// Entity Manager manages a single entity and controls its representation in the map.
 /// </summary>
-public class MovingEntityManager : MonoBehaviour {
+public class MovingEntityManager : EntityManager {
     private bool isMoving = false;
     private bool isWaiting = false;
 
@@ -76,9 +76,9 @@ public class MovingEntityManager : MonoBehaviour {
     /// <summary>
     /// Necessary to call this in order to use all of the functionality of this class.
     /// </summary>
-    /// <param name="entity"><c>Entity</c> to be moved.</param>
-    public void Init(MovingEntity entity) {
-        this.entity = entity;
+    /// <param name="movingEntity"><c>Entity</c> to be moved.</param>
+    public void Init(MovingEntity movingEntity) {
+        this.entity = movingEntity;
         autoAnims = GetComponentsInChildren<AutoAnimator>();
     }
 
@@ -101,6 +101,7 @@ public class MovingEntityManager : MonoBehaviour {
             {
                 Movement next = entity.NextMovement();
                 Move(entity.Move() ? next : Movement.WAIT);
+                setAnimatorState(next);
             }
         }
     }
@@ -119,7 +120,6 @@ public class MovingEntityManager : MonoBehaviour {
             return;
         isMoving = true;
         startingPos = transform.position;
-        setAnimatorState(movement);
         switch (movement)
         {
             case Movement.UP:
@@ -158,16 +158,10 @@ public class MovingEntityManager : MonoBehaviour {
     private void setAnimatorState(Movement m) {
         foreach (AutoAnimator a in autoAnims) {
             a.Movement = m;
-            a.IsMoving = (m != Movement.WAIT);
+            a.IsMoving = IsMoving;
         }
     }
 
     protected void UpdateAnimators() {
         updateAnimations = true;
-    }
-
-    public void Destroy() {
-        entity.Village.Destroy(entity.CurrentPosition);
-        Destroy(gameObject);
-    }
-}
+    }}

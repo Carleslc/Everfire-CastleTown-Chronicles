@@ -8,6 +8,7 @@ public class Worker : Human {
         base(name, gender, bodyType, hairType, location, village, hitPoints)
     {
         this.job = job;
+        InitialisationCompleted();
     }
 
     public Job Job

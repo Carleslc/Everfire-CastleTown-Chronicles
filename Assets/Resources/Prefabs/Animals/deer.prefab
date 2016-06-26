@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8de304b692c3e440a0c141904c4af80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
+  prefabName: deer
   animArray: []
 --- !u!212 &21211548
 SpriteRenderer:

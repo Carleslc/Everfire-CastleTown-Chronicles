@@ -5,25 +5,25 @@ using System.Reflection;
 
 public enum Job
 {
-    [JobAttr(Resource.wheat, Resource.grain)]
+    [JobAttr(ResourceType.wheat, ResourceType.grain)]
     farmer,
-    [JobAttr(Resource.tree, Resource.wood)]
+    [JobAttr(ResourceType.tree, ResourceType.wood)]
     forester,
-    [JobAttr(Resource.meat, Resource.sausage)]
+    [JobAttr(ResourceType.meat, ResourceType.sausage)]
     butcher,
-    [JobAttr(Resource.deer, Resource.meat)]
+    [JobAttr(ResourceType.deer, ResourceType.meat)]
     hunter
 }
 
 
 internal static class JobExtensions
 {
-    internal static Resource RawMaterial(this Job j)
+    internal static ResourceType RawMaterial(this Job j)
     {
         return GetAttr(j).RawMaterial;
     }
 
-    internal static Resource ProcessedGood(this Job j)
+    internal static ResourceType ProcessedGood(this Job j)
     {
         return GetAttr(j).ProcessedGood;
     }
@@ -42,11 +42,11 @@ internal static class JobExtensions
 [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
 internal class JobAttr : Attribute
 {
-    public Resource RawMaterial { get; private set; }
-    public Resource ProcessedGood { get; private set; }
+    public ResourceType RawMaterial { get; private set; }
+    public ResourceType ProcessedGood { get; private set; }
 
 
-    public JobAttr(Resource rawMaterial, Resource processedGood)
+    public JobAttr(ResourceType rawMaterial, ResourceType processedGood)
     {
         RawMaterial = rawMaterial;
         ProcessedGood = processedGood;

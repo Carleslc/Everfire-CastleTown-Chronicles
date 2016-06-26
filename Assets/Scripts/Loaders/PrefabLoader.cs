@@ -10,6 +10,7 @@ public static class PrefabLoader
     private static string villagePath = "Prefabs/village";
     private static string uiComponentsPath = "Prefabs/UI/";
     private static string animalsPath = "Prefabs/Animals/";
+    private static string resourcePath = "Prefabs/Resources/";
 
 
     /// <summary>
@@ -117,6 +118,12 @@ public static class PrefabLoader
     {
         string finalPath = animalsPath;
         finalPath += animalType;
+        return LoadGameObject(finalPath);
+    }
+
+    public static GameObject GetResource(ResourceType resourceType) {
+        string finalPath = resourcePath;
+        finalPath += resourceType.ToString();
         return LoadGameObject(finalPath);
     }
 

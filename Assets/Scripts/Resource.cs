@@ -1,7 +1,18 @@
-﻿public enum Resource {
-    stone, stoneBlock,
-    deer, meat, sausage,
-    wheat, grain, flour, bread,
-    tree, wood, plank 
-}
+﻿using UnityEngine;
+using System.Collections;
 
+public class Resource : Entity {
+    ResourceType type;
+    public Resource(ResourceType type, Pos location, int hitPoints) : base(location, World.Wilderness, hitPoints)  {
+        this.type = type;
+        InitialisationCompleted();
+    }
+
+    public ResourceType Type
+    {
+        get
+        {
+            return type;
+        }
+    }
+}
