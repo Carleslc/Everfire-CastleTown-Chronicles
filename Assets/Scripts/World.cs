@@ -30,7 +30,6 @@ public static class World
     {
         Map = map;
         wilderness = new Village("Wilderness", false);
-        AddVillage(wilderness);
         InitResources();
     }
 

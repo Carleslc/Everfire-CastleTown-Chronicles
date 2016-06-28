@@ -13,7 +13,6 @@ public class WorldManager : MonoBehaviour {
     void Start() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         Village v = new Village("Everfire Neverwater", true);        
-        World.AddVillage(v);
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
