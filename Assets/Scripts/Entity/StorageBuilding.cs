@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 
 public class StorageBuilding : Building {
-
+#pragma warning disable 0414
     int capacity;
+#pragma warning disable 0414
     Dictionary<ResourceType, int> storedGoods;
     protected List<ResourceType> allowedGoods;
 
@@ -17,7 +18,7 @@ public class StorageBuilding : Building {
 
     public void Store(ResourceType resource, int ammount)
     {
-
+        //capacity will be used here
     }
 }
 

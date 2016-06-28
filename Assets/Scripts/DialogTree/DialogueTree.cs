@@ -1,57 +1,96 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+
+//DialogueTree is composed of nodes and options. A node can have various options, and they redirect to other nodes.
 public class DialogueTree
 {
-    private List<DialogueNode> dialogNodes;
-    private List<DialogueOrder> orders;
+    //private List<DialogueNode> dialogNodes;
+    private List<DialogueCommand> commands;
+    DialogueNode root;
+    //private List<DialogueNode> currentNodes;
+    //int currentNodeIndex = 0;
 
     DialogueNode currentNode;
+    DialogueOption lastOptionSelected;
 
     public DialogueNode CurrentNode
     {
         get
         {
+            if (currentNode == null) {
+                currentNode = root;
+            }
             return currentNode;
         }
     }
 
-    public List<DialogueOrder> Orders
+    public List<DialogueCommand> Orders
     {
         get
         {
-            return orders;
+            return commands;
         }
     }
 
-    public DialogueNode AddNode(DialogueNode newNode)
+    public DialogueNode First
     {
-        dialogNodes.Add(newNode);
-        currentNode = newNode;
-        return newNode;
+        get
+        {
+            return root;
+        }
     }
 
-    public void AddOption(string text, DialogueNode node, DialogueNode dest)
+    public void AddOption(DialogueOption dialogueOption)
     {
-        //Add if it's not already there
-        if (!dialogNodes.Contains(dest))
-            AddNode(dest);
-
-        if (!dialogNodes.Contains(node))
-            AddNode(node);
-
-        DialogueOption opt;
-        //opt = new DialogueOption(text, dest);
-        //node.Options.Add(opt);
+        currentNode.Options.Add(dialogueOption);        
     }
 
-    public void OptionSelected(int option)
+    //public void Next() {
+    //    List<DialogueNode> childs = new List<DialogueNode>();
+    //    foreach (DialogueNode dn in currentNodes) {
+    //        foreach (DialogueOption dio in dn.Options){
+    //            if (!childs.Contains(dio.Dest))
+    //            {
+    //                childs.Add(dio.Dest);
+    //            }
+    //        }
+    //    }
+    //    currentNodes = childs;
+    //    currentNode = currentNodes[0];
+    //}
+
+        /// <summary>
+        /// Use this function only when building the tree.
+        /// </summary>
+        /// <param name="child">The nth child of the node, starting from the first added</param>
+    public void EditChild(int child) {
+        lastOptionSelected = currentNode.Options[child];
+        currentNode = currentNode.Options[child].Dest;
+    }
+
+    /// <summary>
+    /// Use this function only when building the tree.
+    /// </summary>
+    public void EditParent() {
+        currentNode = lastOptionSelected.Origin;
+    }
+
+    public bool SelectOption(int option)
     {
+        //We go to the nth node                     
         DialogueOption selected = currentNode.Options[option];
         currentNode = selected.Dest;
 
-        if (selected.Order != DialogueOrder.none) {
+        if (selected.Command.order != DialogOrder.none) {
+            commands.Add(selected.Command);
         }
+        //We check if the current node has any options
+        //note that the current node's been updated, so
+        //we're really checking the nth son of the previous currentNode
+        if (currentNode.Options.Count <= 0)
+            return false;
+        return true;
     }
 
     public DialogueOption[] GetOptions()
@@ -59,14 +98,31 @@ public class DialogueTree
         return currentNode.Options.ToArray();
     }
 
-    public DialogueTree()
+    public DialogueTree(DialogueNode root)
     {
-        dialogNodes = new List<DialogueNode>();
+        commands = new List<DialogueCommand>();
+        this.root = root;
         currentNode = null;
     }
 
-    public enum DialogueOrder {
-        none
+    public void ResetConversation()
+    {
+        currentNode = root;
     }
+}
 
+public struct DialogueCommand
+{
+    public string parameters;
+    public DialogOrder order;
+    public DialogueCommand(string parameters, DialogOrder order)
+    {
+        this.parameters = parameters;
+        this.order = order;
+    }
+}
+
+public enum DialogOrder
+{
+    none
 }

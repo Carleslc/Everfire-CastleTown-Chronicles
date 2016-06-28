@@ -26,13 +26,9 @@ public class MovingEntityManager : EntityManager {
     /// Position to arrive at. Once achieved, it remains the same.
     /// </summary>
     private Vector2 destination;
-    //private Movement movementDir;
     private MovingEntity entity;
 
     private bool isForcedMovement = false;
-
-    int newMoveX = 0;
-    int newMoveY = 0;
 
     private AutoAnimator[] autoAnims;
 
