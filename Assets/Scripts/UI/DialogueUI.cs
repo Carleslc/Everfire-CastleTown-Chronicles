@@ -11,7 +11,7 @@ public class DialogueUI : MonoBehaviour
     GameObject optionsPanel;
     [SerializeField]
     GameObject optionPrefab;
-    private GameObject[] optionsObjects;
+    private OptionUI[] optionsObjects;
 
     DialogueManager dialogueManager;
     /// <summary>
@@ -31,10 +31,16 @@ public class DialogueUI : MonoBehaviour
 
         set
         {
-            _opSel = value >= nOfOptions || value < 0
-                ? 0 : value;
+            optionsObjects[_opSel].Selected = false;
+            if (value < 0)
+                _opSel = nOfOptions - 1;
+            else if (value >= nOfOptions)
+                _opSel = 0;
+            else
+                _opSel = value;
+
             Debug.Log("Selected option: " + _opSel);
-            
+            optionsObjects[_opSel].Selected = true;
         }
     }
 
@@ -43,7 +49,8 @@ public class DialogueUI : MonoBehaviour
         this.dialogueManager = dialogueManager;
     }
 
-    public void ConversationEnded() {
+    public void ConversationEnded()
+    {
         optionSelected = 0;
         nOfOptions = -1;
         GetComponent<Image>().enabled = false;
@@ -51,7 +58,8 @@ public class DialogueUI : MonoBehaviour
         dialogueText.gameObject.SetActive(false);
     }
 
-    public void ConversationStarted() {
+    public void ConversationStarted()
+    {
         GetComponent<Image>().enabled = true;
     }
 
@@ -68,12 +76,14 @@ public class DialogueUI : MonoBehaviour
         Debug.Log("ShowOptions");
         dialogueText.gameObject.SetActive(false);
         optionsPanel.SetActive(true);
-        if (optionsObjects != null) {
-            foreach (GameObject go in optionsObjects) {
-                Destroy(go);
+        if (optionsObjects != null)
+        {
+            foreach (OptionUI go in optionsObjects)
+            {
+                Destroy(go.gameObject);
             }
         }
-        optionsObjects = new GameObject[options.Length];
+        optionsObjects = new OptionUI[options.Length];
         int offsetX = 0;
         int offsetY = 0;
         for (int i = 0; i < options.Length; i++)
@@ -82,14 +92,16 @@ public class DialogueUI : MonoBehaviour
                 as GameObject;
             option.transform.SetParent(optionsPanel.transform, false);
             option.GetComponent<Text>().text = options[i];
-            optionsObjects[i] = option;
+            optionsObjects[i] = option.GetComponent<OptionUI>();
             //this makes sense, believe me
-            if (++offsetX > maxOptionCols) {
+            if (++offsetX > maxOptionCols)
+            {
                 offsetX = -1;
                 ++offsetY;
             }
             ++offsetX;
-        } 
+        }
+        optionSelected = 0;
         optionsShown = true;
         nOfOptions = options.Length;
     }
@@ -110,13 +122,14 @@ public class DialogueUI : MonoBehaviour
         {
             optionSelected += 1;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
             optionSelected -= 1;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             dialogueManager.OptionChosen(optionSelected);
-        }        
+        }
     }
 
 

@@ -12,7 +12,7 @@ public class WorkerManagerEditor : Editor
         if (GUI.changed)
         {
             WorkerManager myTarget = (WorkerManager)target;
-            myTarget.UpdateJob();
+            myTarget.UpdateJobEditor();
             EditorUtility.SetDirty(target);
         }
     }

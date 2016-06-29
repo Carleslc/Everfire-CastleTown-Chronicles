@@ -25,7 +25,7 @@ public class DialogueTree
         }
     }
 
-    public List<DialogueCommand> Orders
+    public List<DialogueCommand> Commands
     {
         get
         {
@@ -45,20 +45,6 @@ public class DialogueTree
     {
         currentNode.Options.Add(dialogueOption);        
     }
-
-    //public void Next() {
-    //    List<DialogueNode> childs = new List<DialogueNode>();
-    //    foreach (DialogueNode dn in currentNodes) {
-    //        foreach (DialogueOption dio in dn.Options){
-    //            if (!childs.Contains(dio.Dest))
-    //            {
-    //                childs.Add(dio.Dest);
-    //            }
-    //        }
-    //    }
-    //    currentNodes = childs;
-    //    currentNode = currentNodes[0];
-    //}
 
         /// <summary>
         /// Use this function only when building the tree.
@@ -80,6 +66,7 @@ public class DialogueTree
     {
         //We go to the nth node                     
         DialogueOption selected = currentNode.Options[option];
+        Debug.Log("Selected option: " + selected.Text);
         currentNode = selected.Dest;
 
         if (selected.Command.order != DialogOrder.none) {
@@ -124,5 +111,5 @@ public struct DialogueCommand
 
 public enum DialogOrder
 {
-    none
+    none, changeJob
 }

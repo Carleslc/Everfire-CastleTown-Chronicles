@@ -5,6 +5,7 @@ using System.Collections;
 public class DialogueManager : MonoBehaviour {
     DialogueTree dialogueTree;
     Player entity;
+    ITalkable currentTalker;
     PlayerManager playerManager;
     DialogueUI dialogueUI;
     static bool inDialogue = false;
@@ -22,13 +23,11 @@ public class DialogueManager : MonoBehaviour {
         if (inDialogue)
             return;
         if (Input.GetKeyDown(KeyCode.E)) {
-            Debug.Log("lMao");
-            Pos p;
-            Debug.Log(p = new Pos(entity.CurrentPosition, playerManager.LastDirectionFaced));
-            ITalkable e = World.GetEntityAt(p) as ITalkable;
-            if (e != null) {
-                e.StartTalking();
-                TalkTo(e);
+            Pos p = new Pos(entity.CurrentPosition, playerManager.LastDirectionFaced);            
+            currentTalker = World.GetEntityAt(p) as ITalkable;
+            if (currentTalker != null) {
+                currentTalker.StartTalking();
+                TalkTo(currentTalker);
             }
         }
     }
@@ -50,14 +49,20 @@ public class DialogueManager : MonoBehaviour {
         dialogueUI.DrawNode(dialogueTree.First.Content);
     }
 
+    private void EndConversation() {
+        dialogueUI.ConversationEnded();
+        currentTalker.StopTalking();
+        currentTalker.ProcessCommands(dialogueTree.Commands.ToArray());
+        dialogueTree.ResetConversation();
+        inDialogue = false;
+        conversationOver = false;
+    }
+
     public void ShowOptions()
     {
         if (conversationOver)
         {
-            dialogueUI.ConversationEnded();
-            dialogueTree.ResetConversation();
-            inDialogue = false;
-            conversationOver = false;
+            EndConversation();
             return;
         }
         DialogueOption[] dialogueOptions = dialogueTree.CurrentNode.Options.ToArray();

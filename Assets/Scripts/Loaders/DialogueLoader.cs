@@ -52,6 +52,23 @@ public static class DialogueLoader
             );
         tree.ResetConversation();
         dialogues.Add(Dialogue.test, tree);
+
+        DialogueTree tree_work = new DialogueTree(new DialogueNode("What do you want me to do, sir?"));
+        DialogueNode affirmative = new DialogueNode("Aye Aye sir!");
+        new DialogueOption(
+            "Hunter",
+            affirmative,
+            new DialogueCommand(Job.hunter.ToString(), DialogOrder.changeJob),
+            tree_work
+            );
+        new DialogueOption(
+            "Forester",            
+            affirmative,
+            new DialogueCommand(Job.forester.ToString(), DialogOrder.changeJob),
+            tree_work
+            );
+        tree_work.ResetConversation();
+        dialogues.Add(Dialogue.work, tree_work);
     }
 
     public static DialogueTree LoadDialogueTree(Dialogue dialogue)
@@ -67,6 +84,6 @@ public static class DialogueLoader
 
     public enum Dialogue
     {
-        test
+        test, work
     }
 }

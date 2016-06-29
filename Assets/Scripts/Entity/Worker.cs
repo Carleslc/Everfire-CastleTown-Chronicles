@@ -23,26 +23,36 @@ public class Worker : Human, ITalkable{
         set
         {
             job = value;
+            EventManager.TriggerEvent(EventManager.EventType.OnWorkerJobChanged);
+            Debug.Log("Changed Worker " + Name + "'s job to " + Job.ToString());
+
         }
     }
 
     public override bool Move()
     {
-        return false;
-        //if (isTalking)
-        //    return false;
-
-        //return base.Move();
+        if (isTalking)
+            return false;
+        return base.Move();
     }
 
     public DialogueTree LoadTree()
     {
-        return DialogueLoader.LoadDialogueTree(DialogueLoader.Dialogue.test);
+        return DialogueLoader.LoadDialogueTree(DialogueLoader.Dialogue.work);
     }
 
     public void ProcessCommands(DialogueCommand[] commands)
     {
-        throw new NotImplementedException();
+        foreach (DialogueCommand dc in commands) {
+            switch (dc.order)
+            {
+                case DialogOrder.changeJob:
+                    Job = (Job)Enum.Parse(typeof(Job), dc.parameters);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void StartTalking()

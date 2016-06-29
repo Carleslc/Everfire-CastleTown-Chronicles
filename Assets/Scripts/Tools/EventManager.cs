@@ -76,7 +76,7 @@ public class EventManager : MonoBehaviour
     }
 
     public enum EventType {
-        OnEntityAdded, OnNewVillage, OnEntityKilled, OnEntityDestroyed
+        OnEntityAdded, OnNewVillage, OnEntityKilled, OnEntityDestroyed, OnWorkerJobChanged
     }
 
 }

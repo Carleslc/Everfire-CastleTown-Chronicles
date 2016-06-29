@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WorkerManager : HumanManager {
+public class WorkerManager : HumanManager
+{
 
     Worker worker;
     GameObject clothes = null;
@@ -15,16 +16,37 @@ public class WorkerManager : HumanManager {
         DrawWorker();
         base.Init(worker);
     }
-    private void DrawWorker() {
-        clothes = Instantiate(PrefabLoader.GetHumanWorkClothes(worker.Job), Vector2.zero,
-        Quaternion.identity) as GameObject;
 
-        clothes.transform.SetParent(transform, false);
+    void OnEnable()
+    {
+        EventManager.StartListening(EventManager.EventType.OnWorkerJobChanged, OnWorkerJobChanged);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(EventManager.EventType.OnWorkerJobChanged, OnWorkerJobChanged);
     }
 
 
+    private void DrawWorker()
+    {
+        clothes = Instantiate(PrefabLoader.GetHumanWorkClothes(worker.Job), Vector2.zero,
+        Quaternion.identity) as GameObject;
+        clothes.transform.SetParent(transform, false);
+    }
 
-    public void UpdateJob()
+    private void OnWorkerJobChanged()
+    {
+        if (worker.Job != job)
+        {
+            job = worker.Job;
+            Destroy(clothes);
+            DrawWorker();
+            UpdateAnimators();
+        }
+    }
+
+    public void UpdateJobEditor()
     {
         worker.Job = job;
         Destroy(clothes);

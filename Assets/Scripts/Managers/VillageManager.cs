@@ -54,8 +54,8 @@ public class VillageManager : MonoBehaviour
 
     void OnDisable() {
         EventManager.StopListening(EventManager.EventType.OnEntityDestroyed, OnEntityDestroyed);
-        EventManager.StartListening(EventManager.EventType.OnEntityKilled, OnEntityKilled);
-        EventManager.StartListening(EventManager.EventType.OnEntityAdded, OnEntityAdded);
+        EventManager.StopListening(EventManager.EventType.OnEntityKilled, OnEntityKilled);
+        EventManager.StopListening(EventManager.EventType.OnEntityAdded, OnEntityAdded);
     }
 
     private void OnEntityDestroyed() {
