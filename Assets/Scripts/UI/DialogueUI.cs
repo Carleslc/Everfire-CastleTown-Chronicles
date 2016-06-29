@@ -39,7 +39,6 @@ public class DialogueUI : MonoBehaviour
             else
                 _opSel = value;
 
-            Debug.Log("Selected option: " + _opSel);
             optionsObjects[_opSel].Selected = true;
         }
     }
@@ -73,7 +72,6 @@ public class DialogueUI : MonoBehaviour
 
     public void ShowOptions(string[] options)
     {
-        Debug.Log("ShowOptions");
         dialogueText.gameObject.SetActive(false);
         optionsPanel.SetActive(true);
         if (optionsObjects != null)

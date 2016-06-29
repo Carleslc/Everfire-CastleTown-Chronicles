@@ -5,20 +5,22 @@ using System.Collections.Generic;
 //DialogueTree is composed of nodes and options. A node can have various options, and they redirect to other nodes.
 public class DialogueTree
 {
-    //private List<DialogueNode> dialogNodes;
     private List<DialogueCommand> commands;
     DialogueNode root;
-    //private List<DialogueNode> currentNodes;
-    //int currentNodeIndex = 0;
 
     DialogueNode currentNode;
     DialogueOption lastOptionSelected;
 
+    /// <summary>
+    /// Current node we're treating. By default it's the Root. If SelectOption, EditChild or EditParent are called,
+    /// the current node will change.
+    /// </summary>
     public DialogueNode CurrentNode
     {
         get
         {
-            if (currentNode == null) {
+            if (currentNode == null)
+            {
                 currentNode = root;
             }
             return currentNode;
@@ -33,7 +35,7 @@ public class DialogueTree
         }
     }
 
-    public DialogueNode First
+    public DialogueNode Root
     {
         get
         {
@@ -41,35 +43,47 @@ public class DialogueTree
         }
     }
 
+    /// <summary>
+    /// We add an option and a child to the CurrentNode we're treating. Each dialogueOption is a link with a child.
+    /// </summary>
+    /// <param name="dialogueOption"></param>
     public void AddOption(DialogueOption dialogueOption)
     {
-        currentNode.Options.Add(dialogueOption);        
-    }
-
-        /// <summary>
-        /// Use this function only when building the tree.
-        /// </summary>
-        /// <param name="child">The nth child of the node, starting from the first added</param>
-    public void EditChild(int child) {
-        lastOptionSelected = currentNode.Options[child];
-        currentNode = currentNode.Options[child].Dest;
+        currentNode.Options.Add(dialogueOption);
     }
 
     /// <summary>
-    /// Use this function only when building the tree.
+    /// Use this function only when building the tree. The CurrentNode will now be the nth child of the CurrentNode.
     /// </summary>
-    public void EditParent() {
+    /// <param name="n">The nth child of the node, starting from the first added</param>
+    public void EditChild(int n)
+    {
+        lastOptionSelected = currentNode.Options[n];
+        currentNode = currentNode.Options[n].Dest;
+    }
+
+    /// <summary>
+    /// Use this function only when building the tree. The CurrentNode will now be the originNode of the last option selected.
+    /// </summary>
+    public void EditParent()
+    {
         currentNode = lastOptionSelected.Origin;
     }
 
-    public bool SelectOption(int option)
+    /// <summary>
+    /// Navigate to the nth option of the currentNode. All orders associated with the option selected will be added to Orders.
+    /// </summary>
+    /// <param name="n">The nth option to select.</param>
+    /// <returns></returns>
+    //NOTE: We separate EditChild from this one because although they do similar things, this one goes on collecting
+    //the orders from every option it'll travel through.
+    public bool SelectOption(int n)
     {
         //We go to the nth node                     
-        DialogueOption selected = currentNode.Options[option];
-        Debug.Log("Selected option: " + selected.Text);
+        DialogueOption selected = currentNode.Options[n];
         currentNode = selected.Dest;
-
-        if (selected.Command.order != DialogOrder.none) {
+        if (selected.Command.order != DialogOrder.none)
+        {
             commands.Add(selected.Command);
         }
         //We check if the current node has any options
@@ -92,12 +106,18 @@ public class DialogueTree
         currentNode = null;
     }
 
+    /// <summary>
+    /// Call it after a conversation to reset the tree to its original state.
+    /// </summary>
     public void ResetConversation()
     {
+        //erase the commands
+        commands = new List<DialogueCommand>();
         currentNode = root;
     }
 }
 
+//This struct if for storing orders with parameters.
 public struct DialogueCommand
 {
     public string parameters;

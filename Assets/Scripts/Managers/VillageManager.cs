@@ -88,7 +88,7 @@ public class VillageManager : MonoBehaviour
         Entity e = village.LastEntityAdded;
         if (e != null)
         {
-            Debug.Log("Adding new entity: " + e.ToString());
+            DebugLogger.Log(DebugChannel.Entity, "Adding new entity: " + e.ToString(), e.ToString());
             InstantiateEntity(e);
             village.LastEntityAdded = null;
         }
@@ -141,7 +141,6 @@ public class VillageManager : MonoBehaviour
         }
         else if (e is Resource) {
             Resource r = (Resource)e;
-            Debug.Log(r.Type);
             entityPrefab.AddComponent<ResourceManager>().Init(r);
             entityPrefab.name = "Resource " + r.Type;
         }

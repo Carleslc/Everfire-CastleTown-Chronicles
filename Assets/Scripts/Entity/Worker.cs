@@ -24,8 +24,7 @@ public class Worker : Human, ITalkable{
         {
             job = value;
             EventManager.TriggerEvent(EventManager.EventType.OnWorkerJobChanged);
-            Debug.Log("Changed Worker " + Name + "'s job to " + Job.ToString());
-
+            DebugLogger.Log(DebugChannel.Worker, "Changed Worker " + Name + "'s job to " + Job.ToString(), Name);
         }
     }
 

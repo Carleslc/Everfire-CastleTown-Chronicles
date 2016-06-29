@@ -12,7 +12,9 @@ public enum Job
     [JobAttr(ResourceType.meat, ResourceType.sausage)]
     butcher,
     [JobAttr(ResourceType.deer, ResourceType.meat)]
-    hunter
+    hunter,
+    //this enum type is used in WorkerManagerEditor.cs
+    dirty
 }
 
 

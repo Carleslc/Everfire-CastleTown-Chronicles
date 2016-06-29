@@ -3,15 +3,13 @@ using System.Collections;
 
 public class WorkerManager : HumanManager
 {
-
     Worker worker;
     GameObject clothes = null;
-    [SerializeField]
-    private Job job;
+    public Job jobInEditor;
 
     public void Init(Worker worker)
     {
-        job = worker.Job;
+        jobInEditor = worker.Job;
         this.worker = worker;
         DrawWorker();
         base.Init(worker);
@@ -19,6 +17,7 @@ public class WorkerManager : HumanManager
 
     void OnEnable()
     {
+        //This event will be triggered when any worker's job has been changed.
         EventManager.StartListening(EventManager.EventType.OnWorkerJobChanged, OnWorkerJobChanged);
     }
 
@@ -35,23 +34,17 @@ public class WorkerManager : HumanManager
         clothes.transform.SetParent(transform, false);
     }
 
+    /// <summary>
+    /// This will be called when the the job of the entity we're managing is changed.
+    /// </summary>
     private void OnWorkerJobChanged()
     {
-        if (worker.Job != job)
+        if (worker.Job != jobInEditor)
         {
-            job = worker.Job;
+            jobInEditor = worker.Job;
             Destroy(clothes);
             DrawWorker();
             UpdateAnimators();
         }
     }
-
-    public void UpdateJobEditor()
-    {
-        worker.Job = job;
-        Destroy(clothes);
-        DrawWorker();
-        UpdateAnimators();
-    }
-
 }

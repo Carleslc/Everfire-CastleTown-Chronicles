@@ -68,7 +68,6 @@ public class AutoAnimator : MonoBehaviour
     void Start()
     {
         spritePath = "AnimSprites/" + prefabName;
-        Debug.Log("Loading " + spritePath);
         animArray = Resources.LoadAll<Sprite>(spritePath);
         Movement = Movement.RIGHT;
         startingTime = Time.time;

@@ -3,12 +3,17 @@ using System.Collections;
 
 [RequireComponent(typeof(PlayerManager))]
 public class DialogueManager : MonoBehaviour {
-    DialogueTree dialogueTree;
-    Player entity;
-    ITalkable currentTalker;
-    PlayerManager playerManager;
-    DialogueUI dialogueUI;
+    private DialogueTree dialogueTree;
+
+    private Player entity;
+    private ITalkable currentTalker;
+
+    private PlayerManager playerManager;
+
+    private DialogueUI dialogueUI;
+    //This keeps the player from moving
     static bool inDialogue = false;
+    //This helps us put an end to the conversation.
     private bool conversationOver = false;
 
     public static bool InDialogue
@@ -19,34 +24,36 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
+    public void Start()
+    {
+        playerManager = GetComponent<PlayerManager>();
+        entity = (Player)playerManager.Entity;
+    }
+
     void Update() {
         if (inDialogue)
             return;
         if (Input.GetKeyDown(KeyCode.E)) {
-            Pos p = new Pos(entity.CurrentPosition, playerManager.LastDirectionFaced);            
+            Pos p = new Pos(entity.CurrentPosition, playerManager.LastDirectionFaced);
+            //We get the entity that it's closest to us and check if it implements ITalkable.        
             currentTalker = World.GetEntityAt(p) as ITalkable;
             if (currentTalker != null) {
-                currentTalker.StartTalking();
-                TalkTo(currentTalker);
+                StartConversation();
             }
         }
     }
 
-    public void Start() {
-        playerManager = GetComponent<PlayerManager>();
-        entity = (Player)playerManager.Entity;
-        Debug.Log(inDialogue);
-    }
-
-    public void TalkTo(ITalkable target) {
+    public void StartConversation() {
+        currentTalker.StartTalking();
         inDialogue = true;
-        dialogueTree = target.LoadTree();
+        dialogueTree = currentTalker.LoadTree();
         if (dialogueUI == null) {
+            //There's only one DilaogueUI, so no worries.
             dialogueUI = FindObjectOfType<DialogueUI>();
             dialogueUI.Init(this);
         }
         dialogueUI.ConversationStarted();
-        dialogueUI.DrawNode(dialogueTree.First.Content);
+        dialogueUI.DrawNode(dialogueTree.Root.Content);
     }
 
     private void EndConversation() {
@@ -60,6 +67,7 @@ public class DialogueManager : MonoBehaviour {
 
     public void ShowOptions()
     {
+        //That means there are no options to show.
         if (conversationOver)
         {
             EndConversation();
@@ -75,6 +83,7 @@ public class DialogueManager : MonoBehaviour {
     }
 
     public void OptionChosen(int optionNumber) {
+        //Because this returns false if there are no options, we are safe to assume that it means the conversation ended.
         if (!dialogueTree.SelectOption(optionNumber))
         {
             conversationOver = true;

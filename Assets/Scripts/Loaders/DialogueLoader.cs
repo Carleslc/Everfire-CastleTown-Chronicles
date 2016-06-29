@@ -42,7 +42,7 @@ public static class DialogueLoader
         tree.EditChild(1);
         new DialogueOption(
             "YES",
-            tree.First,
+            tree.Root,
             tree
             );
         new DialogueOption(

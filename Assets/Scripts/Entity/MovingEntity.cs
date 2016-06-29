@@ -71,8 +71,8 @@ public class MovingEntity : Entity
                 moved = true;
             }
         }
-
-        //Debug.Log(Name + " move " + movement + ": " + old + " -> " + next + " " + (moved ? "Success" : "Failed"));
+        DebugLogger.Log(DebugChannel.Movement, " move " + movement + ": " + old + " -> " + next + " " + (moved ? "Success" : "Failed"),
+            ToString());
         return moved;
     }
 
