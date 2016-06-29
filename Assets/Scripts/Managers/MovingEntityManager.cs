@@ -28,6 +28,8 @@ public class MovingEntityManager : EntityManager {
     private Vector2 destination;
     private MovingEntity entity;
 
+    private Movement lastDirectionFaced;
+
     private bool isForcedMovement = false;
 
     private AutoAnimator[] autoAnims;
@@ -67,6 +69,14 @@ public class MovingEntityManager : EntityManager {
         {
             speed = value;
         }
+    }   
+
+    public Movement LastDirectionFaced
+    {
+        get
+        {
+            return lastDirectionFaced;
+        }
     }
 
     /// <summary>
@@ -96,7 +106,14 @@ public class MovingEntityManager : EntityManager {
             else
             {
                 Movement next = entity.NextMovement();
-                Move(entity.Move() ? next : Movement.WAIT);
+                if (entity.Move())
+                {
+                    Move(next);
+                    lastDirectionFaced = next == Movement.WAIT ? lastDirectionFaced : next;
+                }
+                else {
+                    Move(Movement.WAIT);
+                }
                 setAnimatorState(next);
             }
         }

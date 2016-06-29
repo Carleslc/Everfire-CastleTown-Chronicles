@@ -164,6 +164,12 @@ public class Pos {
         this.y = y;
     }
 
+    public Pos(Pos original, Movement movedTo) {
+        Pos p = movedTo.Next(original);
+        x = p.X;
+        y = p.Y;
+    }
+
     /// <summary>
     /// Returns a random, non-occupied Pos
     /// </summary>

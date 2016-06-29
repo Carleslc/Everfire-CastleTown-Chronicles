@@ -22,6 +22,8 @@ public class WorkerManager : HumanManager {
         clothes.transform.SetParent(transform, false);
     }
 
+
+
     public void UpdateJob()
     {
         worker.Job = job;

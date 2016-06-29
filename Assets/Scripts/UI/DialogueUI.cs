@@ -11,7 +11,6 @@ public class DialogueUI : MonoBehaviour
     GameObject optionsPanel;
     [SerializeField]
     GameObject optionPrefab;
-
     private GameObject[] optionsObjects;
 
     DialogueManager dialogueManager;
@@ -32,7 +31,8 @@ public class DialogueUI : MonoBehaviour
 
         set
         {
-            _opSel = value >= nOfOptions || value < 0 ? 0 : value;
+            _opSel = value >= nOfOptions || value < 0
+                ? 0 : value;
             Debug.Log("Selected option: " + _opSel);
             
         }
@@ -46,7 +46,13 @@ public class DialogueUI : MonoBehaviour
     public void ConversationEnded() {
         optionSelected = 0;
         nOfOptions = -1;
-        gameObject.SetActive(false);
+        GetComponent<Image>().enabled = false;
+        optionsPanel.SetActive(false);
+        dialogueText.gameObject.SetActive(false);
+    }
+
+    public void ConversationStarted() {
+        GetComponent<Image>().enabled = true;
     }
 
     public void DrawNode(string text)
@@ -91,7 +97,8 @@ public class DialogueUI : MonoBehaviour
     void Update()
     {
         //TODO make it like the player's with a class 4 him, maybe call it PlayerInput? so kewl
-
+        if (!DialogueManager.InDialogue)
+            return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!optionsShown)

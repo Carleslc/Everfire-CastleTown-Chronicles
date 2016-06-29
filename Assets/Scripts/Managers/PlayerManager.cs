@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(DialogueManager))]
 public class PlayerManager : HumanManager
 {
     //Here we'll store all of the directions currently being pressed. Used to determine the last direction pressed.
@@ -47,6 +46,14 @@ public class PlayerManager : HumanManager
     private void GetPlayerInput() {
         if (DialogueManager.InDialogue)
             return;
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Speed = 10;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Speed = 2;
+        }
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             SetPressed(Movement.RIGHT);

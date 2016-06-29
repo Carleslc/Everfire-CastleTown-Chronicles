@@ -22,6 +22,8 @@ public class MovingEntity : Entity
         }
     }
 
+
+
     /// <summary>
     /// Constructs a new named Enity on a position pertaining a village.
     /// <para/>This entity has no initial target.

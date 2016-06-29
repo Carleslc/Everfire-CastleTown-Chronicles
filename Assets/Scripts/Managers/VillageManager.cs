@@ -130,6 +130,7 @@ public class VillageManager : MonoBehaviour
         {
             Player p = (Player)e;
             entityPrefab.AddComponent<PlayerManager>().Init(p);
+            entityPrefab.AddComponent<DialogueManager>();
             entityPrefab.name = "Player " + p.Name;
         }
         else if (e is Human)
