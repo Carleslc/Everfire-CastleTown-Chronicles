@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class EntityManager : MonoBehaviour {
+public class EntityManager : MonoBehaviour, ITalkable  {
     Entity entity;
     public void Init(Entity entity)
     {
@@ -21,5 +22,14 @@ public class EntityManager : MonoBehaviour {
     public virtual void Kill()
     {
         entity.Kill();
+    }
+
+    public DialogueTree LoadTree() {
+        return DialogueLoader.LoadDialogueTree(DialogueLoader.Dialogue.test);
+    }
+
+    public void ProcessCommands(DialogueCommand[] commands)
+    {
+        return;
     }
 }
