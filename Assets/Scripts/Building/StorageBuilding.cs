@@ -3,23 +3,87 @@ using System.Collections.Generic;
 
 public abstract class StorageBuilding : Building {
 #pragma warning disable 0414
-    int capacity;
+    int maxCapacity;
+    int usedCapacity;
+    bool isFull = false;
 #pragma warning disable 0414
-    Dictionary<ResourceType, int> storedGoods;
+    protected Dictionary<ResourceType, int> storedGoods;
     protected List<ResourceType> allowedGoods;
 
-    public StorageBuilding(int capacity, BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) : 
+    public int Capacity
+    {
+        get
+        {
+            return maxCapacity;
+        }
+    }
+
+    public bool IsFull
+    {
+        get
+        {
+            return isFull;
+        }
+    }
+
+    public int UsedCapacity
+    {
+        get
+        {
+            return usedCapacity;
+        }
+
+        set
+        {
+            usedCapacity = value;
+            if(usedCapacity >= maxCapacity)
+            {
+                isFull = true;
+                usedCapacity = maxCapacity;
+            }
+        }
+    }
+
+    public StorageBuilding(int maxCapacity, BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) : 
         base(buildingType, width, depth, location, village, hitPoints)
     {
         if (buildingType == BuildingType.warehouse)
             village.Warehouse = this;
-        this.capacity = capacity;
+        this.maxCapacity = maxCapacity;
+        UsedCapacity = 0;
         storedGoods = new Dictionary<ResourceType, int>();
         allowedGoods = new List<ResourceType>();
     }
 
-    public void Store(ResourceType resource, int ammount)
+    /// <summary>
+    /// Stores an ammount of a given resource in this building. Returns 0 if it is successful. If it returns more that that it
+    /// means that the returned ammount of resources could not be stored in there.
+    /// </summary>
+    /// <param name="resource"></param>
+    /// <param name="ammount"></param>
+    /// <returns></returns>
+    public int Store(ResourceType resource, int ammount)
     {
-        //capacity will be used here
+        if (!allowedGoods.Contains(resource)) {
+            throw new System.Exception("Building " + BuildingType.ToString() + " does not allow this kind of resource: " +
+                resource.ToString());
+        }
+        if (storedGoods.ContainsKey(resource))
+        {
+            storedGoods[resource] += ammount;
+        }
+        else
+        {
+            storedGoods.Add(resource, ammount);
+        }
+
+        int notStoredAmmount = 0;
+        if (usedCapacity + ammount > maxCapacity)
+        {
+            notStoredAmmount =  maxCapacity - usedCapacity + ammount;
+        }
+        //We dont care if it overflows, the property takes care of it.
+        UsedCapacity += ammount;
+        return notStoredAmmount;
     }
 }

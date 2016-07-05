@@ -32,4 +32,12 @@ public abstract class Building : Entity
             return depth;
         }
     }
+
+    public BuildingType BuildingType
+    {
+        get
+        {
+            return buildingType;
+        } 
+    }
 }
