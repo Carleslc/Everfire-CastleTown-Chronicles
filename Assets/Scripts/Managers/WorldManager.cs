@@ -10,14 +10,14 @@ public class WorldManager : MonoBehaviour {
     private List<VillageManager> villageManagers;
 
     //Im creating a village with some Workers
-    void Start() {
+    void Awake() {
         World.Init(MapLoader.loadMap(Application.dataPath + @"/Resources/" + mapName + ".csv"));
         Village v = new Village("Everfire Neverwater", true);        
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
         new Animal(AnimalType.deer, new Pos(), World.Wilderness, 20);
-
+        new Warehouse(BuildingType.warehouse, new Pos(), v);
         CreateDefaultWorker(Job.forester, "Pebek", Gender.male, v);
         CreateDefaultWorker(Job.hunter, "Pobrok", Gender.female, v);
         CreateDefaultWorker(Job.forester, "Gogol", Gender.female, v);

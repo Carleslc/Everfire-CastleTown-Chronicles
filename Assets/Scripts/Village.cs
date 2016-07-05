@@ -11,7 +11,7 @@ public class Village
     Entity lastEntityLost = null;
     //This too
     Entity lastEntityAdded = null;
-    private StorageBuilding warehouse;
+    private Warehouse warehouse;
 
     private bool isPlayer;
 
@@ -60,7 +60,7 @@ public class Village
         }
     }
 
-    public StorageBuilding Warehouse
+    public Warehouse Warehouse
     {
         get
         {

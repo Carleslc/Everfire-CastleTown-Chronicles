@@ -5,13 +5,14 @@ using System;
 
 public enum BuildingType
 {
-    [BuildingTypeAttr(200, 10, 5)]
+    //Job, Capacity, HitPoints, Width, Depth
+    [BuildingTypeAttr(200, 200, 10, 5)]
     warehouse,
-    [BuildingTypeAttr(Job.forester, 20, 5, 5)]
+    [BuildingTypeAttr(Job.forester, 20, 100, 5, 5)]
     foresterslodge,     //cabaña del leñador
-    [BuildingTypeAttr(Job.stonecutter, 20, 5, 5)]
+    [BuildingTypeAttr(Job.stonecutter, 20, 100, 5, 5)]
     stonequarry,        //cantera de piedra
-    [BuildingTypeAttr(Job.hunter, 20, 5, 5)]
+    [BuildingTypeAttr(Job.hunter, 20, 100, 5, 5)]
     huntershut,         //cabaña del cazador
 }
 
@@ -25,6 +26,19 @@ internal static class BuildingTypeExtensions
     internal static int Depth(this BuildingType bt)
     {
         return GetAttr(bt).Depth;
+    }
+
+    internal static int HitPoints(this BuildingType bt)
+    {
+        return GetAttr(bt).HitPoints;
+    }
+    internal static int Capacity(this BuildingType bt)
+    {
+        return GetAttr(bt).Capacity;
+    }
+    internal static Job Job(this BuildingType bt)
+    {
+        return GetAttr(bt).Job;
     }
 
     private static BuildingTypeAttr GetAttr(BuildingType bt)
@@ -44,30 +58,34 @@ internal class BuildingTypeAttr : Attribute
 {
     public int Width { get; private set; }
     public int Depth { get; private set; }
+    public int HitPoints { get; private set; }
     //We leave it -1 if it's not an storage building
     public int Capacity { get; private set; }
     //We leave it to Job.none if it's not a workplace
     public Job Job { get; private set; }
 
-    public BuildingTypeAttr(Job job, int capacity, int width, int depth)
+    public BuildingTypeAttr(Job job, int capacity, int hitPoints, int width, int depth)
     {
         Job = job;
         Capacity = capacity;
+        HitPoints = hitPoints;
         Width = width;
         Depth = depth;
     }
 
-    public BuildingTypeAttr(int capacity, int width, int depth)
+    public BuildingTypeAttr(int capacity, int hitPoints, int width, int depth)
     {
         Job = Job.none;
         Capacity = capacity;
+        HitPoints = hitPoints;
         Width = width;
         Depth = depth;
     }
 
-    public BuildingTypeAttr(int width, int depth) {
+    public BuildingTypeAttr(int hitPoints, int width, int depth) {
         Job = Job.none;
         Capacity = -1;
+        HitPoints = hitPoints;
         Width = width;
         Depth = depth;
     }

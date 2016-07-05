@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 public abstract class StorageBuilding : Building
 {
-#pragma warning disable 0414
     int maxCapacity;
     int usedCapacity;
     bool isFull = false;
-#pragma warning disable 0414
     protected Dictionary<ResourceType, int> storedGoods;
     protected List<ResourceType> allowedGoods;
 
@@ -45,12 +43,18 @@ public abstract class StorageBuilding : Building
         }
     }
 
-    public StorageBuilding(int maxCapacity, BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) :
-        base(buildingType, width, depth, location, village, hitPoints)
+    public ResourceType[] AllowedGoods
     {
-        if (buildingType == BuildingType.warehouse)
-            village.Warehouse = this;
-        this.maxCapacity = maxCapacity;
+        get
+        {
+            return allowedGoods.ToArray();
+        }
+    }
+
+    public StorageBuilding(BuildingType buildingType, Pos location, Village village) :
+        base(buildingType, location, village)
+    {
+        maxCapacity = buildingType.Capacity();
         UsedCapacity = 0;
         storedGoods = new Dictionary<ResourceType, int>();
         allowedGoods = new List<ResourceType>();
@@ -63,7 +67,7 @@ public abstract class StorageBuilding : Building
     /// <param name="resource"></param>
     /// <param name="ammount"></param>
     /// <returns></returns>
-    public int Retrieve(ResourceType resource, int ammount)
+    public virtual int Retrieve(ResourceType resource, int ammount)
     {
         if (storedGoods.ContainsKey(resource))
         {
@@ -82,9 +86,10 @@ public abstract class StorageBuilding : Building
 
     public int GetStoredAmount(ResourceType resource)
     {
-        int ret = 0;
-        storedGoods.TryGetValue(resource, out ret);
-        return ret;
+        int ret;
+        if(storedGoods.TryGetValue(resource, out ret))
+            return ret;
+        return 0;
     }
 
     /// <summary>
@@ -94,7 +99,7 @@ public abstract class StorageBuilding : Building
     /// <param name="resource"></param>
     /// <param name="ammount"></param>
     /// <returns></returns>
-    public int Store(ResourceType resource, int ammount)
+    public virtual int Store(ResourceType resource, int ammount)
     {
         if (!allowedGoods.Contains(resource))
         {

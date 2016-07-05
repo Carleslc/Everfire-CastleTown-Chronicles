@@ -8,11 +8,11 @@ public class Workplace : StorageBuilding
     int productionGoal;
     int productionProcess = 0;
 
-    public Workplace(Job job, int capacity, BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) :
-        base(capacity, buildingType, width, depth, location, village, hitPoints)
+    public Workplace(BuildingType buildingType, Pos location, Village village) :
+        base(buildingType, location, village)
     {
-        rawMaterial = job.RawMaterial();
-        processedGood = job.ProcessedGood();
+        rawMaterial = buildingType.Job().RawMaterial();
+        processedGood = buildingType.Job().ProcessedGood();
         InitAllowedGoods();
         productionGoal = processedGood.ProductionTime();
     }

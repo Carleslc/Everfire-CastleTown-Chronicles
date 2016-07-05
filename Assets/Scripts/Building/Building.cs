@@ -9,11 +9,11 @@ public abstract class Building : Entity
     int depth;
     BuildingType buildingType;
 
-    public Building(BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) : base(location, village, hitPoints)
+    public Building(BuildingType buildingType, Pos location, Village village) : base(location, village, buildingType.HitPoints())
     {
         this.buildingType = buildingType;
-        this.width = width;
-        this.depth = depth;
+        width = buildingType.Width();
+        depth = buildingType.Depth();
     }
 
 

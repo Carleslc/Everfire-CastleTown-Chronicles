@@ -18,7 +18,16 @@ public static class World
         }
     }
 
+    public static Village PlayerVillage
+    {
+        get
+        {
+            return playerVillage;
+        }
+    }
+
     private static Village wilderness;
+    private static Village playerVillage;
 
     static Dictionary<string, Village> villages = new Dictionary<string, Village>();
 
@@ -86,7 +95,8 @@ public static class World
 
         if (villages.ContainsKey(name))
             throw new ArgumentException("There is already a village with name " + name + " in this world.");
-
+        if (village.IsPlayer == true)
+            playerVillage = village;
         villages.Add(name, village);
     }
 
