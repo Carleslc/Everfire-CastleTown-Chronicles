@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public static class DialogueLoader
 {
-
     private static Dictionary<Dialogue, DialogueTree> dialogues;
 
     public static Dictionary<Dialogue, DialogueTree> Dialogues

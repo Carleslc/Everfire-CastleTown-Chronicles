@@ -3,12 +3,12 @@ using System.Collections;
 using UnityEditor;
 
 [CustomEditor(typeof(WorkerManager))]
-public class WorkerManagerEditor : Editor
+public class WorkerManagerEditor : EntityEditor
 {
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        base.OnInspectorGUI();
         if (GUI.changed)
         {
             WorkerManager myTarget = (WorkerManager)target;

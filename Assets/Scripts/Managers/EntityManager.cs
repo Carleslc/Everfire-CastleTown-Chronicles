@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class EntityManager : MonoBehaviour  {
-    Entity entity;
+    protected Entity entity;
     public void Init(Entity entity)
     {
         this.entity = entity;

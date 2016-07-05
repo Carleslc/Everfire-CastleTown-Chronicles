@@ -37,7 +37,7 @@ public class Worker : Human, ITalkable{
 
     public DialogueTree LoadTree()
     {
-        return DialogueLoader.LoadDialogueTree(DialogueLoader.Dialogue.work);
+        return DialogueLoader.LoadDialogueTree(DialogueLoader.Dialogue.test);
     }
 
     public void ProcessCommands(DialogueCommand[] commands)

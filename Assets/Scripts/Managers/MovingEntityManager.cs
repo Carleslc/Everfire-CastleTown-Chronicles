@@ -26,7 +26,7 @@ public class MovingEntityManager : EntityManager {
     /// Position to arrive at. Once achieved, it remains the same.
     /// </summary>
     private Vector2 destination;
-    private MovingEntity entity;
+    private MovingEntity movingEntity;
 
     private Movement lastDirectionFaced;
 
@@ -54,7 +54,7 @@ public class MovingEntityManager : EntityManager {
     {
         get
         {
-            return entity;
+            return movingEntity;
         }
     }
 
@@ -84,8 +84,9 @@ public class MovingEntityManager : EntityManager {
     /// </summary>
     /// <param name="movingEntity"><c>Entity</c> to be moved.</param>
     public void Init(MovingEntity movingEntity) {
-        this.entity = movingEntity;
+        this.movingEntity = movingEntity;
         autoAnims = GetComponentsInChildren<AutoAnimator>();
+        base.Init(movingEntity);
     }
 
     //Basically, the EntityManager keeps retrieving the moves of the entity it is managing. When it's moving, it doesn't get more
@@ -105,8 +106,8 @@ public class MovingEntityManager : EntityManager {
                 LerpToDestination();
             else
             {
-                Movement next = entity.NextMovement();
-                if (entity.Move())
+                Movement next = movingEntity.NextMovement();
+                if (movingEntity.Move())
                 {
                     Move(next);
                     lastDirectionFaced = next == Movement.WAIT ? lastDirectionFaced : next;
