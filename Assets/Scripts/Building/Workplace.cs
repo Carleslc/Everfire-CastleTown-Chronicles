@@ -8,8 +8,8 @@ public class Workplace : StorageBuilding
 #pragma warning disable 0414
     ResourceType processedGood;
 
-    public Workplace(Job job, int capacity, BuildingType buildingType, Pos location, Village village, int hitPoints) :
-        base(capacity, buildingType, location, village, hitPoints)
+    public Workplace(Job job, int capacity, BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) :
+        base(capacity, buildingType, width, depth, location, village, hitPoints)
     {
         rawMaterial = job.RawMaterial();
         processedGood = job.ProcessedGood();
