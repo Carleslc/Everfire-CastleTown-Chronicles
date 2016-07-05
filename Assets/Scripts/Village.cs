@@ -11,6 +11,7 @@ public class Village
     Entity lastEntityLost = null;
     //This too
     Entity lastEntityAdded = null;
+    private StorageBuilding warehouse;
 
     private bool isPlayer;
 
@@ -56,6 +57,21 @@ public class Village
         set
         {
             lastEntityAdded = value;
+        }
+    }
+
+    public StorageBuilding Warehouse
+    {
+        get
+        {
+            return warehouse;
+        }
+
+        set
+        {
+            if (warehouse != null)
+                throw new Exception("Village " + Name + " already has a warehouse");
+            warehouse = value;
         }
     }
 

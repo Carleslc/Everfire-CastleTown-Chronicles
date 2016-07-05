@@ -11,6 +11,8 @@ public abstract class StorageBuilding : Building {
     public StorageBuilding(int capacity, BuildingType buildingType, int width, int depth, Pos location, Village village, int hitPoints) : 
         base(buildingType, width, depth, location, village, hitPoints)
     {
+        if (buildingType == BuildingType.warehouse)
+            village.Warehouse = this;
         this.capacity = capacity;
         storedGoods = new Dictionary<ResourceType, int>();
         allowedGoods = new List<ResourceType>();
