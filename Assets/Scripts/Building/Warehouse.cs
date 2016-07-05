@@ -10,18 +10,19 @@ public class Warehouse : StorageBuilding {
         village.Warehouse = this;
         allowedGoods = new List<ResourceType>((ResourceType[])Enum.GetValues(typeof(ResourceType)));
         Debug.Log("Warehouse " + allowedGoods.Count);
-        Store(ResourceType.deer, 20);
-        EventManager.TriggerEvent(EventManager.EventType.OnWarehouseUpdated);
+        storedGoods.Add(ResourceType.deer, 20);
     }
 
     public override int Retrieve(ResourceType resource, int ammount)
     {
+        int ret = base.Retrieve(resource, ammount);
         EventManager.TriggerEvent(EventManager.EventType.OnWarehouseUpdated);
-        return base.Retrieve(resource, ammount);
+        return ret;
     }
     public override int Store(ResourceType resource, int ammount)
     {
+        int ret =  base.Store(resource, ammount);
         EventManager.TriggerEvent(EventManager.EventType.OnWarehouseUpdated);
-        return base.Store(resource, ammount);
+        return ret;
     }
 }

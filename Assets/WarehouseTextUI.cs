@@ -10,7 +10,8 @@ public class WarehouseTextUI : MonoBehaviour {
     // Use this for initialization
     void Start() {
         warehouse = World.PlayerVillage.Warehouse;
-        UpdateResources();
+        if(warehouse != null)
+            UpdateResources();
     }
 
     public void OnEnable() {
