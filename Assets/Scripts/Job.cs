@@ -14,7 +14,7 @@ public enum Job
     [JobAttr(ResourceType.deer, ResourceType.meat)]
     hunter,
     [JobAttr(ResourceType.stone, ResourceType.stoneBlock)]
-    stonecutter
+    stonecutter,
     //this enum type is used in WorkerManagerEditor.cs
     dirty,
     //this one is used in BuildingType
